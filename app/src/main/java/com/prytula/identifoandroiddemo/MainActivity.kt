@@ -31,9 +31,7 @@ class MainActivity : AppCompatActivity() {
         IdentifoAuth.authState.asLiveData().observe(this) { authentificationState ->
             showMessage("$authentificationState")
             when (authentificationState) {
-                AuthState.Deauthentificated -> {
-                    IdentifoActivity.openActivity(this)
-                }
+                AuthState.Deauthentificated -> IdentifoActivity.openActivity(this)
             }
         }
     }
