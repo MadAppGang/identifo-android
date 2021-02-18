@@ -1,0 +1,4 @@
+include ':identifoLibUi'
+include ':identifoLib'
+include ':app'
+rootProject.name = "IdentifoAndroidDemo"
