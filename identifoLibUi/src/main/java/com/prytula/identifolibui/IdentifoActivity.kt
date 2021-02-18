@@ -1,6 +1,7 @@
 package com.prytula.identifolibui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -9,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /*
@@ -36,8 +39,8 @@ class IdentifoActivity : AppCompatActivity() {
     }
 
     private fun loginWithUsernameAndPassword(username : String, password : String) {
-        lifecycleScope.launchWhenCreated {
-            IdentifoAuth.loginWithUsernameAndPassword(username, password).onSuccess {
+        lifecycleScope.launch(Dispatchers.IO) {
+            IdentifoAuth.registerWithUsernameAndPassword(username, password, true).onSuccess {
                 finish()
             }.onError {
                 showMessage("Error - $it")

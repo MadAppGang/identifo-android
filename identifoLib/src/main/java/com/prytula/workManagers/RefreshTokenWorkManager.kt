@@ -26,7 +26,7 @@ class RefreshTokenWorkManager(
         private val RESERVE_TIME = TimeUnit.MINUTES.toMillis(20)
 
         fun startWorker(context: Context) {
-            IdentifoAuth.getTokens().access?.exp?.let {
+            IdentifoAuth.getAccessToken()?.exp?.let {
                 val currentDate = Calendar.getInstance()
 
                 val timeDiff = (it.millis - RESERVE_TIME) - currentDate.timeInMillis

@@ -8,8 +8,6 @@ package com.prytula.identifolib.entities
 
 sealed class AuthState {
     data class Authentificated(
-        val accessToken : String,
-        val refreshToken : String,
         val anonymousState: Boolean = false
     ) : AuthState()
 

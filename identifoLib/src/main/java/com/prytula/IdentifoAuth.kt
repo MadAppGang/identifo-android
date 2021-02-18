@@ -51,25 +51,20 @@ object IdentifoAuth {
     private val _authState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
     val authState by lazy { _authState.asStateFlow() }
 
-    private fun setAuthState(authState: AuthState) {
-        _authState.value = authState
+    private fun saveTokens(accessToken : String, refreshToken : String, isAnonymous: Boolean = false) {
+        tokenDataStorage.setTokens(
+            Tokens(
+                Token.Access(accessToken),
+                Token.Refresh(refreshToken)
+            )
+        )
+        tokenDataStorage.setAnonymousState(isAnonymous)
+        _authState.value = AuthState.Authentificated(anonymousState = isAnonymous)
+    }
 
-        when (authState) {
-            is AuthState.Authentificated -> {
-                tokenDataStorage.setTokens(
-                    Tokens(
-                        Token.Access(authState.accessToken),
-                        Token.Refresh(authState.refreshToken)
-                    )
-                )
-                tokenDataStorage.setAnonymousState(authState.anonymousState)
-                RefreshTokenWorkManager.startWorker(context)
-            }
-            AuthState.Deauthentificated -> {
-                tokenDataStorage.clearAll()
-                RefreshTokenWorkManager.cancel(context)
-            }
-        }
+    private fun clearTokens() {
+        tokenDataStorage.clearAll()
+        _authState.value = AuthState.Deauthentificated
     }
 
     fun initAuthenticator(
@@ -93,32 +88,26 @@ object IdentifoAuth {
 
     private fun getInitialAuthentificationState(): AuthState {
         val tokens = tokenDataStorage.getTokens()
-        val accessToken = tokens.access
         val refreshToken = tokens.refresh
         return if (refreshToken.isExpired()) {
             AuthState.Deauthentificated
         } else {
-            AuthState.Authentificated(
-                accessToken?.jwtEncoded ?: "",
-                refreshToken?.jwtEncoded ?: "",
-                tokenDataStorage.getAnonymousState()
-            )
+            AuthState.Authentificated(tokenDataStorage.getAnonymousState())
         }
     }
 
-    fun getTokens() = tokenDataStorage.getTokens()
+    fun getAccessToken() = tokenDataStorage.getTokens().access
 
     suspend fun registerWithUsernameAndPassword(
         username: String,
         password: String,
         isAnonymous: Boolean
     ): Result<RegisterResponse, CodedThrowable> {
-        val registerCredentials =
-            RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
+        val registerCredentials = RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
         return suspendApiCall {
             queriesService.registerWithUsernameAndPassword(registerCredentials)
         }.onSuccess {
-            setAuthState(AuthState.Authentificated(it.accessToken, it.refreshToken, isAnonymous))
+            saveTokens(it.accessToken, it.refreshToken, isAnonymous)
         }
     }
 
@@ -145,7 +134,7 @@ object IdentifoAuth {
         return suspendApiCall {
             queriesService.loginWithUsernameAndPassword(loginDataSet)
         }.onSuccess {
-            setAuthState(AuthState.Authentificated(it.accessToken, it.refreshToken))
+            saveTokens(it.accessToken, it.refreshToken)
         }
     }
 
@@ -160,7 +149,7 @@ object IdentifoAuth {
     ): Result<PhoneLoginResponse, CodedThrowable> {
         val loginDataSet = PhoneLoginDataSet(phoneLogin, code)
         return suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
-            setAuthState(AuthState.Authentificated(it.accessToken, it.refreshToken))
+            saveTokens(it.accessToken, it.refreshToken)
         }
     }
 
@@ -170,21 +159,21 @@ object IdentifoAuth {
     ): Result<FederatedLoginResponse, CodedThrowable> {
         val federatedLoginDataSet = FederatedLoginDataSet(provider, token)
         return suspendApiCall { queriesService.federatedLogin(federatedLoginDataSet) }.onSuccess {
-            setAuthState(AuthState.Authentificated(it.accessToken, it.refreshToken))
+            saveTokens(it.accessToken, it.refreshToken)
         }
     }
 
     suspend fun logout(): Result<Unit, CodedThrowable> {
         return suspendApiCall { queriesService.logout() }.onSuccess {
-            setAuthState(AuthState.Deauthentificated)
+            clearTokens()
         }
     }
 
     suspend fun refreshTokens(): Result<RefreshTokenResponse, CodedThrowable> {
         return suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
-            setAuthState(AuthState.Authentificated(it.accessToken, it.refreshToken, tokenDataStorage.getAnonymousState()))
+            saveTokens(it.accessToken, it.refreshToken, tokenDataStorage.getAnonymousState())
         }.onError {
-            setAuthState(AuthState.Deauthentificated)
+            clearTokens()
         }
     }
 }

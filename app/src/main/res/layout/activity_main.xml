@@ -14,10 +14,21 @@
         tools:layout_editor_absoluteY="224dp">
 
         <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"/>
+
+        <Button
             android:id="@+id/buttonLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"/>
+            android:text="Logout" />
+
+        <TextView
+            android:id="@+id/textState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
