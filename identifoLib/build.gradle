@@ -58,6 +58,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
+    // koin
+    def koinVersion = "2.2.2"
+    api "org.koin:koin-core:$koinVersion"
+    api "org.koin:koin-android:$koinVersion"
+
     //coroutines
     def kotlinCoroutinesVersion = "1.4.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"

@@ -1,8 +1,13 @@
 package com.prytula
 
 import android.content.Context
+import com.chibatching.kotpref.Kotpref
+import com.chibatching.kotpref.gsonpref.gson
+import com.google.gson.GsonBuilder
+import com.prytula.identifolib.AccessTokenTypeAdapter
 import com.prytula.identifolib.ITokenDataStorage
-import com.prytula.identifolib.QueryManager
+import com.prytula.identifolib.TokensTypeAdapter
+import com.prytula.identifolib.di.dependenciesModule
 import com.prytula.identifolib.entities.*
 import com.prytula.identifolib.entities.deanonymize.DeanonimizeDataSet
 import com.prytula.identifolib.entities.deanonymize.DeanonimizeResponse
@@ -21,37 +26,67 @@ import com.prytula.identifolib.extensions.Result
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolib.extensions.suspendApiCall
-import com.prytula.identifolib.network.QueriesManager
-import com.prytula.identifolib.network.RefreshTokenManager
-import com.prytula.identifolib.network.queries.QueriesService
-import com.prytula.identifolib.network.queries.RefreshSessionQueries
-import com.prytula.identifolib.storages.IStorageManager
-import com.prytula.identifolib.storages.StorageManager
-import com.prytula.workManagers.RefreshTokenWorkManager
+import com.prytula.identifolib.network.QueriesService
+import com.prytula.identifolib.network.RefreshSessionQueries
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.withContext
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.context.startKoin
 
 /*
  * Created by Eugene Prytula on 2/5/21.
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-object IdentifoAuth {
-
-    private lateinit var storageManager: IStorageManager
-    private val tokenDataStorage: ITokenDataStorage by lazy { storageManager.tokenManager() }
-
-    private val queryManager: QueryManager<QueriesService> = QueriesManager()
-    private val refreshTokenManager: QueryManager<RefreshSessionQueries> = RefreshTokenManager()
-
-    private lateinit var queriesService: QueriesService
-    private lateinit var refreshTokenService: RefreshSessionQueries
-    private lateinit var context: Context
+object IdentifoAuth : KoinComponent {
+    private val tokenDataStorage by inject<ITokenDataStorage>()
+    private val queriesService by inject<QueriesService>()
+    private val refreshTokenService by inject<RefreshSessionQueries>()
 
     private val _authState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
     val authState by lazy { _authState.asStateFlow() }
 
-    private fun saveTokens(accessToken : String, refreshToken : String, isAnonymous: Boolean = false) {
+    fun initAuthenticator(
+        context: Context,
+        baseUrl: String,
+        appId: String,
+        secretKey: String
+    ) {
+        val appContext = context.applicationContext
+
+        Kotpref.apply {
+            init(appContext)
+            gson = GsonBuilder()
+                .registerTypeAdapter(Tokens::class.java, TokensTypeAdapter())
+                .registerTypeAdapter(Token.Access::class.java, AccessTokenTypeAdapter())
+                .create()
+        }
+
+        startKoin {
+            androidContext(appContext)
+            modules(dependenciesModule)
+        }
+    }
+
+    private fun getInitialAuthentificationState(): AuthState {
+        val tokens = tokenDataStorage.getTokens()
+        val refreshToken = tokens.refresh
+        return if (refreshToken.isExpired()) {
+            AuthState.Deauthentificated
+        } else {
+            AuthState.Authentificated(tokenDataStorage.getAnonymousState())
+        }
+    }
+
+    private fun saveTokens(
+        accessToken: String,
+        refreshToken: String,
+        isAnonymous: Boolean = false
+    ) {
         tokenDataStorage.setTokens(
             Tokens(
                 Token.Access(accessToken),
@@ -67,44 +102,13 @@ object IdentifoAuth {
         _authState.value = AuthState.Deauthentificated
     }
 
-    fun initAuthenticator(
-        context: Context,
-        baseUrl: String,
-        appId: String,
-        secretKey: String
-    ) {
-        this.context = context.applicationContext
-
-        storageManager = StorageManager(context)
-        queriesService = queryManager.getNetworkService(context, baseUrl, appId, secretKey)
-        refreshTokenService = refreshTokenManager.getNetworkService(
-            context,
-            baseUrl,
-            appId,
-            secretKey,
-            tokenDataStorage.getTokens().access?.jwtEncoded ?: ""
-        )
-    }
-
-    private fun getInitialAuthentificationState(): AuthState {
-        val tokens = tokenDataStorage.getTokens()
-        val refreshToken = tokens.refresh
-        return if (refreshToken.isExpired()) {
-            AuthState.Deauthentificated
-        } else {
-            AuthState.Authentificated(tokenDataStorage.getAnonymousState())
-        }
-    }
-
-    fun getAccessToken() = tokenDataStorage.getTokens().access
-
     suspend fun registerWithUsernameAndPassword(
         username: String,
         password: String,
         isAnonymous: Boolean
-    ): Result<RegisterResponse, CodedThrowable> {
+    ): Result<RegisterResponse, CodedThrowable> = withContext(Dispatchers.IO) {
         val registerCredentials = RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
-        return suspendApiCall {
+        return@withContext suspendApiCall {
             queriesService.registerWithUsernameAndPassword(registerCredentials)
         }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken, isAnonymous)

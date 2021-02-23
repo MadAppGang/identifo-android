@@ -41,10 +41,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0'
 
     def arch_version = '2.2.0'
-    implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$arch_version"
+    api "androidx.lifecycle:lifecycle-extensions:$arch_version"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$arch_version"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$arch_version"
 
     //coroutines
     def kotlinCoroutinesVersion = "1.4.2"

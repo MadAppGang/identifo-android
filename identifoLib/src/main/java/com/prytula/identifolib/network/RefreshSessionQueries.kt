@@ -1,4 +1,4 @@
-package com.prytula.identifolib.network.queries
+package com.prytula.identifolib.network
 
 import com.prytula.identifolib.BuildConfig
 import com.prytula.identifolib.MockRequestInterceptor

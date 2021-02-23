@@ -39,7 +39,7 @@ class IdentifoActivity : AppCompatActivity() {
     }
 
     private fun loginWithUsernameAndPassword(username : String, password : String) {
-        lifecycleScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch {
             IdentifoAuth.registerWithUsernameAndPassword(username, password, true).onSuccess {
                 finish()
             }.onError {

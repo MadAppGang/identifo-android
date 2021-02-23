@@ -1,14 +1,8 @@
 package com.prytula.identifolib.extensions
 
-import com.prytula.IdentifoAuth
 import com.prytula.identifolib.entities.CodedThrowable
 import com.prytula.identifolib.entities.ErrorCodes
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
-import java.io.IOException
-import java.net.HttpURLConnection
 
 
 /*
