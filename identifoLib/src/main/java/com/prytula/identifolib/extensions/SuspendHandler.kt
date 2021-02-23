@@ -1,8 +1,10 @@
 package com.prytula.identifolib.extensions
 
-import com.prytula.identifolib.entities.CodedThrowable
-import com.prytula.identifolib.entities.ErrorCodes
+import com.google.gson.Gson
+import com.prytula.identifolib.entities.Error
+import com.prytula.identifolib.entities.ErrorResponse
 import retrofit2.HttpException
+import java.lang.Exception
 
 
 /*
@@ -10,15 +12,36 @@ import retrofit2.HttpException
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-suspend fun <T> suspendApiCall(requestFunc: suspend () -> T): Result<T, CodedThrowable> {
+suspend fun <T> suspendApiCall(requestFunc: suspend () -> T): Result<T, ErrorResponse> {
     return try {
         val request = requestFunc.invoke()
         Result.Success(request)
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         val error = when (e) {
-            is HttpException -> CodedThrowable(e.localizedMessage, ErrorCodes.valueCodeOf(e.code()))
-            else -> CodedThrowable(e.localizedMessage, ErrorCodes.UNDEFINED_ERROR)
+            is HttpException -> parseErrorBody(e)
+            else -> ErrorResponse(
+                Error(
+                    message = e.localizedMessage.toString(),
+                    detailedMessage = e.message.toString()
+                )
+            )
         }
         return Result.Error(error)
+    }
+}
+
+private fun parseErrorBody(httpException: HttpException): ErrorResponse {
+    return try {
+        Gson().fromJson(
+            httpException.response()?.errorBody()?.string(),
+            ErrorResponse::class.java
+        )
+    } catch (e: Exception) {
+        ErrorResponse(
+            Error(
+                message = e.localizedMessage.toString(),
+                detailedMessage = e.message.toString()
+            )
+        )
     }
 }

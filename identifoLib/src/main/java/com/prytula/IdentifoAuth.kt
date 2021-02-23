@@ -106,7 +106,7 @@ object IdentifoAuth : KoinComponent {
         username: String,
         password: String,
         isAnonymous: Boolean
-    ): Result<RegisterResponse, CodedThrowable> = withContext(Dispatchers.IO) {
+    ): Result<RegisterResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val registerCredentials = RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
         return@withContext suspendApiCall {
             queriesService.registerWithUsernameAndPassword(registerCredentials)
@@ -120,7 +120,7 @@ object IdentifoAuth : KoinComponent {
         oldPassword: String,
         newUsername: String,
         newPassword: String
-    ): Result<DeanonimizeResponse, CodedThrowable> {
+    ): Result<DeanonimizeResponse, ErrorResponse> {
         val deanonimizeDataSet = DeanonimizeDataSet(
             oldUsername,
             oldPassword,
@@ -133,7 +133,7 @@ object IdentifoAuth : KoinComponent {
     suspend fun loginWithUsernameAndPassword(
         username: String,
         password: String
-    ): Result<LoginResponse, CodedThrowable> {
+    ): Result<LoginResponse, ErrorResponse> {
         val loginDataSet = LoginDataSet(username, password)
         return suspendApiCall {
             queriesService.loginWithUsernameAndPassword(loginDataSet)
@@ -142,7 +142,7 @@ object IdentifoAuth : KoinComponent {
         }
     }
 
-    suspend fun requestPhoneCode(phoneNumber: String): Result<RequestPhoneCodeResponse, CodedThrowable> {
+    suspend fun requestPhoneCode(phoneNumber: String): Result<RequestPhoneCodeResponse, ErrorResponse> {
         val requestPhoneCodeDataSet = RequestPhoneCodeDataSet(phoneNumber)
         return suspendApiCall { queriesService.requestPhoneCode(requestPhoneCodeDataSet) }
     }
@@ -150,7 +150,7 @@ object IdentifoAuth : KoinComponent {
     suspend fun phoneLogin(
         phoneLogin: String,
         code: String
-    ): Result<PhoneLoginResponse, CodedThrowable> {
+    ): Result<PhoneLoginResponse, ErrorResponse> {
         val loginDataSet = PhoneLoginDataSet(phoneLogin, code)
         return suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken)
@@ -160,20 +160,20 @@ object IdentifoAuth : KoinComponent {
     suspend fun federatedLogin(
         provider: String,
         token: String
-    ): Result<FederatedLoginResponse, CodedThrowable> {
+    ): Result<FederatedLoginResponse, ErrorResponse> {
         val federatedLoginDataSet = FederatedLoginDataSet(provider, token)
         return suspendApiCall { queriesService.federatedLogin(federatedLoginDataSet) }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken)
         }
     }
 
-    suspend fun logout(): Result<Unit, CodedThrowable> {
+    suspend fun logout(): Result<Unit, ErrorResponse> {
         return suspendApiCall { queriesService.logout() }.onSuccess {
             clearTokens()
         }
     }
 
-    suspend fun refreshTokens(): Result<RefreshTokenResponse, CodedThrowable> {
+    suspend fun refreshTokens(): Result<RefreshTokenResponse, ErrorResponse> {
         return suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken, tokenDataStorage.getAnonymousState())
         }.onError {

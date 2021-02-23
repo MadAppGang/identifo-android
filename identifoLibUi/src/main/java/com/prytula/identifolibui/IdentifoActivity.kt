@@ -43,7 +43,7 @@ class IdentifoActivity : AppCompatActivity() {
             IdentifoAuth.registerWithUsernameAndPassword(username, password, false).onSuccess {
                 finish()
             }.onError {
-                showMessage("Error - $it")
+                showMessage("Error - ${it.error.message}")
             }
         }
     }
