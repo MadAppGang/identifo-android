@@ -50,9 +50,9 @@ val dependenciesModule = module {
 
     factory<QueriesService> {
         OkHttpClient.Builder()
-            .addInterceptor(get<HttpLoggingInterceptor>())
-            .addInterceptor(get<IdentifoAuthInterceptor>(named(IDENTIFO_AUTH_INTERCEPTOR)))
-            .addInterceptor(get<MockRequestInterceptor>())
+            .addInterceptor(get() as HttpLoggingInterceptor)
+            .addInterceptor(get(named(IDENTIFO_AUTH_INTERCEPTOR)) as IdentifoAuthInterceptor)
+            .addInterceptor(get() as MockRequestInterceptor)
             .build()
             .createWebService("https://identifo.jackrudenko.com")
     }
@@ -61,7 +61,7 @@ val dependenciesModule = module {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
             .addInterceptor(get<MockRequestInterceptor>())
-            .addInterceptor(get<IdentifoAuthInterceptor>(named(IDENTIFO_REFRESH_INTERCEPTOR)))
+            .addInterceptor(get(named(IDENTIFO_REFRESH_INTERCEPTOR)) as IdentifoAuthInterceptor)
             .build()
             .createWebService("https://identifo.jackrudenko.com")
     }

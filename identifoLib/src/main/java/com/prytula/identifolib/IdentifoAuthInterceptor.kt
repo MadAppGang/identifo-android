@@ -1,6 +1,5 @@
 package com.prytula.identifolib
 
-import com.prytula.identifolib.entities.Token
 import okhttp3.Interceptor
 import okhttp3.Response
 

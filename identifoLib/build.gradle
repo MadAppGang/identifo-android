@@ -26,7 +26,7 @@ android {
         }
 
         debug {
-            buildConfigField "String", MOCK_FLAG, '"true"'
+            buildConfigField "String", MOCK_FLAG, '"false"'
         }
     }
 

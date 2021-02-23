@@ -40,7 +40,7 @@ class IdentifoActivity : AppCompatActivity() {
 
     private fun loginWithUsernameAndPassword(username : String, password : String) {
         lifecycleScope.launch {
-            IdentifoAuth.registerWithUsernameAndPassword(username, password, true).onSuccess {
+            IdentifoAuth.registerWithUsernameAndPassword(username, password, false).onSuccess {
                 finish()
             }.onError {
                 showMessage("Error - $it")
