@@ -22,7 +22,11 @@ import org.koin.dsl.module
 private const val IDENTIFO_AUTH_INTERCEPTOR = "indentifo_auth_interceptor"
 private const val IDENTIFO_REFRESH_INTERCEPTOR = "identifo_refresh_interceptor"
 
-val dependenciesModule = module {
+fun dependenciesModule(
+    appId: String,
+    appSecret: String,
+    baseUrl: String
+) = module {
     single<ITokenDataStorage> { TokenDataStorage(androidContext()) }
 
     factory<HttpLoggingInterceptor> {
@@ -34,16 +38,16 @@ val dependenciesModule = module {
 
     factory<IdentifoAuthInterceptor>(named(IDENTIFO_AUTH_INTERCEPTOR)) {
         IdentifoAuthInterceptor(
-            "bk9o707k3t4c72q2qqqq",
-            "vUYvSt8rEI7lTPIM96MMwPS3",
+            appId,
+            appSecret,
             get<ITokenDataStorage>().getTokens().access?.jwtEncoded ?: ""
         )
     }
 
     factory<IdentifoAuthInterceptor>(named(IDENTIFO_REFRESH_INTERCEPTOR)) {
         IdentifoAuthInterceptor(
-            "bk9o707k3t4c72q2qqqq",
-            "vUYvSt8rEI7lTPIM96MMwPS3",
+            appId,
+            appSecret,
             get<ITokenDataStorage>().getTokens().refresh?.jwtEncoded ?: ""
         )
     }
@@ -54,7 +58,7 @@ val dependenciesModule = module {
             .addInterceptor(get(named(IDENTIFO_AUTH_INTERCEPTOR)) as IdentifoAuthInterceptor)
             .addInterceptor(get() as MockRequestInterceptor)
             .build()
-            .createWebService("https://identifo.jackrudenko.com")
+            .createWebService(baseUrl)
     }
 
     factory<RefreshSessionQueries> {
@@ -63,6 +67,6 @@ val dependenciesModule = module {
             .addInterceptor(get<MockRequestInterceptor>())
             .addInterceptor(get(named(IDENTIFO_REFRESH_INTERCEPTOR)) as IdentifoAuthInterceptor)
             .build()
-            .createWebService("https://identifo.jackrudenko.com")
+            .createWebService(baseUrl)
     }
 }

@@ -68,7 +68,13 @@ object IdentifoAuth : KoinComponent {
 
         startKoin {
             androidContext(appContext)
-            modules(dependenciesModule)
+            modules(
+                dependenciesModule(
+                    appId = appId,
+                    appSecret = secretKey,
+                    baseUrl = baseUrl
+                )
+            )
         }
     }
 
@@ -107,7 +113,8 @@ object IdentifoAuth : KoinComponent {
         password: String,
         isAnonymous: Boolean
     ): Result<RegisterResponse, ErrorResponse> = withContext(Dispatchers.IO) {
-        val registerCredentials = RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
+        val registerCredentials =
+            RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
         return@withContext suspendApiCall {
             queriesService.registerWithUsernameAndPassword(registerCredentials)
         }.onSuccess {
