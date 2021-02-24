@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
@@ -25,6 +26,8 @@ class IdentifoRegistrationActivity : AppCompatActivity() {
         }
     }
 
+    private val rootView by lazy { findViewById<ConstraintLayout>(R.id.constraint_registration_root) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identifo_registration)
@@ -41,7 +44,7 @@ class IdentifoRegistrationActivity : AppCompatActivity() {
             IdentifoAuth.registerWithUsernameAndPassword(username, password, false).onSuccess {
                 finish()
             }.onError {
-                showMessage("Error - ${it.error.message}")
+                rootView.showMessage(it.error.message)
             }
         }
     }

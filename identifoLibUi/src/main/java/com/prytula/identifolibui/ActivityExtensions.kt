@@ -11,10 +11,6 @@ import android.widget.Toast
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
+internal inline fun <reified T : Activity> Context.startActivity(block: Intent.() -> Unit = {}) {
     startActivity(Intent(this, T::class.java).apply(block))
-}
-
-fun Context.showMessage(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

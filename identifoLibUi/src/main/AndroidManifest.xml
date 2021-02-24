@@ -2,4 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prytula.identifolibui">
 
+    <application>
+        <activity
+            android:name="com.prytula.identifolibui.IdentifoRegistrationActivity"
+            android:launchMode="singleTop" />
+    </application>
+
 </manifest>
