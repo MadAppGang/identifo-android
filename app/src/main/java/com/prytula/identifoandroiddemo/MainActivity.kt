@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         IdentifoAuth.initAuthenticator(this, baseUrl, appID, secret)
 
         buttonLogout.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
+            lifecycleScope.launch {
                 IdentifoAuth.logout()
             }
         }

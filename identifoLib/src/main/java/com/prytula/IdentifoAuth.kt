@@ -127,39 +127,44 @@ object IdentifoAuth : KoinComponent {
         oldPassword: String,
         newUsername: String,
         newPassword: String
-    ): Result<DeanonimizeResponse, ErrorResponse> {
+    ): Result<DeanonimizeResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val deanonimizeDataSet = DeanonimizeDataSet(
             oldUsername,
             oldPassword,
             newUsername,
             newPassword
         )
-        return suspendApiCall { queriesService.deanonymize(deanonimizeDataSet) }
+        return@withContext suspendApiCall { queriesService.deanonymize(deanonimizeDataSet) }
     }
 
     suspend fun loginWithUsernameAndPassword(
         username: String,
         password: String
-    ): Result<LoginResponse, ErrorResponse> {
+    ): Result<LoginResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val loginDataSet = LoginDataSet(username, password)
-        return suspendApiCall {
+        return@withContext suspendApiCall {
             queriesService.loginWithUsernameAndPassword(loginDataSet)
         }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken)
         }
     }
 
-    suspend fun requestPhoneCode(phoneNumber: String): Result<RequestPhoneCodeResponse, ErrorResponse> {
-        val requestPhoneCodeDataSet = RequestPhoneCodeDataSet(phoneNumber)
-        return suspendApiCall { queriesService.requestPhoneCode(requestPhoneCodeDataSet) }
-    }
+    suspend fun requestPhoneCode(phoneNumber: String): Result<RequestPhoneCodeResponse, ErrorResponse> =
+        withContext(Dispatchers.IO) {
+            val requestPhoneCodeDataSet = RequestPhoneCodeDataSet(phoneNumber)
+            return@withContext suspendApiCall {
+                queriesService.requestPhoneCode(
+                    requestPhoneCodeDataSet
+                )
+            }
+        }
 
     suspend fun phoneLogin(
         phoneLogin: String,
         code: String
-    ): Result<PhoneLoginResponse, ErrorResponse> {
+    ): Result<PhoneLoginResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val loginDataSet = PhoneLoginDataSet(phoneLogin, code)
-        return suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
+        return@withContext suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken)
         }
     }
@@ -167,21 +172,21 @@ object IdentifoAuth : KoinComponent {
     suspend fun federatedLogin(
         provider: String,
         token: String
-    ): Result<FederatedLoginResponse, ErrorResponse> {
+    ): Result<FederatedLoginResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val federatedLoginDataSet = FederatedLoginDataSet(provider, token)
-        return suspendApiCall { queriesService.federatedLogin(federatedLoginDataSet) }.onSuccess {
+        return@withContext suspendApiCall { queriesService.federatedLogin(federatedLoginDataSet) }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken)
         }
     }
 
-    suspend fun logout(): Result<Unit, ErrorResponse> {
-        return suspendApiCall { queriesService.logout() }.onSuccess {
+    suspend fun logout(): Result<Unit, ErrorResponse> = withContext(Dispatchers.IO){
+        return@withContext suspendApiCall { queriesService.logout() }.onSuccess {
             clearTokens()
         }
     }
 
-    suspend fun refreshTokens(): Result<RefreshTokenResponse, ErrorResponse> {
-        return suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
+    suspend fun refreshTokens(): Result<RefreshTokenResponse, ErrorResponse> = withContext(Dispatchers.IO){
+        return@withContext suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
             saveTokens(it.accessToken, it.refreshToken, tokenDataStorage.getAnonymousState())
         }.onError {
             clearTokens()
