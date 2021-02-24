@@ -8,13 +8,12 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
 import com.prytula.identifolibui.IdentifoRegistrationActivity
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private val textView by lazy { findViewById<TextView>(R.id.textState) }
-    private val buttonLogin by lazy { findViewById<Button>(R.id.buttonLogin) }
+    private val buttonLogin by lazy { findViewById<Button>(R.id.buttonRegister) }
     private val buttonLogout by lazy { findViewById<Button>(R.id.buttonLogout) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

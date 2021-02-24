@@ -1,9 +1,8 @@
-package com.prytula.identifolibui
+package com.prytula.identifolibui.extensions
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 
 
 /*

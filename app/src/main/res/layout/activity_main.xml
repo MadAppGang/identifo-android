@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="224dp">
 
         <Button
-            android:id="@+id/buttonLogin"
+            android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"/>

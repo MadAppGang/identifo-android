@@ -1,4 +1,4 @@
-package com.prytula.identifolibui
+package com.prytula.identifolibui.extensions
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

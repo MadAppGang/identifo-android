@@ -5,7 +5,8 @@
     <application>
         <activity
             android:name="com.prytula.identifolibui.IdentifoRegistrationActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>
