@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name="com.prytula.identifolibui.IdentifoActivity"
+            android:name="com.prytula.identifolibui.IdentifoRegistrationActivity"
             android:launchMode="singleTop" />
     </application>
 

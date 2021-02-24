@@ -1,7 +1,6 @@
 package com.prytula.identifolibui
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -10,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -19,17 +17,17 @@ import kotlinx.coroutines.launch
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-class IdentifoActivity : AppCompatActivity() {
+class IdentifoRegistrationActivity : AppCompatActivity() {
 
     companion object {
         fun openActivity(context: Context) {
-            context.startActivity<IdentifoActivity>()
+            context.startActivity<IdentifoRegistrationActivity>()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_identifo)
+        setContentView(R.layout.activity_identifo_registration)
 
         val editTextUsername = findViewById<EditText>(R.id.editTextTextEmailAddress)
         val editTextPassword = findViewById<EditText>(R.id.editTextNumberPassword)

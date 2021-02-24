@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
-import com.prytula.identifolibui.IdentifoActivity
+import com.prytula.identifolibui.IdentifoRegistrationActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonLogin.setOnClickListener {
-            IdentifoActivity.openActivity(this)
+            IdentifoRegistrationActivity.openActivity(this)
         }
 
         IdentifoAuth.authState.asLiveData().observe(this) { authentificationState ->
