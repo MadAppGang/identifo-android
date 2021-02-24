@@ -9,12 +9,16 @@
         android:id="@+id/leaner_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="224dp">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Register"/>
+
+        <Button
+            android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"/>

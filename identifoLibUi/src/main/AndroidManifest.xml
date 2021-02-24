@@ -6,7 +6,12 @@
         <activity
             android:name="com.prytula.identifolibui.IdentifoRegistrationActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.prytula.identifolibui.IdentifoLoginActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
