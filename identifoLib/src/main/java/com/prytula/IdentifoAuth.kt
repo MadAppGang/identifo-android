@@ -89,7 +89,7 @@ object IdentifoAuth : KoinComponent {
         }
     }
 
-    private fun saveTokens(
+    internal fun saveTokens(
         accessToken: String,
         refreshToken: String,
         user: IdentifoUser? = userStorage.user
@@ -104,7 +104,7 @@ object IdentifoAuth : KoinComponent {
         _authState.value = AuthState.Authentificated(user)
     }
 
-    private fun clearTokens() {
+    internal fun clearTokens() {
         tokenDataStorage.clearAll()
         userStorage.clearAll()
         _authState.value = AuthState.Deauthentificated
@@ -194,12 +194,4 @@ object IdentifoAuth : KoinComponent {
             clearTokens()
         }
     }
-
-    suspend fun refreshTokens(): Result<RefreshTokenResponse, ErrorResponse> = withContext(Dispatchers.IO) {
-            return@withContext suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
-                saveTokens(it.accessToken, it.refreshToken)
-            }.onError {
-                clearTokens()
-            }
-        }
 }

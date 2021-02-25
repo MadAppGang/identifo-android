@@ -2,8 +2,15 @@ package com.prytula.workManagers
 
 import android.content.Context
 import androidx.work.*
+import com.prytula.IdentifoAuth
+import com.prytula.identifolib.entities.AuthState
+import com.prytula.identifolib.entities.IdentifoUser
+import com.prytula.identifolib.entities.Token
+import com.prytula.identifolib.entities.Tokens
 import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.extensions.isSuccessful
+import com.prytula.identifolib.extensions.onError
+import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolib.extensions.suspendApiCall
 import com.prytula.identifolib.network.RefreshSessionQueries
 import kotlinx.coroutines.Dispatchers
@@ -24,8 +31,8 @@ class RefreshTokenWorkManager(
     workerParams: WorkerParameters
 ) : CoroutineWorker(appContext, workerParams), KoinComponent {
 
-    private val tokenDataStorage : ITokenDataStorage by inject()
-    private val refreshSessionQueries : RefreshSessionQueries by inject()
+    private val tokenDataStorage: ITokenDataStorage by inject()
+    private val refreshSessionQueries: RefreshSessionQueries by inject()
 
     companion object {
         private const val REFRESH_TOKEN_TAG = "refresh_token_tag"
@@ -57,7 +64,15 @@ class RefreshTokenWorkManager(
 
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
-            val result = suspendApiCall { refreshSessionQueries.refreshToken() }
+            val result = suspendApiCall { refreshSessionQueries.refreshToken() }.onSuccess {
+                IdentifoAuth.saveTokens(
+                    it.accessToken,
+                    it.refreshToken
+                )
+            }.onError {
+                IdentifoAuth.clearTokens()
+            }
+
             if (result.isSuccessful()) {
                 startWorker(context = applicationContext)
                 return@withContext Result.success()

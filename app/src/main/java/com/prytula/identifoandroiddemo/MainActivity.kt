@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonRegister.setOnClickListener {
+            // TODO: Implement factory to choose which one activity user wants to use
             IdentifoRegistrationActivity.openActivity(this)
         }
 
