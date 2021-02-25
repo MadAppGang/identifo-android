@@ -47,7 +47,6 @@ object IdentifoAuth : KoinComponent {
     private val tokenDataStorage by inject<ITokenDataStorage>()
     private val userStorage by inject<IUserStorage>()
     private val queriesService by inject<QueriesService>()
-    private val refreshTokenService by inject<RefreshSessionQueries>()
 
     private val _authState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
     val authState by lazy { _authState.asStateFlow() }
