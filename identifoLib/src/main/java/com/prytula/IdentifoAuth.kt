@@ -56,10 +56,8 @@ object IdentifoAuth : KoinComponent {
         appId: String,
         secretKey: String
     ) {
-        val appContext = context.applicationContext
-
         Kotpref.apply {
-            init(appContext)
+            init(context)
             gson = GsonBuilder()
                 .registerTypeAdapter(Tokens::class.java, TokensTypeAdapter())
                 .registerTypeAdapter(Token.Access::class.java, AccessTokenTypeAdapter())
@@ -67,7 +65,7 @@ object IdentifoAuth : KoinComponent {
         }
 
         startKoin {
-            androidContext(appContext)
+            androidContext(context)
             modules(
                 dependenciesModule(
                     appId = appId,

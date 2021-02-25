@@ -22,12 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val appID = "bk9o707k3t4c72q2qqqq"
-        val secret = "vUYvSt8rEI7lTPIM96MMwPS3"
-        val baseUrl = "https://identifo.jackrudenko.com"
-
-        IdentifoAuth.initAuthenticator(this, baseUrl, appID, secret)
-
         buttonLogout.setOnClickListener {
             lifecycleScope.launch {
                 IdentifoAuth.logout()
