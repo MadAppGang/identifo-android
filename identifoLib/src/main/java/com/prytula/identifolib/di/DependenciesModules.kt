@@ -1,12 +1,14 @@
 package com.prytula.identifolib.di
 
-import com.prytula.identifolib.ITokenDataStorage
+import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.IdentifoAuthInterceptor
 import com.prytula.identifolib.MockRequestInterceptor
-import com.prytula.identifolib.TokenDataStorage
+import com.prytula.identifolib.storages.TokenDataStorage
 import com.prytula.identifolib.extensions.createWebService
 import com.prytula.identifolib.network.QueriesService
 import com.prytula.identifolib.network.RefreshSessionQueries
+import com.prytula.identifolib.storages.IUserStorage
+import com.prytula.identifolib.storages.UserStorage
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -28,6 +30,7 @@ fun dependenciesModule(
     baseUrl: String
 ) = module {
     single<ITokenDataStorage> { TokenDataStorage(androidContext()) }
+    single<IUserStorage> { UserStorage(androidContext()) }
 
     factory<HttpLoggingInterceptor> {
         HttpLoggingInterceptor().apply {

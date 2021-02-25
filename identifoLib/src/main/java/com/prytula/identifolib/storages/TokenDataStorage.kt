@@ -1,4 +1,4 @@
-package com.prytula.identifolib
+package com.prytula.identifolib.storages
 
 import android.content.Context
 import com.chibatching.kotpref.KotprefModel
@@ -14,21 +14,10 @@ import com.prytula.identifolib.entities.Tokens
 interface ITokenDataStorage {
     fun getTokens(): Tokens
     fun setTokens(tokens: Tokens)
-    fun setAnonymousState(anonymousState: Boolean)
-    fun getAnonymousState(): Boolean
     fun clearAll()
 }
 
 class TokenDataStorage(context: Context) : KotprefModel(context), ITokenDataStorage {
-
-    private var isAnonymousValue by booleanPref()
-
-    override fun setAnonymousState(anonymousState: Boolean) {
-        isAnonymousValue = anonymousState
-    }
-
-    override fun getAnonymousState(): Boolean = isAnonymousValue
-
 
     @Synchronized
     override fun getTokens(): Tokens {

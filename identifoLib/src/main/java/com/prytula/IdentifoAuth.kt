@@ -5,7 +5,7 @@ import com.chibatching.kotpref.Kotpref
 import com.chibatching.kotpref.gsonpref.gson
 import com.google.gson.GsonBuilder
 import com.prytula.identifolib.AccessTokenTypeAdapter
-import com.prytula.identifolib.ITokenDataStorage
+import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.TokensTypeAdapter
 import com.prytula.identifolib.di.dependenciesModule
 import com.prytula.identifolib.entities.*
@@ -28,6 +28,7 @@ import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolib.extensions.suspendApiCall
 import com.prytula.identifolib.network.QueriesService
 import com.prytula.identifolib.network.RefreshSessionQueries
+import com.prytula.identifolib.storages.IUserStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -44,6 +45,7 @@ import org.koin.core.context.startKoin
 
 object IdentifoAuth : KoinComponent {
     private val tokenDataStorage by inject<ITokenDataStorage>()
+    private val userStorage by inject<IUserStorage>()
     private val queriesService by inject<QueriesService>()
     private val refreshTokenService by inject<RefreshSessionQueries>()
 
@@ -78,18 +80,19 @@ object IdentifoAuth : KoinComponent {
 
     private fun getInitialAuthentificationState(): AuthState {
         val tokens = tokenDataStorage.getTokens()
+        val user = userStorage.user
         val refreshToken = tokens.refresh
         return if (refreshToken.isExpired()) {
             AuthState.Deauthentificated
         } else {
-            AuthState.Authentificated(tokenDataStorage.getAnonymousState())
+            AuthState.Authentificated(user)
         }
     }
 
     private fun saveTokens(
         accessToken: String,
         refreshToken: String,
-        isAnonymous: Boolean = false
+        user: IdentifoUser? = userStorage.user
     ) {
         tokenDataStorage.setTokens(
             Tokens(
@@ -97,12 +100,13 @@ object IdentifoAuth : KoinComponent {
                 Token.Refresh(refreshToken)
             )
         )
-        tokenDataStorage.setAnonymousState(isAnonymous)
-        _authState.value = AuthState.Authentificated(anonymousState = isAnonymous)
+        userStorage.user = user
+        _authState.value = AuthState.Authentificated(user)
     }
 
     private fun clearTokens() {
         tokenDataStorage.clearAll()
+        userStorage.clearAll()
         _authState.value = AuthState.Deauthentificated
     }
 
@@ -116,7 +120,9 @@ object IdentifoAuth : KoinComponent {
         return@withContext suspendApiCall {
             queriesService.registerWithUsernameAndPassword(registerCredentials)
         }.onSuccess {
-            saveTokens(it.accessToken, it.refreshToken, isAnonymous)
+            val fetchedUser = it.registeredUser
+            val identifoUser = IdentifoUser(fetchedUser.id, fetchedUser.username, isAnonymous)
+            saveTokens(it.accessToken, it.refreshToken, identifoUser)
         }
     }
 
@@ -143,7 +149,9 @@ object IdentifoAuth : KoinComponent {
         return@withContext suspendApiCall {
             queriesService.loginWithUsernameAndPassword(loginDataSet)
         }.onSuccess {
-            saveTokens(it.accessToken, it.refreshToken)
+            val fetchedUser = it.loggedUser
+            val identifoUser = IdentifoUser(fetchedUser.id, fetchedUser.username, false)
+            saveTokens(it.accessToken, it.refreshToken, identifoUser)
         }
     }
 
@@ -163,7 +171,9 @@ object IdentifoAuth : KoinComponent {
     ): Result<PhoneLoginResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val loginDataSet = PhoneLoginDataSet(phoneLogin, code)
         return@withContext suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
-            saveTokens(it.accessToken, it.refreshToken)
+            val fetchedUser = it.loggedUser
+            val identifoUser = IdentifoUser(fetchedUser.id, fetchedUser.username, false)
+            saveTokens(it.accessToken, it.refreshToken, identifoUser)
         }
     }
 
@@ -173,21 +183,23 @@ object IdentifoAuth : KoinComponent {
     ): Result<FederatedLoginResponse, ErrorResponse> = withContext(Dispatchers.IO) {
         val federatedLoginDataSet = FederatedLoginDataSet(provider, token)
         return@withContext suspendApiCall { queriesService.federatedLogin(federatedLoginDataSet) }.onSuccess {
-            saveTokens(it.accessToken, it.refreshToken)
+            val fetchedUser = it.loggedUser
+            val identifoUser = IdentifoUser(fetchedUser.id, fetchedUser.username, false)
+            saveTokens(it.accessToken, it.refreshToken, identifoUser)
         }
     }
 
-    suspend fun logout(): Result<Unit, ErrorResponse> = withContext(Dispatchers.IO){
+    suspend fun logout(): Result<Unit, ErrorResponse> = withContext(Dispatchers.IO) {
         return@withContext suspendApiCall { queriesService.logout() }.onSuccess {
             clearTokens()
         }
     }
 
-    suspend fun refreshTokens(): Result<RefreshTokenResponse, ErrorResponse> = withContext(Dispatchers.IO){
-        return@withContext suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
-            saveTokens(it.accessToken, it.refreshToken, tokenDataStorage.getAnonymousState())
-        }.onError {
-            clearTokens()
+    suspend fun refreshTokens(): Result<RefreshTokenResponse, ErrorResponse> = withContext(Dispatchers.IO) {
+            return@withContext suspendApiCall { refreshTokenService.refreshToken() }.onSuccess {
+                saveTokens(it.accessToken, it.refreshToken)
+            }.onError {
+                clearTokens()
+            }
         }
-    }
 }

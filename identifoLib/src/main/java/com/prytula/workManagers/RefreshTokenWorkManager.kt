@@ -2,16 +2,12 @@ package com.prytula.workManagers
 
 import android.content.Context
 import androidx.work.*
-import com.prytula.IdentifoAuth
-import com.prytula.identifolib.ITokenDataStorage
-import com.prytula.identifolib.entities.refreshToken.RefreshTokenDataSet
+import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.extensions.isSuccessful
-import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolib.extensions.suspendApiCall
 import com.prytula.identifolib.network.RefreshSessionQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.Koin
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.*

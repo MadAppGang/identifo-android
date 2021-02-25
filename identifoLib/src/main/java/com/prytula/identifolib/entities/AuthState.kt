@@ -8,7 +8,7 @@ package com.prytula.identifolib.entities
 
 sealed class AuthState {
     data class Authentificated(
-        val anonymousState: Boolean = false
+        val identifoUser: IdentifoUser?
     ) : AuthState()
 
     object Deauthentificated : AuthState()
