@@ -12,8 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
+import com.prytula.identifolibui.OnTextChangeListener
+import com.prytula.identifolibui.OtpCodeView
 import com.prytula.identifolibui.R
+import com.prytula.identifolibui.extensions.hideSoftKeyboard
 import com.prytula.identifolibui.extensions.showMessage
+import com.prytula.identifolibui.extensions.showSoftKeyboard
 
 
 /*
@@ -34,18 +38,22 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         super.onViewCreated(view, savedInstanceState)
         val phoneNumber = requireArguments().getString(PHONE_NUMBER_KEY) ?: ""
         val rootView = view.findViewById<ConstraintLayout>(R.id.constraint_otp_root)
-        val otpEditText = view.findViewById<EditText>(R.id.editTextTextPersonName)
-        val loginButton = view.findViewById<Button>(R.id.buttonOtpLogin)
+        val otpCodeView = view.findViewById<OtpCodeView>(R.id.editTextOtp)
 
-        loginButton.setOnClickListener {
-            lifecycleScope.launchWhenCreated {
-                val otpCode = otpEditText.text.toString()
-                IdentifoAuth.phoneLogin(phoneNumber, otpCode).onError {
-                    rootView.showMessage(it.error.message)
-                }.onSuccess {
-                    requireActivity().finish()
+        otpCodeView.requestFocus()
+        requireActivity().showSoftKeyboard()
+
+        otpCodeView.setTextChangeListener(object : OnTextChangeListener {
+            override fun textEntered(code: String) {
+                requireActivity().hideSoftKeyboard()
+                lifecycleScope.launchWhenCreated {
+                    IdentifoAuth.phoneLogin(phoneNumber, code).onError {
+                        rootView.showMessage(it.error.message)
+                    }.onSuccess {
+                        requireActivity().finish()
+                    }
                 }
             }
-        }
+        })
     }
 }
