@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login">Login</string>
+    <string name="loginWithPhoneNumber">Login with a phone number</string>
+    <string name="phoneNumberHint">Phone number</string>
+    <string name="proceed">Proceed</string>
     <string name="register">Register</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="usernameHint">Username</string>
+    <string name="passwordHint">Password</string>
 </resources>

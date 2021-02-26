@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
-import com.prytula.identifolibui.IdentifoLoginActivity
-import com.prytula.identifolibui.IdentifoRegistrationActivity
+import com.prytula.identifolibui.login.IdentifoLoginActivity
+import com.prytula.identifolibui.registration.IdentifoRegistrationActivity
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {

@@ -46,6 +46,10 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:$arch_version"
     api "androidx.lifecycle:lifecycle-runtime-ktx:$arch_version"
 
+    def nav_version = "2.3.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
     //coroutines
     def kotlinCoroutinesVersion = "1.4.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"

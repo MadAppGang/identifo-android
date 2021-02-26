@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_login"
+    app:startDestination="@id/commonLoginFragment">
+
+    <fragment
+        android:id="@+id/commonLoginFragment"
+        android:name="com.prytula.identifolibui.login.CommonLoginFragment"
+        android:label="CommonLoginFragment"
+        tools:layout="@layout/fragment_common_login">
+        <action
+            android:id="@+id/action_commonLoginFragment_to_phoneNumberLoginFragment"
+            app:destination="@id/phoneNumberLoginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/phoneNumberLoginFragment"
+        android:name="com.prytula.identifolibui.login.PhoneNumberLoginFragment"
+        android:label="PhoneNumberLoginFragment"
+        tools:layout="@layout/fragment_phone_number_login">
+        <action
+            android:id="@+id/action_phoneNumberLoginFragment_to_oneTimePasswordFragment"
+            app:destination="@id/oneTimePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/oneTimePasswordFragment"
+        android:name="com.prytula.identifolibui.login.OneTimePasswordFragment"
+        android:label="OneTimePasswordFragment"
+        tools:layout="@layout/fragment_one_time_password"/>
+
+</navigation>
