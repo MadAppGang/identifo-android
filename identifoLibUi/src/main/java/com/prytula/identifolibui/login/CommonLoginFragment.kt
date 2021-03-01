@@ -15,12 +15,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.prytula.IdentifoAuth
-import com.prytula.identifolib.extensions.handleResult
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
+import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.extensions.showMessage
 import java.lang.Exception
@@ -37,7 +36,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         private const val RC_SIGN_IN = 1
     }
 
-    private lateinit var rootView : ConstraintLayout
+    private lateinit var rootView: ConstraintLayout
 
     private val googleOptions: GoogleSignInOptions by lazy {
         // TODO: Add passing of app id
@@ -94,12 +93,12 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         }
     }
 
-    private fun handleSignInResult(completedTask : Task<GoogleSignInAccount>) {
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-            val idToken = account!!.idToken
-            rootView.showMessage("Token - ${idToken.toString()}")
-        } catch (e : Exception) {
+            val idToken: String = account?.idToken ?: ""
+            sendFederatedToken(FederatedProviders.GOOGLE, idToken)
+        } catch (e: Exception) {
             rootView.showMessage(e.message.toString())
         }
     }
@@ -107,5 +106,15 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     private fun signIn() {
         val intent = googleClient.signInIntent
         startActivityForResult(intent, RC_SIGN_IN)
+    }
+
+    private fun sendFederatedToken(federatedProvider: FederatedProviders, token: String) {
+        lifecycleScope.launchWhenCreated {
+            IdentifoAuth.federatedLogin(federatedProvider.title, token).onSuccess {
+                requireActivity().finish()
+            }.onError {
+                rootView.showMessage(it.error.message)
+            }
+        }
     }
 }
