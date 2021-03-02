@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_login_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -66,5 +67,14 @@
         app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithPhoneNumber"
         app:layout_constraintStart_toStartOf="@+id/buttonLoginWithPhoneNumber"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithPhoneNumber" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/buttonLoginWithFacebook"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithGoogle"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginWithGoogle"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithGoogle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

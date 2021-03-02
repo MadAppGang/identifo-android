@@ -9,6 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
+import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -38,10 +43,13 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     private lateinit var rootView: ConstraintLayout
 
+    private val googleApiKey by lazy {
+        (requireActivity() as IdentifoLoginActivity).googleApiKey
+    }
+
     private val googleOptions: GoogleSignInOptions by lazy {
-        // TODO: Add passing of app id
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("153119406654-a2uoase99mdskhsrs406v5g7l9bp7dvc.apps.googleusercontent.com")
+            .requestIdToken(googleApiKey)
             .requestEmail()
             .build()
     }
@@ -53,6 +61,9 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         )
     }
 
+    private val facebookCallbackManager by lazy { CallbackManager.Factory.create() }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,6 +73,8 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         val loginButton = view.findViewById<Button>(R.id.buttonLogin)
         val loginWithPhoneNumber = view.findViewById<Button>(R.id.buttonLoginWithPhoneNumber)
         val loginWithGoogle = view.findViewById<SignInButton>(R.id.buttonLoginWithGoogle)
+        val loginWithFacebook = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebook)
+
 
         loginButton.setOnClickListener {
             lifecycleScope.launchWhenCreated {
@@ -76,17 +89,34 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        loginWithGoogle.setOnClickListener {
-            signIn()
-        }
+        loginWithGoogle.visibility = if (googleApiKey.isNullOrBlank()) View.GONE else View.VISIBLE
+        loginWithGoogle.setOnClickListener { signIn() }
 
-        loginWithPhoneNumber.setOnClickListener {
-            findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment)
-        }
+        loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
+
+        loginWithFacebook.setPermissions("email", "public_profile")
+        loginWithFacebook.fragment = this
+        loginWithFacebook.registerCallback(
+            facebookCallbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult?) {
+                    rootView.showMessage("Faceboock token - ${result?.accessToken}")
+                    sendFederatedToken(FederatedProviders.FACEBOOK, result?.accessToken?.token ?: "")
+                }
+
+                override fun onCancel() {
+                    rootView.showMessage("Faceboock auth has been canceled")
+                }
+
+                override fun onError(error: FacebookException?) {
+                    rootView.showMessage("Error - ${error?.message}")
+                }
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        facebookCallbackManager.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)

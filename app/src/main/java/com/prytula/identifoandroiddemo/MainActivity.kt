@@ -34,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonLogin.setOnClickListener {
-            IdentifoLoginActivity.openActivity(this)
+            IdentifoLoginActivity.openActivity(
+                this,
+                googleApiKey = "153119406654-a2uoase99mdskhsrs406v5g7l9bp7dvc.apps.googleusercontent.com"
+            )
         }
 
         IdentifoAuth.authState.asLiveData().observe(this) { authentificationState ->

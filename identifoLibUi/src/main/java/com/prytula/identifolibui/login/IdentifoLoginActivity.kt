@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
@@ -25,10 +26,16 @@ import kotlinx.coroutines.launch
 class IdentifoLoginActivity : AppCompatActivity() {
 
     companion object {
-        fun openActivity(context: Context) {
-            context.startActivity<IdentifoLoginActivity>()
+        private const val GOOGLE_APP_ID_KEY = "google_app_id_key"
+
+        fun openActivity(context: Context, googleApiKey : String = "") {
+            context.startActivity<IdentifoLoginActivity> {
+                putExtra(GOOGLE_APP_ID_KEY, googleApiKey)
+            }
         }
     }
+
+    val googleApiKey by lazy { intent.extras?.getString(GOOGLE_APP_ID_KEY) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
