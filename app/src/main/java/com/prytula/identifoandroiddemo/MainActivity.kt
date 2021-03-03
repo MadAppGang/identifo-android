@@ -7,11 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.prytula.IdentifoAuth
-import com.prytula.identifolibui.login.options.FacebookLoginOption
 import com.prytula.identifolibui.login.IdentifoLoginActivity
-import com.prytula.identifolibui.login.options.GoogleLoginOption
-import com.prytula.identifolibui.login.options.LoginOptions
-import com.prytula.identifolibui.login.options.PhoneNumberOption
+import com.prytula.identifolibui.login.options.*
 import com.prytula.identifolibui.registration.IdentifoRegistrationActivity
 import kotlinx.coroutines.launch
 
@@ -36,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
             val loginOptions = LoginOptions(
+                commonStyle = CommonStyle(imageRes = R.drawable.ic_logo),
                 phoneNumberOption = PhoneNumberOption(),
                 googleLoginOption = GoogleLoginOption("153119406654-a2uoase99mdskhsrs406v5g7l9bp7dvc.apps.googleusercontent.com"),
                 facebookLoginOption = FacebookLoginOption()

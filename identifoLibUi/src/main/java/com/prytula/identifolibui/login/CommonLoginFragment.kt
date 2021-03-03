@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -27,10 +28,7 @@ import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.extensions.showMessage
-import com.prytula.identifolibui.login.options.FacebookLoginOption
-import com.prytula.identifolibui.login.options.GoogleLoginOption
-import com.prytula.identifolibui.login.options.LoginOptions
-import com.prytula.identifolibui.login.options.PhoneNumberOption
+import com.prytula.identifolibui.login.options.*
 import java.lang.Exception
 
 
@@ -47,10 +45,11 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     private lateinit var rootView: ConstraintLayout
 
-    private val loginOptions : LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
-    private val phoneNumberOption : PhoneNumberOption? by lazy { loginOptions.phoneNumberOption }
-    private val googleOption : GoogleLoginOption? by lazy { loginOptions.googleLoginOption }
-    private val facebookLoginOption : FacebookLoginOption? by lazy { loginOptions.facebookLoginOption }
+    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
+    private val commonStyle: CommonStyle? by lazy { loginOptions.commonStyle }
+    private val phoneNumberOption: PhoneNumberOption? by lazy { loginOptions.phoneNumberOption }
+    private val googleOption: GoogleLoginOption? by lazy { loginOptions.googleLoginOption }
+    private val facebookLoginOption: FacebookLoginOption? by lazy { loginOptions.facebookLoginOption }
 
     private val googleOptions: GoogleSignInOptions by lazy {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -79,6 +78,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         val loginWithPhoneNumber = view.findViewById<Button>(R.id.buttonLoginWithPhoneNumber)
         val loginWithGoogle = view.findViewById<SignInButton>(R.id.buttonLoginWithGoogle)
         val loginWithFacebook = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebook)
+        val imageLogo = view.findViewById<ImageView>(R.id.imageViewLogo)
 
 
         loginButton.setOnClickListener {
@@ -94,31 +94,45 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        loginWithGoogle.visibility = if (googleOption?.apiKey.isNullOrBlank()) View.GONE else View.VISIBLE
-        loginWithGoogle.setOnClickListener { signIn() }
+        commonStyle?.let {
+            it.imageRes?.let {
+                imageLogo.setImageResource(it)
+            }
+        }
 
-        loginWithPhoneNumber.visibility = if (phoneNumberOption == null) View.GONE else View.VISIBLE
-        loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
+        googleOption?.let {
+            loginWithGoogle.visibility = View.VISIBLE
+            loginWithGoogle.setOnClickListener { signIn() }
+        }
 
-        loginWithFacebook.visibility = if (facebookLoginOption == null) View.GONE else View.VISIBLE
-        loginWithFacebook.setPermissions("email", "public_profile")
-        loginWithFacebook.fragment = this
-        loginWithFacebook.registerCallback(
-            facebookCallbackManager,
-            object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult?) {
-                    rootView.showMessage("Faceboock token - ${result?.accessToken}")
-                    sendFederatedToken(FederatedProviders.FACEBOOK, result?.accessToken?.token ?: "")
-                }
+        phoneNumberOption?.let {
+            loginWithPhoneNumber.visibility = View.VISIBLE
+            loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
+        }
 
-                override fun onCancel() {
-                    rootView.showMessage("Faceboock auth has been canceled")
-                }
+        facebookLoginOption?.let {
+            loginWithFacebook.visibility = View.VISIBLE
+            loginWithFacebook.setPermissions("email", "public_profile")
+            loginWithFacebook.fragment = this
+            loginWithFacebook.registerCallback(
+                facebookCallbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(result: LoginResult?) {
+                        sendFederatedToken(
+                            FederatedProviders.FACEBOOK,
+                            result?.accessToken?.token ?: ""
+                        )
+                    }
 
-                override fun onError(error: FacebookException?) {
-                    rootView.showMessage("Error - ${error?.message}")
-                }
-            })
+                    override fun onCancel() {
+                        rootView.showMessage("Faceboock auth has been canceled")
+                    }
+
+                    override fun onError(error: FacebookException?) {
+                        rootView.showMessage("Error - ${error?.message}")
+                    }
+                })
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

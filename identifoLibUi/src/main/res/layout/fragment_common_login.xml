@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.37" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -53,8 +53,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/loginWithPhoneNumber"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
 
     <com.google.android.gms.common.SignInButton
@@ -68,6 +69,7 @@
         app:buttonSize="wide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithPhoneNumber" />
 
     <com.facebook.login.widget.LoginButton
@@ -77,11 +79,21 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="3dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="3dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithGoogle"
-        app:layout_constraintStart_toStartOf="@+id/buttonLoginWithGoogle"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithGoogle" />
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
