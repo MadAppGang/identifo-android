@@ -27,6 +27,10 @@ import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.extensions.showMessage
+import com.prytula.identifolibui.login.options.FacebookLoginOption
+import com.prytula.identifolibui.login.options.GoogleLoginOption
+import com.prytula.identifolibui.login.options.LoginOptions
+import com.prytula.identifolibui.login.options.PhoneNumberOption
 import java.lang.Exception
 
 
@@ -43,13 +47,14 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     private lateinit var rootView: ConstraintLayout
 
-    private val googleApiKey by lazy {
-        (requireActivity() as IdentifoLoginActivity).googleApiKey
-    }
+    private val loginOptions : LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
+    private val phoneNumberOption : PhoneNumberOption? by lazy { loginOptions.phoneNumberOption }
+    private val googleOption : GoogleLoginOption? by lazy { loginOptions.googleLoginOption }
+    private val facebookLoginOption : FacebookLoginOption? by lazy { loginOptions.facebookLoginOption }
 
     private val googleOptions: GoogleSignInOptions by lazy {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(googleApiKey)
+            .requestIdToken(googleOption?.apiKey)
             .requestEmail()
             .build()
     }
@@ -89,11 +94,13 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        loginWithGoogle.visibility = if (googleApiKey.isNullOrBlank()) View.GONE else View.VISIBLE
+        loginWithGoogle.visibility = if (googleOption?.apiKey.isNullOrBlank()) View.GONE else View.VISIBLE
         loginWithGoogle.setOnClickListener { signIn() }
 
+        loginWithPhoneNumber.visibility = if (phoneNumberOption == null) View.GONE else View.VISIBLE
         loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
 
+        loginWithFacebook.visibility = if (facebookLoginOption == null) View.GONE else View.VISIBLE
         loginWithFacebook.setPermissions("email", "public_profile")
         loginWithFacebook.fragment = this
         loginWithFacebook.registerCallback(
