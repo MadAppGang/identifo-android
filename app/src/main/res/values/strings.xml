@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">IdentifoAndroidDemo</string>
-
     <string name="facebook_app_id">721873465184562</string>
     <string name="fb_login_protocol_scheme">fb721873465184562</string>
 </resources>
