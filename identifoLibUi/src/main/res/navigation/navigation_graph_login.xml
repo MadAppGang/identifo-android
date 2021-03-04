@@ -36,6 +36,6 @@
         android:id="@+id/usernameLoginFragment"
         android:name="com.prytula.identifolibui.login.username.UsernameLoginFragment"
         android:label="UsernameLoginFragment"
-        tools:layout="us"/>
+        tools:layout="@layout/fragment_login_username"/>
 
 </navigation>

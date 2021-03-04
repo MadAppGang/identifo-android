@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.prytula.IdentifoAuth
@@ -28,8 +26,9 @@ import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.extensions.showMessage
-import com.prytula.identifolibui.login.options.*
-import java.lang.Exception
+import com.prytula.identifolibui.login.options.CommonStyle
+import com.prytula.identifolibui.login.options.LoginOptions
+import com.prytula.identifolibui.login.options.LoginProviders
 
 
 /*
@@ -86,6 +85,10 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         }
 
         loginProviders?.let {
+            if (it.isEmpty()) {
+                throw Exception("You need to have at least one provider!")
+            }
+
             if (it.contains(LoginProviders.GMAIL)) {
                 loginWithGoogle.visibility = View.VISIBLE
                 loginWithGoogle.setOnClickListener { signIn() }
@@ -102,6 +105,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
 
             if (it.contains(LoginProviders.FACEBOOK)) {
+                loginWithFacebook.visibility = View.VISIBLE
                 loginWithFacebook.setOnClickListener {
                     loginWithFacebookNative.setPermissions("email", "public_profile")
                     loginWithFacebookNative.fragment = this
@@ -115,12 +119,10 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                                 )
                             }
 
-                            override fun onCancel() {
-                                rootView.showMessage("Faceboock auth has been canceled")
-                            }
+                            override fun onCancel() {}
 
                             override fun onError(error: FacebookException?) {
-                                rootView.showMessage("Error - ${error?.message}")
+                                rootView.showMessage("${error?.message}")
                             }
                         })
                     loginWithFacebookNative.performClick()
