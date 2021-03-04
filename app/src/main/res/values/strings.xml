@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">IdentifoAndroidDemo</string>
-    <string name="facebook_app_id">721873465184562</string>
-    <string name="fb_login_protocol_scheme">fb721873465184562</string>
+    <string name="app_name" translatable="false">IdentifoAndroidDemo</string>
+    <string name="facebook_app_id" translatable="false">721873465184562</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb721873465184562</string>
+    <string name="google_api_key" translatable="false">153119406654-a2uoase99mdskhsrs406v5g7l9bp7dvc.apps.googleusercontent.com</string>
 </resources>
 

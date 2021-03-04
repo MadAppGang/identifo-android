@@ -8,6 +8,4 @@ import java.io.Serializable
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-class GoogleLoginOption(
-    val apiKey : String = ""
-) : Serializable
+class GoogleLoginOption : Serializable

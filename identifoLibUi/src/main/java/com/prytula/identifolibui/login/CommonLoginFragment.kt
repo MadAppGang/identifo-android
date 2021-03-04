@@ -54,7 +54,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     private val googleOptions: GoogleSignInOptions by lazy {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(googleOption?.apiKey)
+            .requestIdToken(getString(R.string.google_api_key))
             .requestEmail()
             .build()
     }
