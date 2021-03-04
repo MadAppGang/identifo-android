@@ -1,4 +1,4 @@
-package com.prytula.identifolibui.login
+package com.prytula.identifolibui.login.phoneNumber
 
 import android.os.Bundle
 import android.view.View

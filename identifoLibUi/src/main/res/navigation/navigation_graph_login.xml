@@ -13,11 +13,14 @@
         <action
             android:id="@+id/action_commonLoginFragment_to_phoneNumberLoginFragment"
             app:destination="@id/phoneNumberLoginFragment" />
+        <action
+            android:id="@+id/action_commonLoginFragment_to_usernameLoginFragment"
+            app:destination="@id/usernameLoginFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/phoneNumberLoginFragment"
-        android:name="com.prytula.identifolibui.login.PhoneNumberLoginFragment"
+        android:name="com.prytula.identifolibui.login.phoneNumber.PhoneNumberLoginFragment"
         android:label="PhoneNumberLoginFragment"
         tools:layout="@layout/fragment_phone_number_login">
         <action
@@ -26,8 +29,13 @@
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"
-        android:name="com.prytula.identifolibui.login.OneTimePasswordFragment"
+        android:name="com.prytula.identifolibui.login.phoneNumber.OneTimePasswordFragment"
         android:label="OneTimePasswordFragment"
         tools:layout="@layout/fragment_one_time_password"/>
+    <fragment
+        android:id="@+id/usernameLoginFragment"
+        android:name="com.prytula.identifolibui.login.username.UsernameLoginFragment"
+        android:label="UsernameLoginFragment"
+        tools:layout="us"/>
 
 </navigation>

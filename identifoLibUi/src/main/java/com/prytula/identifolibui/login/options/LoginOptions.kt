@@ -10,6 +10,7 @@ import java.io.Serializable
 // TODO: Migrate to parcelable
 data class LoginOptions(
     val commonStyle: CommonStyle? = null,
+    val emailLoginOption: EmailLoginOption? = null,
     val phoneNumberOption : PhoneNumberOption? = null,
     val googleLoginOption: GoogleLoginOption? = null,
     val facebookLoginOption: FacebookLoginOption? = null

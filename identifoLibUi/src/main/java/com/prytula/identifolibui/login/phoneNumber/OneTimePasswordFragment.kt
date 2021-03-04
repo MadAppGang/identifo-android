@@ -1,14 +1,11 @@
-package com.prytula.identifolibui.login
+package com.prytula.identifolibui.login.phoneNumber
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess

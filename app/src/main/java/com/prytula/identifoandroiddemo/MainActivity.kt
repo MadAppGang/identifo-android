@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         buttonLogin.setOnClickListener {
             val loginOptions = LoginOptions(
                 commonStyle = CommonStyle(imageRes = R.drawable.ic_logo),
+                emailLoginOption = EmailLoginOption(),
                 phoneNumberOption = PhoneNumberOption(),
                 googleLoginOption = GoogleLoginOption("153119406654-a2uoase99mdskhsrs406v5g7l9bp7dvc.apps.googleusercontent.com"),
                 facebookLoginOption = FacebookLoginOption()

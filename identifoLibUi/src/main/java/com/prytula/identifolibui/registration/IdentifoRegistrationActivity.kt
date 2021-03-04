@@ -34,23 +34,25 @@ class IdentifoRegistrationActivity : AppCompatActivity() {
     private val buttonRegister by lazy { findViewById<Button>(R.id.buttonRegister) }
     private val editTextUsername by lazy { findViewById<EditText>(R.id.editTextTextEmailAddress) }
     private val editTextPassword by lazy { findViewById<EditText>(R.id.editTextPassword) }
+    private val editTextRepeatPassword by lazy { findViewById<EditText>(R.id.editTextPasswordRepeat) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identifo_registration)
 
-        buttonRegister.setOnClickListener {
-            registerWithUsernameAndPassword(
-                editTextUsername.text.toString(),
-                editTextPassword.text.toString()
-            )
-        }
+        buttonRegister.setOnClickListener { pushUsernameAndPassword() }
+        editTextPassword.onDone { pushUsernameAndPassword() }
+    }
 
-        editTextPassword.onDone {
-            registerWithUsernameAndPassword(
-                editTextUsername.text.toString(),
-                editTextPassword.text.toString()
-            )
+    private fun pushUsernameAndPassword() {
+        val login = editTextUsername.text.toString()
+        val password = editTextPassword.text.toString()
+        val repeatPassword = editTextRepeatPassword.text.toString()
+
+        if (password == repeatPassword) {
+            registerWithUsernameAndPassword(login, password)
+        } else {
+            rootView.showMessage(getString(R.string.passwordsDoNotMatch))
         }
     }
 

@@ -7,69 +7,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="@string/usernameHint"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.37" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/passwordHint"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
-
-    <Button
-        android:id="@+id/buttonLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
-
     <Button
         android:id="@+id/buttonLoginWithPhoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/loginWithPhoneNumber"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
-        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithUsername"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginWithUsername"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithUsername" />
+
+    <Button
+        android:id="@+id/buttonLoginWithUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/loginWithEmail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/buttonLoginWithGoogle"
         android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_centerInParent="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
         android:text="@string/loginWithGmail"
         app:buttonSize="wide"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithUsername"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginWithUsername"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithPhoneNumber" />
 
     <com.facebook.login.widget.LoginButton
@@ -77,20 +44,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="3dp"
         android:layout_marginTop="4dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
-        app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithGoogle"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginWithGoogle"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithGoogle" />
 
     <ImageView
         android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLoginWithUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

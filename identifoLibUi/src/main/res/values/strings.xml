@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login">Login</string>
+    <string name="loginWithEmail">Login with email</string>
     <string name="loginWithPhoneNumber">Login with a phone number</string>
     <string name="phoneNumberHint">Phone number</string>
     <string name="loginWithGmail">Login with Gmail</string>
@@ -8,6 +9,8 @@
     <string name="register">Register</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
+    <string name="passwordConfirm">Confirm a password</string>
+    <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
 
     <string name="app_name" />
     <string name="facebook_app_id" />

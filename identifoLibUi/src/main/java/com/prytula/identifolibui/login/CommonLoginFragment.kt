@@ -47,6 +47,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
     private val commonStyle: CommonStyle? by lazy { loginOptions.commonStyle }
+    private val emailLoginOption : EmailLoginOption? by lazy { loginOptions.emailLoginOption }
     private val phoneNumberOption: PhoneNumberOption? by lazy { loginOptions.phoneNumberOption }
     private val googleOption: GoogleLoginOption? by lazy { loginOptions.googleLoginOption }
     private val facebookLoginOption: FacebookLoginOption? by lazy { loginOptions.facebookLoginOption }
@@ -72,27 +73,12 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         super.onViewCreated(view, savedInstanceState)
 
         rootView = view.findViewById(R.id.constraint_login_root)
-        val usernameEditText = view.findViewById<EditText>(R.id.editTextTextEmailAddress)
-        val passwordEditText = view.findViewById<EditText>(R.id.editTextPassword)
-        val loginButton = view.findViewById<Button>(R.id.buttonLogin)
+
         val loginWithPhoneNumber = view.findViewById<Button>(R.id.buttonLoginWithPhoneNumber)
         val loginWithGoogle = view.findViewById<SignInButton>(R.id.buttonLoginWithGoogle)
         val loginWithFacebook = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebook)
         val imageLogo = view.findViewById<ImageView>(R.id.imageViewLogo)
-
-
-        loginButton.setOnClickListener {
-            lifecycleScope.launchWhenCreated {
-                val username = usernameEditText.text.toString()
-                val password = passwordEditText.text.toString()
-
-                IdentifoAuth.loginWithUsernameAndPassword(username, password).onError {
-                    rootView.showMessage(it.error.message)
-                }.onSuccess {
-                    requireActivity().finish()
-                }
-            }
-        }
+        val loginWithEmail = view.findViewById<Button>(R.id.buttonLoginWithUsername)
 
         commonStyle?.let {
             it.imageRes?.let {
@@ -108,6 +94,10 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         phoneNumberOption?.let {
             loginWithPhoneNumber.visibility = View.VISIBLE
             loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
+        }
+
+        emailLoginOption?.let {
+            loginWithEmail.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
         }
 
         facebookLoginOption?.let {
