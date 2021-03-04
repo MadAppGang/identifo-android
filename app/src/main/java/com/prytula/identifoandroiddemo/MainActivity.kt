@@ -33,9 +33,12 @@ class MainActivity : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
             val providers = listOf(LoginProviders.GMAIL, LoginProviders.FACEBOOK, LoginProviders.PHONE, LoginProviders.EMAIL)
+            val style = Style(
+                imageRes = R.drawable.ic_logo,
+            )
 
             val loginOptions = LoginOptions(
-                commonStyle = CommonStyle(imageRes = R.drawable.ic_logo),
+                commonStyle = style,
                 providers = providers
             )
             IdentifoLoginActivity.openActivity(this, loginOptions)

@@ -26,7 +26,7 @@ import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.extensions.showMessage
-import com.prytula.identifolibui.login.options.CommonStyle
+import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.options.LoginOptions
 import com.prytula.identifolibui.login.options.LoginProviders
 
@@ -45,7 +45,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     private lateinit var rootView: ConstraintLayout
 
     private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
-    private val commonStyle: CommonStyle? by lazy { loginOptions.commonStyle }
+    private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
 
     private val googleOptions: GoogleSignInOptions by lazy {
@@ -81,6 +81,9 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         commonStyle?.let {
             it.imageRes?.let {
                 imageLogo.setImageResource(it)
+            }
+            it.backgroundRes?.let {
+                rootView.setBackgroundResource(it)
             }
         }
 

@@ -9,6 +9,7 @@ import java.io.Serializable
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-data class CommonStyle(
-    @DrawableRes val imageRes: Int? = null
+data class Style(
+    @DrawableRes val imageRes: Int? = null,
+    @DrawableRes val backgroundRes : Int? = null
 ) : Serializable

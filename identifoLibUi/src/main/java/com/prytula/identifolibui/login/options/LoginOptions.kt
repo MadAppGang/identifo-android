@@ -9,6 +9,6 @@ import java.io.Serializable
 
 // TODO: Migrate to parcelable
 data class LoginOptions(
-    val commonStyle: CommonStyle? = null,
+    val commonStyle: Style? = null,
     val providers : List<LoginProviders>
 ) : Serializable
