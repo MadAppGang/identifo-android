@@ -47,10 +47,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
     private val commonStyle: CommonStyle? by lazy { loginOptions.commonStyle }
-    private val emailLoginOption : EmailLoginOption? by lazy { loginOptions.emailLoginOption }
-    private val phoneNumberOption: PhoneNumberOption? by lazy { loginOptions.phoneNumberOption }
-    private val googleOption: GoogleLoginOption? by lazy { loginOptions.googleLoginOption }
-    private val facebookLoginOption: FacebookLoginOption? by lazy { loginOptions.facebookLoginOption }
+    private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
 
     private val googleOptions: GoogleSignInOptions by lazy {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -76,7 +73,8 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
         val loginWithPhoneNumber = view.findViewById<Button>(R.id.buttonLoginWithPhoneNumber)
         val loginWithGoogle = view.findViewById<Button>(R.id.buttonLoginWithGoogle)
-        val loginWithFacebookNative = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebookNative)
+        val loginWithFacebookNative =
+            view.findViewById<LoginButton>(R.id.buttonLoginWithFacebookNative)
         val loginWithFacebook = view.findViewById<Button>(R.id.buttonLoginWithFacebook)
         val imageLogo = view.findViewById<ImageView>(R.id.imageViewLogo)
         val loginWithEmail = view.findViewById<Button>(R.id.buttonLoginWithUsername)
@@ -87,44 +85,46 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        googleOption?.let {
-            loginWithGoogle.visibility = View.VISIBLE
-            loginWithGoogle.setOnClickListener { signIn() }
-        }
+        loginProviders?.let {
+            if (it.contains(LoginProviders.GMAIL)) {
+                loginWithGoogle.visibility = View.VISIBLE
+                loginWithGoogle.setOnClickListener { signIn() }
+            }
 
-        phoneNumberOption?.let {
-            loginWithPhoneNumber.visibility = View.VISIBLE
-            loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
-        }
+            if (it.contains(LoginProviders.EMAIL)) {
+                loginWithEmail.visibility = View.VISIBLE
+                loginWithEmail.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
+            }
 
-        emailLoginOption?.let {
-            loginWithEmail.visibility = View.VISIBLE
-            loginWithEmail.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
-        }
+            if (it.contains(LoginProviders.PHONE)) {
+                loginWithPhoneNumber.visibility = View.VISIBLE
+                loginWithPhoneNumber.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
+            }
 
-        facebookLoginOption?.let {
-            loginWithFacebook.setOnClickListener {
-                loginWithFacebookNative.setPermissions("email", "public_profile")
-                loginWithFacebookNative.fragment = this
-                loginWithFacebookNative.registerCallback(
-                    facebookCallbackManager,
-                    object : FacebookCallback<LoginResult> {
-                        override fun onSuccess(result: LoginResult?) {
-                            sendFederatedToken(
-                                FederatedProviders.FACEBOOK,
-                                result?.accessToken?.token ?: ""
-                            )
-                        }
+            if (it.contains(LoginProviders.FACEBOOK)) {
+                loginWithFacebook.setOnClickListener {
+                    loginWithFacebookNative.setPermissions("email", "public_profile")
+                    loginWithFacebookNative.fragment = this
+                    loginWithFacebookNative.registerCallback(
+                        facebookCallbackManager,
+                        object : FacebookCallback<LoginResult> {
+                            override fun onSuccess(result: LoginResult?) {
+                                sendFederatedToken(
+                                    FederatedProviders.FACEBOOK,
+                                    result?.accessToken?.token ?: ""
+                                )
+                            }
 
-                        override fun onCancel() {
-                            rootView.showMessage("Faceboock auth has been canceled")
-                        }
+                            override fun onCancel() {
+                                rootView.showMessage("Faceboock auth has been canceled")
+                            }
 
-                        override fun onError(error: FacebookException?) {
-                            rootView.showMessage("Error - ${error?.message}")
-                        }
-                    })
-                loginWithFacebookNative.performClick()
+                            override fun onError(error: FacebookException?) {
+                                rootView.showMessage("Error - ${error?.message}")
+                            }
+                        })
+                    loginWithFacebookNative.performClick()
+                }
             }
         }
     }

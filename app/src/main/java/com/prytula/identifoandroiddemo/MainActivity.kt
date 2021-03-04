@@ -32,12 +32,11 @@ class MainActivity : AppCompatActivity() {
         buttonRegister.setOnClickListener { IdentifoRegistrationActivity.openActivity(this) }
 
         buttonLogin.setOnClickListener {
+            val providers = listOf(LoginProviders.GMAIL)
+
             val loginOptions = LoginOptions(
                 commonStyle = CommonStyle(imageRes = R.drawable.ic_logo),
-                emailLoginOption = EmailLoginOption(),
-                phoneNumberOption = PhoneNumberOption(),
-                googleLoginOption = GoogleLoginOption(),
-                facebookLoginOption = FacebookLoginOption()
+                providers = providers
             )
             IdentifoLoginActivity.openActivity(this, loginOptions)
         }
