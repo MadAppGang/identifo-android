@@ -2,5 +2,7 @@
 <resources>
     <color name="button_email_color">#E80231</color>
     <color name="button_phone_color">#008E07</color>
-    <color name="button_text_color">#FFFFFF</color>
+    <color name="button_gmail_color">#FFFFFF</color>
+    <color name="button_white_text_color">#FFFFFF</color>
+    <color name="button_dark_text_color">#444444</color>
 </resources>

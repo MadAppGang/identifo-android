@@ -75,7 +75,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         rootView = view.findViewById(R.id.constraint_login_root)
 
         val loginWithPhoneNumber = view.findViewById<Button>(R.id.buttonLoginWithPhoneNumber)
-        val loginWithGoogle = view.findViewById<SignInButton>(R.id.buttonLoginWithGoogle)
+        val loginWithGoogle = view.findViewById<Button>(R.id.buttonLoginWithGoogle)
         val loginWithFacebook = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebook)
         val imageLogo = view.findViewById<ImageView>(R.id.imageViewLogo)
         val loginWithEmail = view.findViewById<Button>(R.id.buttonLoginWithUsername)
