@@ -40,14 +40,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.facebook.login.widget.LoginButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLoginWithFacebook"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/FacebookButtonStyle"
+        android:text="@string/loginWithFacebook"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithUsername"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoginWithUsername"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithGoogle">
+
+    </com.google.android.material.button.MaterialButton>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/buttonLoginWithFacebookNative"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="4dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithGoogle"
         app:layout_constraintStart_toStartOf="@+id/buttonLoginWithGoogle"

@@ -76,7 +76,8 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
         val loginWithPhoneNumber = view.findViewById<Button>(R.id.buttonLoginWithPhoneNumber)
         val loginWithGoogle = view.findViewById<Button>(R.id.buttonLoginWithGoogle)
-        val loginWithFacebook = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebook)
+        val loginWithFacebookNative = view.findViewById<LoginButton>(R.id.buttonLoginWithFacebookNative)
+        val loginWithFacebook = view.findViewById<Button>(R.id.buttonLoginWithFacebook)
         val imageLogo = view.findViewById<ImageView>(R.id.imageViewLogo)
         val loginWithEmail = view.findViewById<Button>(R.id.buttonLoginWithUsername)
 
@@ -97,31 +98,34 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         }
 
         emailLoginOption?.let {
+            loginWithEmail.visibility = View.VISIBLE
             loginWithEmail.setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
         }
 
         facebookLoginOption?.let {
-            loginWithFacebook.visibility = View.VISIBLE
-            loginWithFacebook.setPermissions("email", "public_profile")
-            loginWithFacebook.fragment = this
-            loginWithFacebook.registerCallback(
-                facebookCallbackManager,
-                object : FacebookCallback<LoginResult> {
-                    override fun onSuccess(result: LoginResult?) {
-                        sendFederatedToken(
-                            FederatedProviders.FACEBOOK,
-                            result?.accessToken?.token ?: ""
-                        )
-                    }
+            loginWithFacebook.setOnClickListener {
+                loginWithFacebookNative.setPermissions("email", "public_profile")
+                loginWithFacebookNative.fragment = this
+                loginWithFacebookNative.registerCallback(
+                    facebookCallbackManager,
+                    object : FacebookCallback<LoginResult> {
+                        override fun onSuccess(result: LoginResult?) {
+                            sendFederatedToken(
+                                FederatedProviders.FACEBOOK,
+                                result?.accessToken?.token ?: ""
+                            )
+                        }
 
-                    override fun onCancel() {
-                        rootView.showMessage("Faceboock auth has been canceled")
-                    }
+                        override fun onCancel() {
+                            rootView.showMessage("Faceboock auth has been canceled")
+                        }
 
-                    override fun onError(error: FacebookException?) {
-                        rootView.showMessage("Error - ${error?.message}")
-                    }
-                })
+                        override fun onError(error: FacebookException?) {
+                            rootView.showMessage("Error - ${error?.message}")
+                        }
+                    })
+                loginWithFacebookNative.performClick()
+            }
         }
     }
 

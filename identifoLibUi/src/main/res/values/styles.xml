@@ -29,4 +29,9 @@
         <item name="android:backgroundTint">@color/button_gmail_color</item>
     </style>
 
+    <style name="FacebookButtonStyle" parent="ColorfulButtonStyle">
+        <item name="android:drawableLeft">@drawable/com_facebook_button_icon</item>
+        <item name="android:backgroundTint">@color/button_facebook_color</item>
+    </style>
+
 </resources>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login">Login</string>
-    <string name="loginWithEmail">Sing in with email</string>
-    <string name="loginWithPhoneNumber">Sing in with a phone number</string>
+    <string name="loginWithEmail">Sign in with email</string>
+    <string name="loginWithPhoneNumber">Sign in with a phone number</string>
     <string name="phoneNumberHint">Phone number</string>
-    <string name="loginWithGmail">Sing in with Gmail</string>
+    <string name="loginWithGmail">Sign in with Gmail</string>
+    <string name="loginWithFacebook">Sign in with Facebook</string>
     <string name="proceed">Proceed</string>
     <string name="register">Register</string>
     <string name="usernameHint">Username</string>
