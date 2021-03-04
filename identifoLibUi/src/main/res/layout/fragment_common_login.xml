@@ -7,22 +7,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLoginWithPhoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/loginWithPhoneNumber"
+        style="@style/PhoneButtonStyle"
         app:layout_constraintEnd_toEndOf="@+id/buttonLoginWithUsername"
         app:layout_constraintStart_toStartOf="@+id/buttonLoginWithUsername"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithUsername" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonLoginWithUsername"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/loginWithEmail"
+        style="@style/EmailButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
