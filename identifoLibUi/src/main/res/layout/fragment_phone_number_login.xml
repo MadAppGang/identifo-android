@@ -7,17 +7,20 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/textInputPhoneNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
+        android:ellipsize="end"
         android:ems="10"
         android:inputType="phone"
-        android:hint="@string/phoneNumberHint"
+        android:maxLines="1"
+        android:maxLength="25"
+        android:textSize="@dimen/text16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/countryCodePicker"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -25,9 +28,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="@string/proceed"
+        android:text="@string/verifyPhoneNumber"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPhone"
-        app:layout_constraintStart_toStartOf="@+id/editTextPhone" />
+        app:layout_constraintEnd_toEndOf="@+id/textInputPhoneNumber"
+        app:layout_constraintStart_toStartOf="@+id/countryCodePicker" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/countryCodePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        app:ccp_autoDetectCountry="true"
+        app:ccp_padding="0dp"
+        app:ccp_showArrow="false"
+        app:ccp_showFlag="true"
+        app:ccp_showNameCode="false"
+        app:ccp_showPhoneCode="true"
+        app:ccp_textSize="@dimen/text16"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputPhoneNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textInputPhoneNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
