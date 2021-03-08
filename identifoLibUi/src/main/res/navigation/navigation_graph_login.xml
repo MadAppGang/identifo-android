@@ -12,10 +12,18 @@
         tools:layout="@layout/fragment_common_login">
         <action
             android:id="@+id/action_commonLoginFragment_to_phoneNumberLoginFragment"
-            app:destination="@id/phoneNumberLoginFragment" />
+            app:destination="@id/phoneNumberLoginFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
         <action
             android:id="@+id/action_commonLoginFragment_to_usernameLoginFragment"
-            app:destination="@id/usernameLoginFragment" />
+            app:destination="@id/usernameLoginFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
     </fragment>
 
     <fragment
@@ -25,7 +33,11 @@
         tools:layout="@layout/fragment_phone_number_login">
         <action
             android:id="@+id/action_phoneNumberLoginFragment_to_oneTimePasswordFragment"
-            app:destination="@id/oneTimePasswordFragment" />
+            app:destination="@id/oneTimePasswordFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"
