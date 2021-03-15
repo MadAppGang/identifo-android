@@ -155,6 +155,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         commonLoginBinding.textViewUserAgreement.movementMethod = LinkMovementMethod.getInstance()
         commonLoginBinding.textViewUserAgreement.text = userAgreementNotice
 
+        commonLoginBinding.textViewRegisterNewAccount.text = getString(R.string.registerNewAccount).makeUnderline()
         commonLoginBinding.textViewRegisterNewAccount.setOnClickListener {
             findNavController().navigate(R.id.action_commonLoginFragment_to_registrationFragment)
         }
