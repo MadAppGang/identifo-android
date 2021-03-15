@@ -9,12 +9,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.textfield.TextInputEditText
 import com.hbb20.CountryCodePicker
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.R
+import com.prytula.identifolibui.databinding.FragmentOneTimePasswordBinding
+import com.prytula.identifolibui.databinding.FragmentPhoneNumberLoginBinding
 import com.prytula.identifolibui.extensions.showMessage
 
 
@@ -24,25 +27,25 @@ import com.prytula.identifolibui.extensions.showMessage
  */
 
 class PhoneNumberLoginFragment : Fragment(R.layout.fragment_phone_number_login) {
+
+    private val phoneNumberLoginBinding by viewBinding(FragmentPhoneNumberLoginBinding::bind)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val rootView = view.findViewById<ConstraintLayout>(R.id.constraint_phone_number_root)
-        val phoneNumberEditText = view.findViewById<EditText>(R.id.textInputPhoneNumber)
-        val numberPrefixView = view.findViewById<CountryCodePicker>(R.id.countryCodePicker)
-        val buttonProceed = view.findViewById<Button>(R.id.buttonProceed)
-
         var isPhoneNumberValid = false
 
-        numberPrefixView.registerCarrierNumberEditText(phoneNumberEditText)
-        numberPrefixView.setPhoneNumberValidityChangeListener { isPhoneNumberValid = it }
+        phoneNumberLoginBinding.countryCodePicker.run {
+            registerCarrierNumberEditText(phoneNumberLoginBinding.textInputPhoneNumber)
+            setPhoneNumberValidityChangeListener { isPhoneNumberValid = it }
+        }
 
-        buttonProceed.setOnClickListener {
+        phoneNumberLoginBinding.buttonProceed.setOnClickListener {
             if (isPhoneNumberValid) {
                 lifecycleScope.launchWhenCreated {
-                    val phoneNumber = numberPrefixView.fullNumberWithPlus
+                    val phoneNumber = phoneNumberLoginBinding.countryCodePicker.fullNumberWithPlus
                     IdentifoAuth.requestPhoneCode(phoneNumber).onError {
-                        rootView.showMessage(it.error.message)
+                        phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(it.error.message)
                     }.onSuccess {
                         findNavController().navigate(
                             R.id.action_phoneNumberLoginFragment_to_oneTimePasswordFragment,
@@ -51,7 +54,7 @@ class PhoneNumberLoginFragment : Fragment(R.layout.fragment_phone_number_login) 
                     }
                 }
             } else {
-                rootView.showMessage(getString(R.string.phoneNumberInvalid))
+                phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
             }
         }
     }

@@ -7,10 +7,13 @@ import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.R
+import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
+import com.prytula.identifolibui.databinding.FragmentPhoneNumberLoginBinding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
 
@@ -21,27 +24,23 @@ import com.prytula.identifolibui.extensions.showMessage
  */
 
 class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
-    private lateinit var rootView: ConstraintLayout
+
+    private val usernameLoginBinding by viewBinding(FragmentLoginUsernameBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val usernameEditText = view.findViewById<EditText>(R.id.editTextTextEmailAddress)
-        val passwordEditText = view.findViewById<EditText>(R.id.editTextPassword)
-        val loginButton = view.findViewById<Button>(R.id.buttonLogin)
 
-        rootView = view.findViewById(R.id.constraint_login_root)
+        val username = usernameLoginBinding.editTextTextEmailAddress.text.toString()
+        val password = usernameLoginBinding.editTextPassword.text.toString()
 
-        val username = usernameEditText.text.toString()
-        val password = passwordEditText.text.toString()
-
-        passwordEditText.onDone { performLogin(username, password) }
-        loginButton.setOnClickListener { performLogin(username, password) }
+        usernameLoginBinding.editTextPassword.onDone { performLogin(username, password) }
+        usernameLoginBinding.buttonLogin.setOnClickListener { performLogin(username, password) }
     }
 
     private fun performLogin(username: String, password: String) {
         lifecycleScope.launchWhenCreated {
             IdentifoAuth.loginWithUsernameAndPassword(username, password).onError {
-                rootView.showMessage(it.error.message)
+                usernameLoginBinding.constraintLoginRoot.showMessage(it.error.message)
             }.onSuccess {
                 requireActivity().finish()
             }
