@@ -15,6 +15,8 @@
     <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
     <string name="userAgreement">User Agreement</string>
     <string name="privacyPolicy">Privacy Policy</string>
+    <string name="userAgreementNotice">By continuing, you are indicating that you accept our </string>
+    <string name="userAgreementNoticeAnd"> and </string>
 
     <string name="app_name" />
     <string name="facebook_app_id" />

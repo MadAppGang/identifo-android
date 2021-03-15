@@ -97,22 +97,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewUserConditions"
-        android:layout_width="wrap_content"
+        android:id="@+id/textViewUserAgreement"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="@string/userAgreement"
-        android:textSize="@dimen/text16"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPrivacyPolicy"
-        app:layout_constraintEnd_toEndOf="@+id/textViewPrivacyPolicy"
-        app:layout_constraintStart_toStartOf="@+id/textViewPrivacyPolicy"
-        tools:text="User Conditions" />
-
-    <TextView
-        android:id="@+id/textViewPrivacyPolicy"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="@string/privacyPolicy"
@@ -120,7 +109,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Privacy Policy" />
+        tools:text="@string/userAgreementNotice" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

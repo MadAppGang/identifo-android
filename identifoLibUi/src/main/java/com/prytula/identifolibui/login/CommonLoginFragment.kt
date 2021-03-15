@@ -3,6 +3,7 @@ package com.prytula.identifolibui.login
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -31,8 +32,7 @@ import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
 import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
-import com.prytula.identifolibui.extensions.makeAnotherColor
-import com.prytula.identifolibui.extensions.makeUnderline
+import com.prytula.identifolibui.extensions.*
 import com.prytula.identifolibui.extensions.redirectToUrl
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.options.Style
@@ -156,23 +156,15 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        val userAgreementText = getString(R.string.userAgreement).makeUnderline()
-        val privacyPolicy = getString(R.string.privacyPolicy).makeUnderline()
-
-        commonLoginBinding.textViewUserConditions.run {
-            text = userAgreementText
-            setOnClickListener {
-                this@CommonLoginFragment.requireContext()
-                    .redirectToUrl(userConditions.userAgreementLink)
-            }
-        }
-        commonLoginBinding.textViewPrivacyPolicy.run {
-            text = privacyPolicy
-            setOnClickListener {
-                this@CommonLoginFragment.requireContext()
-                    .redirectToUrl(userConditions.privacyPolicy)
-            }
-        }
+        val userAgreementText =
+            getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
+        val privacyPolicy = getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
+        val userAgreementNotice =
+            getString(R.string.userAgreementNotice).makeSpannableString() + userAgreementText + getString(
+                R.string.userAgreementNoticeAnd
+            ).makeSpannableString() + privacyPolicy
+        commonLoginBinding.textViewUserAgreement.movementMethod = LinkMovementMethod.getInstance()
+        commonLoginBinding.textViewUserAgreement.text = userAgreementNotice
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
