@@ -1,6 +1,7 @@
 package com.prytula.identifolibui.login
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -47,7 +48,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
-    private val userConditions: UseConditions by lazy { loginOptions.useConditions }
+    private val userConditions: UseConditions? by lazy { loginOptions.useConditions }
 
     private val googleOptions: GoogleSignInOptions by lazy {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -145,15 +146,20 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        val userAgreementText =
-            getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
-        val privacyPolicy = getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
-        val userAgreementNotice =
-            getString(R.string.userAgreementNotice).makeSpannableString() + userAgreementText + getString(
-                R.string.userAgreementNoticeAnd
-            ).makeSpannableString() + privacyPolicy
-        commonLoginBinding.textViewUserAgreement.movementMethod = LinkMovementMethod.getInstance()
-        commonLoginBinding.textViewUserAgreement.text = userAgreementNotice
+        userConditions?.let { userConditions ->
+            val userAgreementText = getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
+            val privacyPolicy = getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
+            val userAgreementNotice =
+                getString(R.string.userAgreementNotice).makeSpannableString() + userAgreementText + getString(
+                    R.string.userAgreementNoticeAnd
+                ).makeSpannableString() + privacyPolicy
+
+            commonLoginBinding.textViewUserAgreement.run {
+                visibility = View.VISIBLE
+                movementMethod = LinkMovementMethod.getInstance()
+                text = userAgreementNotice
+            }
+        }
 
         commonLoginBinding.textViewRegisterNewAccount.text = getString(R.string.registerNewAccount).makeUnderline()
         commonLoginBinding.textViewRegisterNewAccount.setOnClickListener {

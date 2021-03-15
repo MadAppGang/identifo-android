@@ -11,5 +11,5 @@ import java.io.Serializable
 data class LoginOptions(
     val commonStyle: Style? = null,
     val providers : List<LoginProviders>,
-    val useConditions: UseConditions
+    val useConditions: UseConditions? = null
 ) : Serializable
