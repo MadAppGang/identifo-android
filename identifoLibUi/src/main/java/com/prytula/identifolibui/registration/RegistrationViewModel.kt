@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-class IdentifoRegistrationViewModel : ViewModel() {
+class RegistrationViewModel : ViewModel() {
 
     private val _registrationSuccessful = MutableSharedFlow<RegisterResponse>()
     val registrationSuccessful: SharedFlow<RegisterResponse> = _registrationSuccessful

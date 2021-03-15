@@ -9,6 +9,7 @@
     <string name="loginWithFacebook">Sign in with Facebook</string>
     <string name="verifyPhoneNumber">Verify phone number</string>
     <string name="register">Register</string>
+    <string name="registerNewAccount">Register a new account</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
     <string name="passwordConfirm">Confirm a password</string>

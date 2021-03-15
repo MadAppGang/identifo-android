@@ -1,39 +1,28 @@
 package com.prytula.identifolibui.login
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.prytula.IdentifoAuth
-import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
-import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
 import com.prytula.identifolibui.extensions.*
-import com.prytula.identifolibui.extensions.redirectToUrl
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.options.LoginOptions
@@ -55,7 +44,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     private val commonLoginBinding by viewBinding(FragmentCommonLoginBinding::bind)
     private val commonViewModel: CommonViewModel by viewModels()
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
     private val userConditions: UseConditions by lazy { loginOptions.useConditions }
@@ -165,6 +154,10 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             ).makeSpannableString() + privacyPolicy
         commonLoginBinding.textViewUserAgreement.movementMethod = LinkMovementMethod.getInstance()
         commonLoginBinding.textViewUserAgreement.text = userAgreementNotice
+
+        commonLoginBinding.textViewRegisterNewAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_commonLoginFragment_to_registrationFragment)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

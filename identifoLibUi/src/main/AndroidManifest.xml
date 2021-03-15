@@ -4,13 +4,7 @@
 
     <application>
         <activity
-            android:name="com.prytula.identifolibui.registration.IdentifoRegistrationActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name="com.prytula.identifolibui.login.IdentifoLoginActivity"
+            android:name="com.prytula.identifolibui.login.IdentifoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

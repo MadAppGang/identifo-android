@@ -16,14 +16,21 @@
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right"/>
+            app:popExitAnim="@anim/exit_right" />
         <action
             android:id="@+id/action_commonLoginFragment_to_usernameLoginFragment"
             app:destination="@id/usernameLoginFragment"
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right"/>
+            app:popExitAnim="@anim/exit_right" />
+        <action
+            android:id="@+id/action_commonLoginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
     </fragment>
 
     <fragment
@@ -37,17 +44,22 @@
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right"/>
+            app:popExitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"
         android:name="com.prytula.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment"
         android:label="OneTimePasswordFragment"
-        tools:layout="@layout/fragment_one_time_password"/>
+        tools:layout="@layout/fragment_one_time_password" />
     <fragment
         android:id="@+id/usernameLoginFragment"
         android:name="com.prytula.identifolibui.login.username.UsernameLoginFragment"
         android:label="UsernameLoginFragment"
-        tools:layout="@layout/fragment_login_username"/>
+        tools:layout="@layout/fragment_login_username" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.prytula.identifolibui.registration.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fragment_registration" />
 
 </navigation>

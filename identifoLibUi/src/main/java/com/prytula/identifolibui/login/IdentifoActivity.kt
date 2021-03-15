@@ -14,13 +14,13 @@ import java.io.Serializable
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-class IdentifoLoginActivity : AppCompatActivity() {
+class IdentifoActivity : AppCompatActivity() {
 
     companion object {
         private const val GOOGLE_APP_ID_KEY = "google_app_id_key"
 
         fun openActivity(context: Context, loginOptions: Serializable) {
-            context.startActivity<IdentifoLoginActivity> {
+            context.startActivity<IdentifoActivity> {
                 putExtra(GOOGLE_APP_ID_KEY, loginOptions)
             }
         }

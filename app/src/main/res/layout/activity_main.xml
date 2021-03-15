@@ -12,16 +12,10 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Register" />
-
-        <Button
             android:id="@+id/buttonLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:text="Auth" />
 
         <Button
             android:id="@+id/buttonLogout"

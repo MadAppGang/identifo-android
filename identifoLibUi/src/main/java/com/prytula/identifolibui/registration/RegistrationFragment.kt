@@ -1,48 +1,39 @@
 package com.prytula.identifolibui.registration
 
-import android.content.Context
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.prytula.identifolibui.R
-import com.prytula.identifolibui.databinding.ActivityIdentifoRegistrationBinding
+import com.prytula.identifolibui.databinding.FragmentRegistrationBinding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
-import com.prytula.identifolibui.extensions.startActivity
 
 
 /*
- * Created by Eugene Prytula on 2/17/21.
+ * Created by Eugene Prytula on 3/15/21.
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-class IdentifoRegistrationActivity : AppCompatActivity() {
+class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
-    companion object {
-        fun openActivity(context: Context) {
-            context.startActivity<IdentifoRegistrationActivity>()
-        }
-    }
+    private val registrationBinding by viewBinding(FragmentRegistrationBinding::bind)
+    private val registrationViewModel by viewModels<RegistrationViewModel>()
 
-    private val registrationBinding by viewBinding(ActivityIdentifoRegistrationBinding::bind)
-    private val registrationViewModel by viewModels<IdentifoRegistrationViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_identifo_registration)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         registrationBinding.buttonRegister.setOnClickListener { pushUsernameAndPassword() }
         registrationBinding.editTextPassword.onDone { pushUsernameAndPassword() }
 
         registrationViewModel.registrationSuccessful.asLiveData()
-            .observe(this) { registerResponse ->
-                finish()
+            .observe(viewLifecycleOwner) { registerResponse ->
+                requireActivity().finish()
             }
 
         registrationViewModel.receiveError.asLiveData()
-            .observe(this) { errorResponse ->
+            .observe(viewLifecycleOwner) { errorResponse ->
                 registrationBinding.constraintRegistrationRoot.showMessage(errorResponse.error.message)
             }
     }
