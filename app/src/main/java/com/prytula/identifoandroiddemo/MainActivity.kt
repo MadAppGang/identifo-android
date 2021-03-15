@@ -32,7 +32,12 @@ class MainActivity : AppCompatActivity() {
         buttonRegister.setOnClickListener { IdentifoRegistrationActivity.openActivity(this) }
 
         buttonLogin.setOnClickListener {
-            val providers = listOf(LoginProviders.GMAIL, LoginProviders.FACEBOOK, LoginProviders.PHONE, LoginProviders.EMAIL)
+            val providers = listOf(
+                LoginProviders.GMAIL,
+                LoginProviders.FACEBOOK,
+                LoginProviders.PHONE,
+                LoginProviders.EMAIL
+            )
             val style = Style(
                 imageRes = R.drawable.ic_logo,
             )

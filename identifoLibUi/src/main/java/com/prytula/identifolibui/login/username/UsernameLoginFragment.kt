@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.prytula.IdentifoAuth
@@ -26,6 +28,7 @@ import com.prytula.identifolibui.extensions.showMessage
 class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
 
     private val usernameLoginBinding by viewBinding(FragmentLoginUsernameBinding::bind)
+    private val usernameLoginViewModel: UsernameLoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,17 +36,25 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
         val username = usernameLoginBinding.editTextTextEmailAddress.text.toString()
         val password = usernameLoginBinding.editTextPassword.text.toString()
 
-        usernameLoginBinding.editTextPassword.onDone { performLogin(username, password) }
-        usernameLoginBinding.buttonLogin.setOnClickListener { performLogin(username, password) }
-    }
+        usernameLoginBinding.editTextPassword.onDone {
+            usernameLoginViewModel.performLogin(
+                username,
+                password
+            )
+        }
+        usernameLoginBinding.buttonLogin.setOnClickListener {
+            usernameLoginViewModel.performLogin(
+                username,
+                password
+            )
+        }
 
-    private fun performLogin(username: String, password: String) {
-        lifecycleScope.launchWhenCreated {
-            IdentifoAuth.loginWithUsernameAndPassword(username, password).onError {
-                usernameLoginBinding.constraintLoginRoot.showMessage(it.error.message)
-            }.onSuccess {
-                requireActivity().finish()
-            }
+        usernameLoginViewModel.signInSuccessful.asLiveData().observe(viewLifecycleOwner) {
+            requireActivity().finish()
+        }
+
+        usernameLoginViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) {
+            usernameLoginBinding.constraintLoginRoot.showMessage(it.error.message)
         }
     }
 }

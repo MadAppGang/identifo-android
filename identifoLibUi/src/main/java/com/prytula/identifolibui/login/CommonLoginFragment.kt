@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -46,7 +48,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     }
 
     private val commonLoginBinding by viewBinding(FragmentCommonLoginBinding::bind)
-
+    private val commonViewModel: CommonViewModel by viewModels()
 
     private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
@@ -71,6 +73,15 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        commonViewModel.finishSigningIn.asLiveData()
+            .observe(viewLifecycleOwner) { federatedResponse ->
+                requireActivity().finish()
+            }
+
+        commonViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) { errorResponse ->
+            commonLoginBinding.constraintLoginRoot.showMessage(errorResponse.error.message)
+        }
 
         commonStyle?.let {
             it.imageRes?.let {
@@ -111,13 +122,17 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                 commonLoginBinding.buttonLoginWithFacebook.run {
                     visibility = View.VISIBLE
                     setOnClickListener {
-                        commonLoginBinding.buttonLoginWithFacebookNative.setPermissions("email", "public_profile")
-                        commonLoginBinding.buttonLoginWithFacebookNative.fragment = this@CommonLoginFragment
+                        commonLoginBinding.buttonLoginWithFacebookNative.setPermissions(
+                            "email",
+                            "public_profile"
+                        )
+                        commonLoginBinding.buttonLoginWithFacebookNative.fragment =
+                            this@CommonLoginFragment
                         commonLoginBinding.buttonLoginWithFacebookNative.registerCallback(
                             facebookCallbackManager,
                             object : FacebookCallback<LoginResult> {
                                 override fun onSuccess(result: LoginResult?) {
-                                    sendFederatedToken(
+                                    commonViewModel.sendFederatedToken(
                                         FederatedProviders.FACEBOOK,
                                         result?.accessToken?.token ?: ""
                                     )
@@ -149,7 +164,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             val idToken: String = account?.idToken ?: ""
-            sendFederatedToken(FederatedProviders.GOOGLE, idToken)
+            commonViewModel.sendFederatedToken(FederatedProviders.GOOGLE, idToken)
         } catch (e: Exception) {
             commonLoginBinding.constraintLoginRoot.showMessage(e.message.toString())
         }
@@ -158,15 +173,5 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     private fun signIn() {
         val intent = googleClient.signInIntent
         startActivityForResult(intent, RC_SIGN_IN)
-    }
-
-    private fun sendFederatedToken(federatedProvider: FederatedProviders, token: String) {
-        lifecycleScope.launchWhenCreated {
-            IdentifoAuth.federatedLogin(federatedProvider.title, token).onSuccess {
-                requireActivity().finish()
-            }.onError {
-                commonLoginBinding.constraintLoginRoot.showMessage(it.error.message)
-            }
-        }
     }
 }

@@ -2,22 +2,15 @@ package com.prytula.identifolibui.registration
 
 import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.asLiveData
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.prytula.IdentifoAuth
-import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.R
-import com.prytula.identifolibui.databinding.ActivityIdentifoLoginBinding
 import com.prytula.identifolibui.databinding.ActivityIdentifoRegistrationBinding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.extensions.startActivity
-import kotlinx.coroutines.launch
 
 
 /*
@@ -34,6 +27,7 @@ class IdentifoRegistrationActivity : AppCompatActivity() {
     }
 
     private val registrationBinding by viewBinding(ActivityIdentifoRegistrationBinding::bind)
+    private val registrationViewModel by viewModels<IdentifoRegistrationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +35,16 @@ class IdentifoRegistrationActivity : AppCompatActivity() {
 
         registrationBinding.buttonRegister.setOnClickListener { pushUsernameAndPassword() }
         registrationBinding.editTextPassword.onDone { pushUsernameAndPassword() }
+
+        registrationViewModel.registrationSuccessful.asLiveData()
+            .observe(this) { registerResponse ->
+                finish()
+            }
+
+        registrationViewModel.receiveError.asLiveData()
+            .observe(this) { errorResponse ->
+                registrationBinding.constraintRegistrationRoot.showMessage(errorResponse.error.message)
+            }
     }
 
     private fun pushUsernameAndPassword() {
@@ -49,19 +53,9 @@ class IdentifoRegistrationActivity : AppCompatActivity() {
         val repeatPassword = registrationBinding.editTextPasswordRepeat.text.toString()
 
         if (password == repeatPassword) {
-            registerWithUsernameAndPassword(login, password)
+            registrationViewModel.registerWithUsernameAndPassword(login, password)
         } else {
             registrationBinding.constraintRegistrationRoot.showMessage(getString(R.string.passwordsDoNotMatch))
-        }
-    }
-
-    private fun registerWithUsernameAndPassword(username: String, password: String) {
-        lifecycleScope.launch {
-            IdentifoAuth.registerWithUsernameAndPassword(username, password, false).onSuccess {
-                finish()
-            }.onError {
-                registrationBinding.constraintRegistrationRoot.showMessage(it.error.message)
-            }
         }
     }
 }
