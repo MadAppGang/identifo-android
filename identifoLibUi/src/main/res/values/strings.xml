@@ -13,6 +13,8 @@
     <string name="passwordHint">Password</string>
     <string name="passwordConfirm">Confirm a password</string>
     <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
+    <string name="userAgreement">User Agreement</string>
+    <string name="privacyPolicy">Privacy Policy</string>
 
     <string name="app_name" />
     <string name="facebook_app_id" />

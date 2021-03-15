@@ -42,9 +42,15 @@ class MainActivity : AppCompatActivity() {
                 imageRes = R.drawable.ic_logo,
             )
 
+            val userConditions = UseConditions(
+                "https://madappgang.com/",
+                "https://madappgang.com/experience"
+            )
+
             val loginOptions = LoginOptions(
                 commonStyle = style,
-                providers = providers
+                providers = providers,
+                userConditions
             )
             IdentifoLoginActivity.openActivity(this, loginOptions)
         }

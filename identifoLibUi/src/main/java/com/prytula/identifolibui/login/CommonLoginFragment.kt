@@ -1,6 +1,7 @@
 package com.prytula.identifolibui.login
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -30,10 +31,14 @@ import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
 import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
+import com.prytula.identifolibui.extensions.makeAnotherColor
+import com.prytula.identifolibui.extensions.makeUnderline
+import com.prytula.identifolibui.extensions.redirectToUrl
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.options.LoginOptions
 import com.prytula.identifolibui.login.options.LoginProviders
+import com.prytula.identifolibui.login.options.UseConditions
 
 
 /*
@@ -53,6 +58,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoLoginActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
+    private val userConditions: UseConditions by lazy { loginOptions.useConditions }
 
     private val googleOptions: GoogleSignInOptions by lazy {
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -147,6 +153,24 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                         commonLoginBinding.buttonLoginWithFacebookNative.performClick()
                     }
                 }
+            }
+        }
+
+        val userAgreementText = getString(R.string.userAgreement).makeUnderline()
+        val privacyPolicy = getString(R.string.privacyPolicy).makeUnderline()
+
+        commonLoginBinding.textViewUserConditions.run {
+            text = userAgreementText
+            setOnClickListener {
+                this@CommonLoginFragment.requireContext()
+                    .redirectToUrl(userConditions.userAgreementLink)
+            }
+        }
+        commonLoginBinding.textViewPrivacyPolicy.run {
+            text = privacyPolicy
+            setOnClickListener {
+                this@CommonLoginFragment.requireContext()
+                    .redirectToUrl(userConditions.privacyPolicy)
             }
         }
     }
