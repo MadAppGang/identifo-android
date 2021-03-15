@@ -9,5 +9,5 @@ package com.prytula.identifolib.entities
 data class IdentifoUser(
     val id : String,
     val username : String,
-    val isAnonymous : Boolean,
+    val isAnonymous : Boolean
 )

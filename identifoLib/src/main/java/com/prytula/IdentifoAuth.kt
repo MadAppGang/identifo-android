@@ -86,7 +86,8 @@ object IdentifoAuth : KoinComponent {
         return if (refreshToken.isExpired()) {
             AuthState.Deauthentificated
         } else {
-            AuthState.Authentificated(user)
+            val accessToken = tokens.access?.jwtEncoded
+            AuthState.Authentificated(user, accessToken)
         }
     }
 
@@ -102,7 +103,7 @@ object IdentifoAuth : KoinComponent {
             )
         )
         userStorage.user = user
-        _authState.value = AuthState.Authentificated(user)
+        _authState.value = AuthState.Authentificated(user, accessToken)
     }
 
     internal fun clearTokens() {
