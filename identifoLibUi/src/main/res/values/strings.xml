@@ -18,6 +18,9 @@
     <string name="privacyPolicy">Privacy Policy</string>
     <string name="userAgreementNotice">By continuing, you are indicating that you accept our </string>
     <string name="userAgreementNoticeAnd"> and </string>
+    <string name="pleaseEnterTheCode">Please enter the code</string>
+    <string name="resendTheCode">%1$s Resend the code</string>
+    <string name="sendTheCode">Resend the code</string>
 
     <string name="app_name" />
     <string name="facebook_app_id" />

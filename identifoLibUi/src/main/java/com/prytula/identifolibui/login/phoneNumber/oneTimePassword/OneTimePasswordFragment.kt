@@ -3,6 +3,7 @@ package com.prytula.identifolibui.login.phoneNumber.oneTimePassword
 import android.app.Activity
 import android.content.*
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import com.prytula.identifolibui.databinding.FragmentOneTimePasswordBinding
 import com.prytula.identifolibui.extensions.hideSoftKeyboard
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.extensions.showSoftKeyboard
+import java.util.concurrent.TimeUnit
 
 
 /*
@@ -48,6 +50,8 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         super.onViewCreated(view, savedInstanceState)
         val phoneNumber = requireArguments().getString(PHONE_NUMBER_KEY) ?: ""
 
+        oneTimePasswordViewModel.requestOtpCode(phoneNumber)
+
         oneTimePasswordBinding.editTextOtp.requestFocus()
         requireActivity().showSoftKeyboard()
 
@@ -60,6 +64,10 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         oneTimePasswordBinding.editTextOtp.setOnClickListener {
             requireActivity().showSoftKeyboard()
         }
+        oneTimePasswordBinding.buttonResendTheCode.setOnClickListener {
+            oneTimePasswordViewModel.requestOtpCode(phoneNumber)
+        }
+
         registerSMSReceiver()
 
         oneTimePasswordViewModel.finishSigningIn.asLiveData()
@@ -70,6 +78,24 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         oneTimePasswordViewModel.receiveError.asLiveData()
             .observe(viewLifecycleOwner) { errorResponse ->
                 oneTimePasswordBinding.constraintOtpRoot.showMessage(errorResponse.error.message)
+            }
+
+        oneTimePasswordViewModel.timerClickValue.asLiveData()
+            .observe(viewLifecycleOwner) { millisUntilFinish ->
+                val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinish)
+                val time = DateUtils.formatElapsedTime(seconds)
+                oneTimePasswordBinding.textViewResentCountTimer.text =
+                    String.format(getString(R.string.resendTheCode), time)
+            }
+
+        oneTimePasswordViewModel.isImpossibleToSendTheCode.asLiveData()
+            .observe(viewLifecycleOwner) { isAllowedToResendTheCode ->
+                oneTimePasswordBinding.buttonResendTheCode.run {
+                    isEnabled = isAllowedToResendTheCode
+                    isClickable = isAllowedToResendTheCode
+                }
+                val titleVisibility = if (isAllowedToResendTheCode) View.GONE else View.VISIBLE
+                oneTimePasswordBinding.textViewResentCountTimer.visibility = titleVisibility
             }
     }
 

@@ -25,7 +25,6 @@ import com.prytula.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswo
 class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
 
     private val phoneNumberLoginBinding by viewBinding(FragmentPhoneNumberLoginBinding::bind)
-    private val phoneNumberViewModel: PhoneNumberViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,23 +39,13 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
         phoneNumberLoginBinding.buttonProceed.setOnClickListener {
             if (isPhoneNumberValid) {
                 val phoneNumber = phoneNumberLoginBinding.countryCodePicker.fullNumberWithPlus
-                phoneNumberViewModel.requestOtpCode(phoneNumber)
+                findNavController().navigate(
+                    R.id.action_phoneNumberLoginFragment_to_oneTimePasswordFragment,
+                    OneTimePasswordFragment.putArgument(phoneNumber)
+                )
             } else {
                 phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
             }
         }
-
-        phoneNumberViewModel.codeHasBeenReceived.asLiveData()
-            .observe(viewLifecycleOwner) { requestPhoneCodeResponse ->
-                findNavController().navigate(
-                    R.id.action_phoneNumberLoginFragment_to_oneTimePasswordFragment,
-                    OneTimePasswordFragment.putArgument(phoneNumberLoginBinding.countryCodePicker.fullNumberWithPlus)
-                )
-            }
-
-        phoneNumberViewModel.receiveError.asLiveData()
-            .observe(viewLifecycleOwner) { errorResponse ->
-                phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(errorResponse.error.message)
-            }
     }
 }
