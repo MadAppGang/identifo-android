@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 class OneTimePasswordViewModel : ViewModel() {
 
     companion object {
-        private const val TOTAL_WAITING_TiME_MILLIS = 10000L
+        private const val TOTAL_WAITING_TiME_MILLIS = 60000L
         private const val STEP_TIME_MILLIS = 1000L
     }
 
