@@ -29,6 +29,7 @@ import com.prytula.identifolib.extensions.suspendApiCall
 import com.prytula.identifolib.network.QueriesService
 import com.prytula.identifolib.network.RefreshSessionQueries
 import com.prytula.identifolib.storages.IUserStorage
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -47,8 +48,7 @@ object IdentifoAuth : KoinComponent {
     private val tokenDataStorage by inject<ITokenDataStorage>()
     private val userStorage by inject<IUserStorage>()
     private val queriesService by inject<QueriesService>()
-
-    private val coroutineDispatcher = Dispatchers.IO
+    private val backgroundCoroutineDispatcher by inject<CoroutineDispatcher>()
 
     private val _authState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
     val authState by lazy { _authState.asStateFlow() }
@@ -116,7 +116,7 @@ object IdentifoAuth : KoinComponent {
         username: String,
         password: String,
         isAnonymous: Boolean
-    ): Result<RegisterResponse, ErrorResponse> = withContext(coroutineDispatcher) {
+    ): Result<RegisterResponse, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         val registerCredentials =
             RegisterDataSet(username = username, password = password, anonymous = isAnonymous)
         return@withContext suspendApiCall {
@@ -133,7 +133,7 @@ object IdentifoAuth : KoinComponent {
         oldPassword: String,
         newUsername: String,
         newPassword: String
-    ): Result<DeanonimizeResponse, ErrorResponse> = withContext(coroutineDispatcher) {
+    ): Result<DeanonimizeResponse, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         val deanonimizeDataSet = DeanonimizeDataSet(
             oldUsername,
             oldPassword,
@@ -146,7 +146,7 @@ object IdentifoAuth : KoinComponent {
     suspend fun loginWithUsernameAndPassword(
         username: String,
         password: String
-    ): Result<LoginResponse, ErrorResponse> = withContext(coroutineDispatcher) {
+    ): Result<LoginResponse, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         val loginDataSet = LoginDataSet(username, password)
         return@withContext suspendApiCall {
             queriesService.loginWithUsernameAndPassword(loginDataSet)
@@ -158,7 +158,7 @@ object IdentifoAuth : KoinComponent {
     }
 
     suspend fun requestPhoneCode(phoneNumber: String): Result<RequestPhoneCodeResponse, ErrorResponse> =
-        withContext(coroutineDispatcher) {
+        withContext(backgroundCoroutineDispatcher) {
             val requestPhoneCodeDataSet = RequestPhoneCodeDataSet(phoneNumber)
             return@withContext suspendApiCall {
                 queriesService.requestPhoneCode(
@@ -170,7 +170,7 @@ object IdentifoAuth : KoinComponent {
     suspend fun phoneLogin(
         phoneLogin: String,
         code: String
-    ): Result<PhoneLoginResponse, ErrorResponse> = withContext(coroutineDispatcher) {
+    ): Result<PhoneLoginResponse, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         val loginDataSet = PhoneLoginDataSet(phoneLogin, code)
         return@withContext suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
             val fetchedUser = it.loggedUser
@@ -182,7 +182,7 @@ object IdentifoAuth : KoinComponent {
     suspend fun federatedLogin(
         provider: String,
         token: String
-    ): Result<FederatedLoginResponse, ErrorResponse> = withContext(coroutineDispatcher) {
+    ): Result<FederatedLoginResponse, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         val federatedLoginDataSet = FederatedLoginDataSet(provider, token)
         return@withContext suspendApiCall { queriesService.federatedLogin(federatedLoginDataSet) }.onSuccess {
             val fetchedUser = it.loggedUser
@@ -191,7 +191,7 @@ object IdentifoAuth : KoinComponent {
         }
     }
 
-    suspend fun logout(): Result<Unit, ErrorResponse> = withContext(coroutineDispatcher) {
+    suspend fun logout(): Result<Unit, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         return@withContext suspendApiCall { queriesService.logout() }.onSuccess {
             clearTokens()
         }

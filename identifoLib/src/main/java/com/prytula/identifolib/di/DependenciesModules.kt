@@ -9,6 +9,8 @@ import com.prytula.identifolib.network.QueriesService
 import com.prytula.identifolib.network.RefreshSessionQueries
 import com.prytula.identifolib.storages.IUserStorage
 import com.prytula.identifolib.storages.UserStorage
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -55,7 +57,11 @@ fun dependenciesModule(
         )
     }
 
-    factory<QueriesService> {
+    single<CoroutineDispatcher> {
+        Dispatchers.IO
+    }
+
+    single<QueriesService> {
         OkHttpClient.Builder()
             .addInterceptor(get() as HttpLoggingInterceptor)
             .addInterceptor(get(named(IDENTIFO_AUTH_INTERCEPTOR)) as IdentifoAuthInterceptor)
@@ -64,7 +70,7 @@ fun dependenciesModule(
             .createWebService(baseUrl)
     }
 
-    factory<RefreshSessionQueries> {
+    single<RefreshSessionQueries> {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
             .addInterceptor(get<MockRequestInterceptor>())
