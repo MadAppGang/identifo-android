@@ -14,6 +14,8 @@ import com.prytula.identifolib.entities.register.RegisterDataSet
 import com.prytula.identifolib.entities.register.RegisterResponse
 import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeDataSet
 import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeResponse
+import com.prytula.identifolib.entities.reserPassword.ResetPasswordDataSet
+import com.prytula.identifolib.entities.reserPassword.ResetPasswordResponse
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -42,12 +44,16 @@ interface QueriesService {
     suspend fun requestPhoneCode(@Body requestPhoneCodeDataSet: RequestPhoneCodeDataSet): RequestPhoneCodeResponse
 
     @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
+    @POST("/auth/reset_password")
+    suspend fun resetPassword(@Body resetPasswordDataSet: ResetPasswordDataSet): ResetPasswordResponse
+
+    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/phone_login")
-    suspend fun phoneLogin(@Body phoneLoginDataSet: PhoneLoginDataSet) : PhoneLoginResponse
+    suspend fun phoneLogin(@Body phoneLoginDataSet: PhoneLoginDataSet): PhoneLoginResponse
 
     @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/federated")
-    suspend fun federatedLogin(@Body federatedLoginDataSet: FederatedLoginDataSet) : FederatedLoginResponse
+    suspend fun federatedLogin(@Body federatedLoginDataSet: FederatedLoginDataSet): FederatedLoginResponse
 
     @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/me/logout")

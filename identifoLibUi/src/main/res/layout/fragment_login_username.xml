@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constraint_login_root"
@@ -45,5 +46,29 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/editTextPassword" />
+
+    <TextView
+        android:id="@+id/textViewForgotThePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/forgotThePassword"
+        android:textSize="@dimen/text16"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintVertical_bias="0.35000002" />
+
+    <TextView
+        android:id="@+id/textViewRegisterNewAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/registerNewAccount"
+        android:textSize="@dimen/text16"
+        app:layout_constraintEnd_toEndOf="@+id/textViewForgotThePassword"
+        app:layout_constraintStart_toStartOf="@+id/textViewForgotThePassword"
+        app:layout_constraintTop_toBottomOf="@+id/textViewForgotThePassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

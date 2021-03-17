@@ -12,6 +12,7 @@
     <string name="registerNewAccount">Register a new account</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
+    <string name="forgotThePassword">Forgot the password</string>
     <string name="passwordConfirm">Confirm a password</string>
     <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
     <string name="userAgreement">User Agreement</string>
@@ -21,6 +22,8 @@
     <string name="pleaseEnterTheCode">Please enter the code</string>
     <string name="resendTheCode">%1$s Resend the code</string>
     <string name="sendTheCode">Resend the code</string>
+    <string name="resetThePassword">Reset the password</string>
+    <string name="resetPasswordEmail">Reset password for email</string>
 
     <string name="app_name" />
     <string name="facebook_app_id" />

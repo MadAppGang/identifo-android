@@ -160,11 +160,6 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                 text = userAgreementNotice
             }
         }
-
-        commonLoginBinding.textViewRegisterNewAccount.text = getString(R.string.registerNewAccount).makeUnderline()
-        commonLoginBinding.textViewRegisterNewAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_commonLoginFragment_to_registrationFragment)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

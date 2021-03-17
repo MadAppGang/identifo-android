@@ -22,6 +22,8 @@ import com.prytula.identifolib.entities.register.RegisterDataSet
 import com.prytula.identifolib.entities.register.RegisterResponse
 import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeDataSet
 import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeResponse
+import com.prytula.identifolib.entities.reserPassword.ResetPasswordDataSet
+import com.prytula.identifolib.entities.reserPassword.ResetPasswordResponse
 import com.prytula.identifolib.extensions.Result
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
@@ -165,6 +167,12 @@ object IdentifoAuth : KoinComponent {
                     requestPhoneCodeDataSet
                 )
             }
+        }
+
+    suspend fun resetPassword(email: String): Result<ResetPasswordResponse, ErrorResponse> =
+        withContext(backgroundCoroutineDispatcher) {
+            val resetPasswordDataSet = ResetPasswordDataSet(email)
+            return@withContext suspendApiCall { queriesService.resetPassword(resetPasswordDataSet) }
         }
 
     suspend fun phoneLogin(
