@@ -68,11 +68,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion"
 
-    // kotpref
-    def kotprefVersion = "2.10.0"
-    implementation "com.chibatching.kotpref:kotpref:$kotprefVersion"
-    implementation "com.chibatching.kotpref:gson-support:$kotprefVersion"
-    implementation "com.chibatching.kotpref:enum-support:$kotprefVersion"
+    // encrypted shared preference
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

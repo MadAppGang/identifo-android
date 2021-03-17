@@ -1,9 +1,9 @@
 package com.prytula.identifolib.storages
 
 import android.content.Context
-import com.chibatching.kotpref.KotprefModel
-import com.chibatching.kotpref.gsonpref.gsonNullablePref
-import com.chibatching.kotpref.gsonpref.gsonPref
+import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.prytula.identifolib.entities.IdentifoUser
 
 
@@ -13,11 +13,48 @@ import com.prytula.identifolib.entities.IdentifoUser
  */
 
 interface IUserStorage {
-    var user: IdentifoUser?
+    fun setUser(identifoUser: IdentifoUser)
+    fun getUser(): IdentifoUser
     fun clearAll()
 }
 
-class UserStorage(context: Context) : KotprefModel(context), IUserStorage {
-    override var user: IdentifoUser? by gsonNullablePref()
-    override fun clearAll() = clear()
+class UserStorage(context: Context) : IUserStorage {
+
+    companion object {
+        private const val IDENTIFO_USER_STORAGE = "identifo_user_storage"
+        private const val USER_ID_KEY = "user_id_key"
+        private const val USER_NAME_KEY = "user_name_key"
+        private const val USER_IS_ANONYMOUS_KEY = "user_is_anonymous_key"
+    }
+
+    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+
+    private val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
+        IDENTIFO_USER_STORAGE,
+        masterKeyAlias,
+        context,
+        EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+        EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    )
+
+    override fun setUser(identifoUser: IdentifoUser) {
+        with(sharedPreferences.edit()) {
+            putString(USER_ID_KEY, identifoUser.id)
+            putString(USER_NAME_KEY, identifoUser.username)
+            putBoolean(USER_IS_ANONYMOUS_KEY, identifoUser.isAnonymous)
+            apply()
+        }
+    }
+
+    override fun getUser(): IdentifoUser {
+        val id = sharedPreferences.getString(USER_ID_KEY, "") ?: ""
+        val userName = sharedPreferences.getString(USER_NAME_KEY, "") ?: ""
+        val isAnonymous = sharedPreferences.getBoolean(USER_IS_ANONYMOUS_KEY, false)
+        return IdentifoUser(id, userName, isAnonymous)
+    }
+
+
+    override fun clearAll() {
+        sharedPreferences.edit().clear().apply()
+    }
 }

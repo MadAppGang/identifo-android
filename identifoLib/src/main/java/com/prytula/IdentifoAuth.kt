@@ -1,12 +1,6 @@
 package com.prytula
 
 import android.content.Context
-import com.chibatching.kotpref.Kotpref
-import com.chibatching.kotpref.gsonpref.gson
-import com.google.gson.GsonBuilder
-import com.prytula.identifolib.AccessTokenTypeAdapter
-import com.prytula.identifolib.storages.ITokenDataStorage
-import com.prytula.identifolib.TokensTypeAdapter
 import com.prytula.identifolib.di.dependenciesModule
 import com.prytula.identifolib.entities.*
 import com.prytula.identifolib.entities.deanonymize.DeanonimizeDataSet
@@ -17,7 +11,6 @@ import com.prytula.identifolib.entities.logging.LoginDataSet
 import com.prytula.identifolib.entities.logging.LoginResponse
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginDataSet
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginResponse
-import com.prytula.identifolib.entities.refreshToken.RefreshTokenResponse
 import com.prytula.identifolib.entities.register.RegisterDataSet
 import com.prytula.identifolib.entities.register.RegisterResponse
 import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeDataSet
@@ -25,14 +18,12 @@ import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeResponse
 import com.prytula.identifolib.entities.reserPassword.ResetPasswordDataSet
 import com.prytula.identifolib.entities.reserPassword.ResetPasswordResponse
 import com.prytula.identifolib.extensions.Result
-import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolib.extensions.suspendApiCall
 import com.prytula.identifolib.network.QueriesService
-import com.prytula.identifolib.network.RefreshSessionQueries
+import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.storages.IUserStorage
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
@@ -40,6 +31,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
+
 
 /*
  * Created by Eugene Prytula on 2/5/21.
@@ -61,14 +53,6 @@ object IdentifoAuth : KoinComponent {
         appId: String,
         secretKey: String
     ) {
-        Kotpref.apply {
-            init(context)
-            gson = GsonBuilder()
-                .registerTypeAdapter(Tokens::class.java, TokensTypeAdapter())
-                .registerTypeAdapter(Token.Access::class.java, AccessTokenTypeAdapter())
-                .create()
-        }
-
         startKoin {
             androidContext(context)
             modules(
@@ -83,7 +67,7 @@ object IdentifoAuth : KoinComponent {
 
     private fun getInitialAuthentificationState(): AuthState {
         val tokens = tokenDataStorage.getTokens()
-        val user = userStorage.user
+        val user = userStorage.getUser()
         val refreshToken = tokens.refresh
         return if (refreshToken.isExpired()) {
             AuthState.Deauthentificated
@@ -96,7 +80,7 @@ object IdentifoAuth : KoinComponent {
     internal fun saveTokens(
         accessToken: String,
         refreshToken: String,
-        user: IdentifoUser? = userStorage.user
+        user: IdentifoUser? = userStorage.getUser()
     ) {
         tokenDataStorage.setTokens(
             Tokens(
@@ -104,7 +88,7 @@ object IdentifoAuth : KoinComponent {
                 Token.Refresh(refreshToken)
             )
         )
-        userStorage.user = user
+        user?.let { userStorage.setUser(it) }
         _authState.value = AuthState.Authentificated(user, accessToken)
     }
 
