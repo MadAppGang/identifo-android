@@ -3,4 +3,6 @@
     <dimen name="text12">12sp</dimen>
     <dimen name="text14">14sp</dimen>
     <dimen name="text16">16sp</dimen>
+
+    <dimen name="providers_sign_in_button">52dp</dimen>
 </resources>

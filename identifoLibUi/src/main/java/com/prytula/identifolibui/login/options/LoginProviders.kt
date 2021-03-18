@@ -12,5 +12,6 @@ enum class LoginProviders : Serializable {
     EMAIL,
     PHONE,
     GMAIL,
-    FACEBOOK
+    FACEBOOK,
+    TWITTER
 }

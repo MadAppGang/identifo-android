@@ -9,5 +9,5 @@ package com.prytula.identifolibui
 enum class FederatedProviders(val title : String) {
     GOOGLE("google"),
     FACEBOOK("facebook"),
-    GITHUB("github")
+    TWITTER("twitter")
 }

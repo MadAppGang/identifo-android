@@ -34,4 +34,9 @@
         <item name="android:backgroundTint">@color/button_facebook_color</item>
     </style>
 
+    <style name="TwitterButtonStyle" parent="ColorfulButtonStyle">
+        <item name="android:drawableLeft">@drawable/tw__ic_logo_default</item>
+        <item name="android:backgroundTint">@color/button_twitter_color</item>
+    </style>
+
 </resources>

@@ -7,6 +7,7 @@
     <string name="phoneNumberInvalid">Invalid phone number</string>
     <string name="loginWithGmail">Sign in with Gmail</string>
     <string name="loginWithFacebook">Sign in with Facebook</string>
+    <string name="loginWithTwitter">Sign in with Twitter</string>
     <string name="verifyPhoneNumber">Verify phone number</string>
     <string name="register">Register</string>
     <string name="registerNewAccount">Register a new account</string>
@@ -25,8 +26,19 @@
     <string name="resetThePassword">Reset the password</string>
     <string name="resetPasswordEmail">Reset password for email</string>
 
-    <string name="app_name" />
-    <string name="facebook_app_id" />
-    <string name="fb_login_protocol_scheme" />
-    <string name="google_api_key" />
+    <!-- public shown resources -->
+    <string name="identifo_app_name" />
+    <string name="identifo_facebook_app_id" />
+    <string name="identifo_facebook_protocol_scheme" />
+    <string name="identifo_google_api_key" />
+    <string name="identifo_twitter_key" />
+    <string name="identifo_twitter_secret" />
+
+    <!-- sdk specific resources -->
+    <string name="app_name">@string/identifo_app_name</string>
+    <string name="facebook_app_id">@string/identifo_facebook_app_id</string>
+    <string name="fb_login_protocol_scheme">@string/identifo_facebook_protocol_scheme</string>
+    <string name="google_api_key">@string/identifo_google_api_key</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">@string/identifo_twitter_key</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">@string/identifo_twitter_secret</string>
 </resources>

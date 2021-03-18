@@ -50,6 +50,7 @@ dependencies {
     // federate providers
     api 'com.google.android.gms:play-services-auth:19.0.0'
     api 'com.facebook.android:facebook-login:9.0.0'
+    implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
 
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'

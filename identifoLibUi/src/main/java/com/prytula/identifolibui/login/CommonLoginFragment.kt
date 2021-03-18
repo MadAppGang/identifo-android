@@ -1,7 +1,6 @@
 package com.prytula.identifolibui.login
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -23,12 +22,15 @@ import com.google.android.gms.tasks.Task
 import com.prytula.identifolibui.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
-import com.prytula.identifolibui.extensions.*
+import com.prytula.identifolibui.extensions.makeSpannableString
+import com.prytula.identifolibui.extensions.makeUrl
+import com.prytula.identifolibui.extensions.plus
 import com.prytula.identifolibui.extensions.showMessage
-import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.options.LoginOptions
 import com.prytula.identifolibui.login.options.LoginProviders
+import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.options.UseConditions
+import com.twitter.sdk.android.core.*
 
 
 /*
@@ -94,61 +96,52 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
 
             if (it.contains(LoginProviders.GMAIL)) {
-                commonLoginBinding.buttonLoginWithGoogle.run {
+                with(commonLoginBinding.buttonLoginWithGoogle) {
                     visibility = View.VISIBLE
-                    setOnClickListener { signIn() }
+                    setOnClickListener { signInWithGoogle() }
                 }
             }
 
             if (it.contains(LoginProviders.EMAIL)) {
-                commonLoginBinding.buttonLoginWithUsername.run {
+                with(commonLoginBinding.buttonLoginWithUsername) {
                     visibility = View.VISIBLE
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
                 }
             }
 
             if (it.contains(LoginProviders.PHONE)) {
-                commonLoginBinding.buttonLoginWithPhoneNumber.run {
+                with(commonLoginBinding.buttonLoginWithPhoneNumber) {
                     visibility = View.VISIBLE
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
                 }
             }
 
             if (it.contains(LoginProviders.FACEBOOK)) {
-                commonLoginBinding.buttonLoginWithFacebook.run {
+                setupFacebookCallback()
+                with(commonLoginBinding.buttonLoginWithFacebook) {
                     visibility = View.VISIBLE
                     setOnClickListener {
-                        commonLoginBinding.buttonLoginWithFacebookNative.setPermissions(
-                            "email",
-                            "public_profile"
-                        )
-                        commonLoginBinding.buttonLoginWithFacebookNative.fragment =
-                            this@CommonLoginFragment
-                        commonLoginBinding.buttonLoginWithFacebookNative.registerCallback(
-                            facebookCallbackManager,
-                            object : FacebookCallback<LoginResult> {
-                                override fun onSuccess(result: LoginResult?) {
-                                    commonViewModel.sendFederatedToken(
-                                        FederatedProviders.FACEBOOK,
-                                        result?.accessToken?.token ?: ""
-                                    )
-                                }
-
-                                override fun onCancel() {}
-
-                                override fun onError(error: FacebookException?) {
-                                    rootView.showMessage("${error?.message}")
-                                }
-                            })
                         commonLoginBinding.buttonLoginWithFacebookNative.performClick()
+                    }
+                }
+            }
+
+            if (it.contains(LoginProviders.TWITTER)) {
+                setupTwitterCallback()
+                with(commonLoginBinding.buttonLoginWithTwitter) {
+                    visibility = View.VISIBLE
+                    setOnClickListener {
+                        commonLoginBinding.buttonLoginWithTwitterNative.performClick()
                     }
                 }
             }
         }
 
         userConditions?.let { userConditions ->
-            val userAgreementText = getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
-            val privacyPolicy = getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
+            val userAgreementText =
+                getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
+            val privacyPolicy =
+                getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
             val userAgreementNotice =
                 getString(R.string.userAgreementNotice).makeSpannableString() + userAgreementText + getString(
                     R.string.userAgreementNoticeAnd
@@ -165,10 +158,56 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         facebookCallbackManager.onActivityResult(requestCode, resultCode, data)
+        commonLoginBinding.buttonLoginWithTwitterNative.onActivityResult(
+            requestCode,
+            resultCode,
+            data
+        )
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
+    }
+
+    private fun setupFacebookCallback() {
+        commonLoginBinding.buttonLoginWithFacebookNative.setPermissions(
+            "email",
+            "public_profile"
+        )
+        commonLoginBinding.buttonLoginWithFacebookNative.fragment = this
+        commonLoginBinding.buttonLoginWithFacebookNative.registerCallback(
+            facebookCallbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult?) {
+                    commonViewModel.sendFederatedToken(
+                        FederatedProviders.FACEBOOK,
+                        result?.accessToken?.token ?: ""
+                    )
+                }
+
+                override fun onCancel() {}
+
+                override fun onError(error: FacebookException?) {
+                    commonLoginBinding.constraintLoginRoot.showMessage("${error?.message}")
+                }
+            })
+    }
+
+    private fun setupTwitterCallback() {
+        commonLoginBinding.buttonLoginWithTwitterNative.callback =
+            object : Callback<TwitterSession>() {
+                override fun success(result: Result<TwitterSession>?) {
+                    val session = TwitterCore.getInstance().sessionManager.activeSession
+                    val authToken = session.authToken
+                    commonViewModel.sendFederatedToken(
+                        FederatedProviders.TWITTER, authToken.token
+                    )
+                }
+
+                override fun failure(exception: TwitterException?) {
+                    commonLoginBinding.constraintLoginRoot.showMessage("${exception?.message}")
+                }
+            }
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -181,7 +220,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         }
     }
 
-    private fun signIn() {
+    private fun signInWithGoogle() {
         val intent = googleClient.signInIntent
         startActivityForResult(intent, RC_SIGN_IN)
     }

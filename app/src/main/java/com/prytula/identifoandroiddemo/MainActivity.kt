@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         buttonLogin.setOnClickListener {
             val providers = listOf(
                 LoginProviders.GMAIL,
+                LoginProviders.TWITTER,
                 LoginProviders.FACEBOOK,
                 LoginProviders.PHONE,
                 LoginProviders.EMAIL

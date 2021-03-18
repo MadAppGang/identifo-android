@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.extensions.startActivity
 import com.prytula.identifolibui.login.options.LoginOptions
+import com.twitter.sdk.android.core.Twitter
 import java.io.Serializable
 
 
@@ -30,6 +31,7 @@ class IdentifoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Twitter.initialize(this)
         setContentView(R.layout.activity_identifo_login)
     }
 }
