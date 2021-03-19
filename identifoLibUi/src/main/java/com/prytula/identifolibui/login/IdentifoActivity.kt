@@ -31,7 +31,6 @@ class IdentifoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Twitter.initialize(this)
         setContentView(R.layout.activity_identifo_login)
     }
 }

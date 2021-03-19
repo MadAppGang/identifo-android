@@ -72,6 +72,8 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Twitter.initialize(requireContext())
+
         commonViewModel.finishSigningIn.asLiveData()
             .observe(viewLifecycleOwner) { federatedResponse ->
                 requireActivity().finish()
@@ -90,33 +92,33 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
         }
 
-        loginProviders?.let {
-            if (it.isEmpty()) {
+        loginProviders?.let { providers ->
+            if (providers.isEmpty()) {
                 throw Exception("You need to have at least one provider!")
             }
 
-            if (it.contains(LoginProviders.GMAIL)) {
+            if (LoginProviders.GMAIL in providers) {
                 with(commonLoginBinding.buttonLoginWithGoogle) {
                     visibility = View.VISIBLE
                     setOnClickListener { signInWithGoogle() }
                 }
             }
 
-            if (it.contains(LoginProviders.EMAIL)) {
+            if (LoginProviders.EMAIL in providers) {
                 with(commonLoginBinding.buttonLoginWithUsername) {
                     visibility = View.VISIBLE
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
                 }
             }
 
-            if (it.contains(LoginProviders.PHONE)) {
+            if (LoginProviders.PHONE in providers) {
                 with(commonLoginBinding.buttonLoginWithPhoneNumber) {
                     visibility = View.VISIBLE
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
                 }
             }
 
-            if (it.contains(LoginProviders.FACEBOOK)) {
+            if (LoginProviders.FACEBOOK in providers) {
                 setupFacebookCallback()
                 with(commonLoginBinding.buttonLoginWithFacebook) {
                     visibility = View.VISIBLE
@@ -126,7 +128,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                 }
             }
 
-            if (it.contains(LoginProviders.TWITTER)) {
+            if (LoginProviders.TWITTER in providers) {
                 setupTwitterCallback()
                 with(commonLoginBinding.buttonLoginWithTwitter) {
                     visibility = View.VISIBLE
