@@ -1,5 +1,6 @@
-package com.prytula.identifolib
+package com.prytula.identifolib.network.interceptors
 
+import com.prytula.identifolib.getPreparedDigest
 import okhttp3.Interceptor
 import okhttp3.Response
 

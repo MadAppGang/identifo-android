@@ -1,11 +1,8 @@
 package com.prytula.identifolib.network
 
-import com.prytula.identifolib.BuildConfig
-import com.prytula.identifolib.MockRequestInterceptor
 import com.prytula.identifolib.entities.refreshToken.RefreshTokenDataSet
 import com.prytula.identifolib.entities.refreshToken.RefreshTokenResponse
 import retrofit2.http.Body
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
@@ -15,7 +12,6 @@ import retrofit2.http.POST
  */
 
 interface RefreshSessionQueries {
-    @Headers("${MockRequestInterceptor.MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/token")
     suspend fun refreshToken(@Body refreshTokenDataSet: RefreshTokenDataSet = RefreshTokenDataSet()) : RefreshTokenResponse
 }

@@ -18,16 +18,12 @@ android {
     }
 
     buildTypes {
-        def MOCK_FLAG = "MOCK_FLAG"
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", MOCK_FLAG, '"false"'
         }
 
-        debug {
-            buildConfigField "String", MOCK_FLAG, '"true"'
-        }
+        debug {}
     }
 
     compileOptions {

@@ -1,7 +1,5 @@
 package com.prytula.identifolib.network
 
-import com.prytula.identifolib.BuildConfig
-import com.prytula.identifolib.MockRequestInterceptor.Companion.MOCK
 import com.prytula.identifolib.entities.deanonymize.DeanonimizeDataSet
 import com.prytula.identifolib.entities.deanonymize.DeanonimizeResponse
 import com.prytula.identifolib.entities.federatedLogin.FederatedLoginDataSet
@@ -17,7 +15,6 @@ import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeResponse
 import com.prytula.identifolib.entities.reserPassword.ResetPasswordDataSet
 import com.prytula.identifolib.entities.reserPassword.ResetPasswordResponse
 import retrofit2.http.Body
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
@@ -27,35 +24,27 @@ import retrofit2.http.POST
  */
 
 interface QueriesService {
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/register")
     suspend fun registerWithUsernameAndPassword(@Body registerDataSet: RegisterDataSet): RegisterResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/me")
     suspend fun deanonymize(@Body deanonimizeDataSet: DeanonimizeDataSet): DeanonimizeResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/login")
     suspend fun loginWithUsernameAndPassword(@Body loginDataSet: LoginDataSet): LoginResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/request_phone_code")
     suspend fun requestPhoneCode(@Body requestPhoneCodeDataSet: RequestPhoneCodeDataSet): RequestPhoneCodeResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/reset_password")
     suspend fun resetPassword(@Body resetPasswordDataSet: ResetPasswordDataSet): ResetPasswordResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/phone_login")
     suspend fun phoneLogin(@Body phoneLoginDataSet: PhoneLoginDataSet): PhoneLoginResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/auth/federated")
     suspend fun federatedLogin(@Body federatedLoginDataSet: FederatedLoginDataSet): FederatedLoginResponse
 
-    @Headers("${MOCK}:${BuildConfig.MOCK_FLAG}")
     @POST("/me/logout")
     suspend fun logout()
 }

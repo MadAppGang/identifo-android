@@ -35,19 +35,16 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val username = usernameLoginBinding.editTextTextEmailAddress.text.toString()
-        val password = usernameLoginBinding.editTextPassword.text.toString()
-
         usernameLoginBinding.editTextPassword.onDone {
             usernameLoginViewModel.performLogin(
-                username,
-                password
+                usernameLoginBinding.editTextTextEmailAddress.text.toString(),
+                usernameLoginBinding.editTextPassword.text.toString()
             )
         }
         usernameLoginBinding.buttonLogin.setOnClickListener {
             usernameLoginViewModel.performLogin(
-                username,
-                password
+                usernameLoginBinding.editTextTextEmailAddress.text.toString(),
+                usernameLoginBinding.editTextPassword.text.toString()
             )
         }
 
