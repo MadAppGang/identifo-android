@@ -9,6 +9,7 @@ import com.prytula.identifolib.entities.federatedLogin.FederatedLoginDataSet
 import com.prytula.identifolib.entities.federatedLogin.FederatedLoginResponse
 import com.prytula.identifolib.entities.logging.LoginDataSet
 import com.prytula.identifolib.entities.logging.LoginResponse
+import com.prytula.identifolib.entities.logout.LogoutDataSet
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginDataSet
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginResponse
 import com.prytula.identifolib.entities.register.RegisterDataSet
@@ -184,7 +185,7 @@ object IdentifoAuth : KoinComponent {
     }
 
     suspend fun logout(): Result<Unit, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
-        return@withContext suspendApiCall { queriesService.logout() }.onSuccess {
+        return@withContext suspendApiCall { queriesService.logout(LogoutDataSet()) }.onSuccess {
             clearTokens()
         }
     }

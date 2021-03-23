@@ -6,6 +6,7 @@ import com.prytula.identifolib.entities.federatedLogin.FederatedLoginDataSet
 import com.prytula.identifolib.entities.federatedLogin.FederatedLoginResponse
 import com.prytula.identifolib.entities.logging.LoginDataSet
 import com.prytula.identifolib.entities.logging.LoginResponse
+import com.prytula.identifolib.entities.logout.LogoutDataSet
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginDataSet
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginResponse
 import com.prytula.identifolib.entities.register.RegisterDataSet
@@ -46,5 +47,5 @@ interface QueriesService {
     suspend fun federatedLogin(@Body federatedLoginDataSet: FederatedLoginDataSet): FederatedLoginResponse
 
     @POST("/me/logout")
-    suspend fun logout()
+    suspend fun logout(@Body logoutDataSet: LogoutDataSet)
 }

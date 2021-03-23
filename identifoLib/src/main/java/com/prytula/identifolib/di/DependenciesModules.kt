@@ -4,6 +4,7 @@ import com.prytula.identifolib.extensions.createWebService
 import com.prytula.identifolib.network.QueriesService
 import com.prytula.identifolib.network.RefreshSessionQueries
 import com.prytula.identifolib.network.interceptors.IdentifoAuthInterceptor
+import com.prytula.identifolib.network.interceptors.IdentifoRefreshInterceptor
 import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.storages.IUserStorage
 import com.prytula.identifolib.storages.TokenDataStorage
@@ -39,21 +40,19 @@ fun dependenciesModule(
         }
     }
 
-    factory<IdentifoAuthInterceptor>(named(IDENTIFO_AUTH_INTERCEPTOR)) {
-        val accessToken = get<ITokenDataStorage>().getTokens().access?.jwtEncoded ?: ""
+    factory<IdentifoAuthInterceptor> {
         IdentifoAuthInterceptor(
             appId,
             appSecret,
-            accessToken
+            get<ITokenDataStorage>()
         )
     }
 
-    factory<IdentifoAuthInterceptor>(named(IDENTIFO_REFRESH_INTERCEPTOR)) {
-        val refreshToken = get<ITokenDataStorage>().getTokens().refresh?.jwtEncoded ?: ""
-        IdentifoAuthInterceptor(
+    factory<IdentifoRefreshInterceptor> {
+        IdentifoRefreshInterceptor(
             appId,
             appSecret,
-            refreshToken
+            get<ITokenDataStorage>()
         )
     }
 
@@ -63,7 +62,7 @@ fun dependenciesModule(
 
     single<QueriesService> {
         OkHttpClient.Builder()
-            .addInterceptor(get<IdentifoAuthInterceptor>(qualifier = named(IDENTIFO_AUTH_INTERCEPTOR)))
+            .addInterceptor(get<IdentifoAuthInterceptor>())
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
             .createWebService(baseUrl)
@@ -71,7 +70,7 @@ fun dependenciesModule(
 
     single<RefreshSessionQueries> {
         OkHttpClient.Builder()
-            .addInterceptor(get<IdentifoAuthInterceptor>(qualifier = named(IDENTIFO_REFRESH_INTERCEPTOR)))
+            .addInterceptor(get<IdentifoRefreshInterceptor>())
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
             .createWebService(baseUrl)
