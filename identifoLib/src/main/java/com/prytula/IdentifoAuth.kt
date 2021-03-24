@@ -45,8 +45,8 @@ object IdentifoAuth : KoinComponent {
     private val queriesService by inject<QueriesService>()
     private val backgroundCoroutineDispatcher by inject<CoroutineDispatcher>()
 
-    private val _authState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
-    val authState by lazy { _authState.asStateFlow() }
+    private val _authenticationState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
+    val authenticationState by lazy { _authenticationState.asStateFlow() }
 
     fun initAuthenticator(
         context: Context,
@@ -90,13 +90,13 @@ object IdentifoAuth : KoinComponent {
             )
         )
         user?.let { userStorage.setUser(it) }
-        _authState.value = AuthState.Authentificated(user, accessToken)
+        _authenticationState.value = AuthState.Authentificated(user, accessToken)
     }
 
     internal fun clearTokens() {
         tokenDataStorage.clearAll()
         userStorage.clearAll()
-        _authState.value = AuthState.Deauthentificated
+        _authenticationState.value = AuthState.Deauthentificated
     }
 
     suspend fun registerWithUsernameAndPassword(

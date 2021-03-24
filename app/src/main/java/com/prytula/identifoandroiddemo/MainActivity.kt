@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.prytula.IdentifoAuth
 import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.login.IdentifoActivity
 import com.prytula.identifolibui.login.options.*
 import kotlinx.coroutines.launch
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             IdentifoActivity.openActivity(this, loginOptions)
         }
 
-        IdentifoAuth.authState.asLiveData().observe(this) { authentificationState ->
+        IdentifoAuth.authenticationState.asLiveData().observe(this) { authentificationState ->
             textView.text = authentificationState.toString()
         }
     }

@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
@@ -22,9 +21,6 @@ import org.koin.dsl.module
  * Created by Eugene Prytula on 2/23/21.
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
-
-private const val IDENTIFO_AUTH_INTERCEPTOR = "indentifo_auth_interceptor"
-private const val IDENTIFO_REFRESH_INTERCEPTOR = "identifo_refresh_interceptor"
 
 fun dependenciesModule(
     appId: String,
