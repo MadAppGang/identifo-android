@@ -104,14 +104,15 @@
         app:layout_constraintStart_toStartOf="@+id/buttonLoginWithGoogle"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoginWithGoogle" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdentifo"
         tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -141,6 +142,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/userAgreementNotice" />
+
+    <ImageView
+        android:id="@+id/imageViewShield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewIdentifo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_shield" />
+
+    <TextView
+        android:id="@+id/textViewIdentifo"
+        style="@style/ThirdTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/identifo"
+        android:textSize="@dimen/text18"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewShield"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewShield"
+        app:layout_constraintTop_toTopOf="@+id/imageViewShield" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

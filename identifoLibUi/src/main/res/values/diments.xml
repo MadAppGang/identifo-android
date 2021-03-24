@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text12">12sp</dimen>
-    <dimen name="text14">14sp</dimen>
-    <dimen name="text16">16sp</dimen>
+    <dimen name="text12">12dp</dimen>
+    <dimen name="text14">14dp</dimen>
+    <dimen name="text16">16dp</dimen>
+    <dimen name="text18">18dp</dimen>
+    <dimen name="text24">24dp</dimen>
+
 
     <dimen name="providers_sign_in_button">52dp</dimen>
 </resources>

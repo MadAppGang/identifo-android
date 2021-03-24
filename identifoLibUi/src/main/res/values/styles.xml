@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- font text styles -->
+    <style name="NunitoRegular">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="NunitoSemiBold">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="NunitoBold">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="ExoBold">
+        <item name="android:fontFamily">@font/exo_bold</item>
+    </style>
+
+    <!-- color text styles -->
+    <style name="PrimaryTextStyle" parent="NunitoRegular">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SecondaryTextStyle" parent="NunitoRegular">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="ThirdTextStyle" parent="ExoBold">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- image view styles -->
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- button styles -->
     <style name="CommonButtonStyle">
         <item name="android:textAllCaps">false</item>
     </style>

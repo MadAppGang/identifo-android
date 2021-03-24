@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="identifo">Identifo</string>
     <string name="login">Login</string>
     <string name="loginWithEmail">Sign in with email</string>
     <string name="loginWithPhoneNumber">Sign in with a phone number</string>

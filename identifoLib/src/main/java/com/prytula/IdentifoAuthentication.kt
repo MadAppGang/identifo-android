@@ -40,9 +40,7 @@ import org.koin.core.context.startKoin
  */
 
 /**
- * The main class which contains the main functions of the library.
- *
- * Primary responsibility is giving user basic functions of authentication and facilitate work
+ * Class responsible for giving user basic functions of authentication and facilitate work
  * with access tokens and their managing.
  */
 
