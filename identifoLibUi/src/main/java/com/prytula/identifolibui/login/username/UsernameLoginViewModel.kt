@@ -2,7 +2,7 @@ package com.prytula.identifolibui.login.username
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prytula.IdentifoAuth
+import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.ErrorResponse
 import com.prytula.identifolib.entities.logging.LoginResponse
 import com.prytula.identifolib.extensions.onError
@@ -26,7 +26,7 @@ class UsernameLoginViewModel : ViewModel() {
 
     fun performLogin(username: String, password: String) {
         viewModelScope.launch {
-            IdentifoAuth.loginWithUsernameAndPassword(username, password)
+            IdentifoAuthentication.loginWithUsernameAndPassword(username, password)
                 .onSuccess { loginResponse ->
                     _signInSuccessful.emit(loginResponse)
                 }.onError { errorResponse ->

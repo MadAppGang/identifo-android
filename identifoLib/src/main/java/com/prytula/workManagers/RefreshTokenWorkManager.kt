@@ -2,11 +2,7 @@ package com.prytula.workManagers
 
 import android.content.Context
 import androidx.work.*
-import com.prytula.IdentifoAuth
-import com.prytula.identifolib.entities.AuthState
-import com.prytula.identifolib.entities.IdentifoUser
-import com.prytula.identifolib.entities.Token
-import com.prytula.identifolib.entities.Tokens
+import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.storages.ITokenDataStorage
 import com.prytula.identifolib.extensions.isSuccessful
 import com.prytula.identifolib.extensions.onError
@@ -65,12 +61,12 @@ class RefreshTokenWorkManager(
     override suspend fun doWork(): Result {
         return withContext(Dispatchers.IO) {
             val result = suspendApiCall { refreshSessionQueries.refreshToken() }.onSuccess {
-                IdentifoAuth.saveTokens(
+                IdentifoAuthentication.saveTokens(
                     it.accessToken,
                     it.refreshToken
                 )
             }.onError {
-                IdentifoAuth.clearTokens()
+                IdentifoAuthentication.clearTokens()
             }
 
             if (result.isSuccessful()) {

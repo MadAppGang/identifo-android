@@ -9,14 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
-import com.prytula.IdentifoAuth
-import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.OnTextChangeListener
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentOneTimePasswordBinding

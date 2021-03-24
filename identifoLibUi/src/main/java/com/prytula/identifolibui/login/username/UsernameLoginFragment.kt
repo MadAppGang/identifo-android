@@ -2,21 +2,13 @@ package com.prytula.identifolibui.login.username
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.prytula.IdentifoAuth
-import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolib.extensions.onSuccess
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
-import com.prytula.identifolibui.databinding.FragmentPhoneNumberLoginBinding
 import com.prytula.identifolibui.extensions.makeUnderline
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage

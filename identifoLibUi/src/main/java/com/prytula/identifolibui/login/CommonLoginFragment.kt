@@ -19,7 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.prytula.identifolibui.FederatedProviders
+import com.prytula.identifolib.entities.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
 import com.prytula.identifolibui.extensions.makeSpannableString

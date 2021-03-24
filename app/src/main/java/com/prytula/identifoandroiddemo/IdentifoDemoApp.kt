@@ -1,7 +1,7 @@
 package com.prytula.identifoandroiddemo
 
 import android.app.Application
-import com.prytula.IdentifoAuth
+import com.prytula.IdentifoAuthentication
 
 
 /*
@@ -16,6 +16,6 @@ class IdentifoDemoApp : Application() {
         val secret = "vUYvSt8rEI7lTPIM96MMwPS3"
         val baseUrl = "https://identifo.jackrudenko.com"
 
-        IdentifoAuth.initAuthenticator(this, baseUrl, appID, secret)
+        IdentifoAuthentication.initAuthenticator(this, baseUrl, appID, secret)
     }
 }

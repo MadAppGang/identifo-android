@@ -2,12 +2,12 @@ package com.prytula.identifolibui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prytula.IdentifoAuth
+import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.ErrorResponse
 import com.prytula.identifolib.entities.federatedLogin.FederatedLoginResponse
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
-import com.prytula.identifolibui.FederatedProviders
+import com.prytula.identifolib.entities.FederatedProviders
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ class CommonViewModel : ViewModel() {
 
     fun sendFederatedToken(federatedProvider: FederatedProviders, token: String) {
         viewModelScope.launch {
-            IdentifoAuth.federatedLogin(federatedProvider.title, token)
+            IdentifoAuthentication.federatedLogin(federatedProvider.title, token)
                 .onSuccess { federatedLoginResponse ->
                     _finishSigningIn.emit(federatedLoginResponse)
                 }.onError { errorResponse ->

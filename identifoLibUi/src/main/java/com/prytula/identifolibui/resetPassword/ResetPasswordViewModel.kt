@@ -2,7 +2,7 @@ package com.prytula.identifolibui.resetPassword
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prytula.IdentifoAuth
+import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.ErrorResponse
 import com.prytula.identifolib.entities.reserPassword.ResetPasswordResponse
 import com.prytula.identifolib.extensions.onError
@@ -26,7 +26,7 @@ class ResetPasswordViewModel : ViewModel() {
 
     fun resetPassword(email: String) {
         viewModelScope.launch {
-            IdentifoAuth.resetPassword(email).onSuccess { resetPasswordResponse ->
+            IdentifoAuthentication.resetPassword(email).onSuccess { resetPasswordResponse ->
                 _passwordHasBeenReset.emit(resetPasswordResponse)
             }.onError { errorResponse ->
                 _receiveError.emit(errorResponse)

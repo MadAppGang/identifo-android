@@ -1,4 +1,4 @@
-package com.prytula.identifolibui
+package com.prytula.identifolib.entities
 
 
 /*

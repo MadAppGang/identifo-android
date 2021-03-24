@@ -39,7 +39,15 @@ import org.koin.core.context.startKoin
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-object IdentifoAuth : KoinComponent {
+/**
+ * The main class which contains the main functions of the library.
+ *
+ * Primary responsibility is giving user basic functions of authentication and facilitate work
+ * with access tokens and their managing.
+ */
+
+object IdentifoAuthentication : KoinComponent {
+
     private val tokenDataStorage by inject<ITokenDataStorage>()
     private val userStorage by inject<IUserStorage>()
     private val queriesService by inject<QueriesService>()
@@ -48,17 +56,27 @@ object IdentifoAuth : KoinComponent {
     private val _authenticationState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
     val authenticationState by lazy { _authenticationState.asStateFlow() }
 
+    /**
+     * The initial function to initialize the Identifo library.
+     * Pay attention that this function must be called only in the Application class.
+     *
+     * @param context The application context.
+     * @param baseUrl Identifo authentication URL.
+     * @param applicationId The application access identifier.
+     * @param secretKey The HMAC shared secret key.
+     */
+
     fun initAuthenticator(
         context: Context,
         baseUrl: String,
-        appId: String,
+        applicationId: String,
         secretKey: String
     ) {
         startKoin {
             androidContext(context)
             modules(
                 dependenciesModule(
-                    appId = appId,
+                    appId = applicationId,
                     appSecret = secretKey,
                     baseUrl = baseUrl
                 )
@@ -99,6 +117,18 @@ object IdentifoAuth : KoinComponent {
         _authenticationState.value = AuthState.Deauthentificated
     }
 
+
+    /**
+     * Provides the ability to register the new user via username/email and password, also defines a method of anonymity.
+     *
+     * @param username The login/mail of the new user.
+     * @param password The new user's password.
+     * @param isAnonymous Flag which determines the way of anonymity.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [RegisterResponse] with tokens and user's information,
+     * otherwise it returns [ErrorResponse] with error information.
+     */
+
     suspend fun registerWithUsernameAndPassword(
         username: String,
         password: String,
@@ -115,6 +145,19 @@ object IdentifoAuth : KoinComponent {
         }
     }
 
+
+    /**
+     * The suspend function which helps to de-anonymize a anonymous user.
+     *
+     * @param oldUsername The anonymous user's username.
+     * @param oldPassword The anonymous user's password.
+     * @param newUsername The de-anonymized user's username.
+     * @param newPassword The de-anonymized user's password.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [DeanonimizeResponse] with confirmation of operation,
+     * otherwise it returns [ErrorResponse] with error information.
+     */
+
     suspend fun deanonymizeUser(
         oldUsername: String,
         oldPassword: String,
@@ -130,6 +173,17 @@ object IdentifoAuth : KoinComponent {
         return@withContext suspendApiCall { queriesService.deanonymize(deanonimizeDataSet) }
     }
 
+
+    /**
+     * Provides the ability to sign in via username/email and password.
+     *
+     * @param username The login/mail of the registered user.
+     * @param password The registered user's password.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [LoginResponse] with tokens and user's information,
+     * otherwise it returns [ErrorResponse] with error information.
+     */
+
     suspend fun loginWithUsernameAndPassword(
         username: String,
         password: String
@@ -144,6 +198,17 @@ object IdentifoAuth : KoinComponent {
         }
     }
 
+
+    /**
+     * Starts sending of the one time password to the certain phone number.
+     *
+     * @param phoneNumber The user's phone number.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [RequestPhoneCodeResponse] with confirmation of operation,
+     * otherwise it returns [ErrorResponse] with error information.
+     *
+     */
+
     suspend fun requestPhoneCode(phoneNumber: String): Result<RequestPhoneCodeResponse, ErrorResponse> =
         withContext(backgroundCoroutineDispatcher) {
             val requestPhoneCodeDataSet = RequestPhoneCodeDataSet(phoneNumber)
@@ -154,23 +219,58 @@ object IdentifoAuth : KoinComponent {
             }
         }
 
-    suspend fun resetPassword(email: String): Result<ResetPasswordResponse, ErrorResponse> =
-        withContext(backgroundCoroutineDispatcher) {
-            val resetPasswordDataSet = ResetPasswordDataSet(email)
-            return@withContext suspendApiCall { queriesService.resetPassword(resetPasswordDataSet) }
-        }
+
+    /**
+     * Sign in via the phone number and one time password.
+     *
+     * @param phoneNumber The user's phone number.
+     * @param oneTimePassword The fetched one time password.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [PhoneLoginResponse] with tokens and user's information,
+     * otherwise it returns [ErrorResponse] with error information.
+     *
+     */
 
     suspend fun phoneLogin(
-        phoneLogin: String,
-        code: String
+        phoneNumber: String,
+        oneTimePassword: String
     ): Result<PhoneLoginResponse, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
-        val loginDataSet = PhoneLoginDataSet(phoneLogin, code)
+        val loginDataSet = PhoneLoginDataSet(phoneNumber, oneTimePassword)
         return@withContext suspendApiCall { queriesService.phoneLogin(loginDataSet) }.onSuccess {
             val fetchedUser = it.loggedUser
             val identifoUser = IdentifoUser(fetchedUser.id, fetchedUser.username, false)
             saveTokens(it.accessToken, it.refreshToken, identifoUser)
         }
     }
+
+
+    /**
+     * Starts recovering password by sending the new temporal password to the user's email.
+     *
+     * @param email The user's email address.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [ResetPasswordResponse] with confirmation of operation,
+     * otherwise it returns [ErrorResponse] with error information.
+     *
+     */
+
+    suspend fun resetPassword(email: String): Result<ResetPasswordResponse, ErrorResponse> =
+        withContext(backgroundCoroutineDispatcher) {
+            val resetPasswordDataSet = ResetPasswordDataSet(email)
+            return@withContext suspendApiCall { queriesService.resetPassword(resetPasswordDataSet) }
+        }
+
+
+    /**
+     * Authenticates user via certain identity provider (Facebook, Google, Twitter etc.).
+     *
+     * @param provider Title of identity provider. Currently available providers you can see here [FederatedProviders].
+     * @param token Fetched identity access token.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [FederatedLoginResponse] with tokens and user's information,
+     * otherwise it returns [ErrorResponse] with error information.
+     *
+     */
 
     suspend fun federatedLogin(
         provider: String,
@@ -183,6 +283,14 @@ object IdentifoAuth : KoinComponent {
             saveTokens(it.accessToken, it.refreshToken, identifoUser)
         }
     }
+
+    /**
+     * Performs logging out.
+     *
+     * @return If result of asynchronous operation is successful the suspend function returns us [Result.Success] without any data,
+     * otherwise it returns [ErrorResponse] with error information.
+     *
+     */
 
     suspend fun logout(): Result<Unit, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
         return@withContext suspendApiCall { queriesService.logout(LogoutDataSet()) }.onSuccess {

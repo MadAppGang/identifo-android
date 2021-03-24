@@ -2,7 +2,7 @@ package com.prytula.identifolibui.registration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prytula.IdentifoAuth
+import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.ErrorResponse
 import com.prytula.identifolib.entities.register.RegisterResponse
 import com.prytula.identifolib.extensions.onError
@@ -27,7 +27,7 @@ class RegistrationViewModel : ViewModel() {
 
     fun registerWithUsernameAndPassword(username: String, password: String) {
         viewModelScope.launch {
-            IdentifoAuth.registerWithUsernameAndPassword(username, password, false)
+            IdentifoAuthentication.registerWithUsernameAndPassword(username, password, false)
                 .onSuccess { registerResponse ->
                     _registrationSuccessful.emit(registerResponse)
                 }.onError { errorResponse ->

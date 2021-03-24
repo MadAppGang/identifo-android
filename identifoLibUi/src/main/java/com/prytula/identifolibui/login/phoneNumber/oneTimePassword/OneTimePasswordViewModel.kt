@@ -3,10 +3,9 @@ package com.prytula.identifolibui.login.phoneNumber.oneTimePassword
 import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prytula.IdentifoAuth
+import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.ErrorResponse
 import com.prytula.identifolib.entities.phoneLogin.PhoneLoginResponse
-import com.prytula.identifolib.entities.requestCode.RequestPhoneCodeResponse
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -52,7 +51,7 @@ class OneTimePasswordViewModel : ViewModel() {
 
     fun requestOtpCode(phoneNumber: String) {
         viewModelScope.launch {
-            IdentifoAuth.requestPhoneCode(phoneNumber).onSuccess { requestPhoneResponse ->
+            IdentifoAuthentication.requestPhoneCode(phoneNumber).onSuccess { requestPhoneResponse ->
                 _isImpossibleToSendTheCode.value = false
                 coutDownTimer.start()
             }.onError { errorResponse ->
@@ -63,7 +62,7 @@ class OneTimePasswordViewModel : ViewModel() {
 
     fun loginViaPhoneNumber(phoneNumber: String, otp: String) {
         viewModelScope.launch {
-            IdentifoAuth.phoneLogin(phoneNumber, otp).onSuccess { phoneLoginResponse ->
+            IdentifoAuthentication.phoneLogin(phoneNumber, otp).onSuccess { phoneLoginResponse ->
                 _finishSigningIn.emit(phoneLoginResponse)
             }.onError { errorResponse ->
                 _receiveError.emit(errorResponse)
