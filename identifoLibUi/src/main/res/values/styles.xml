@@ -55,7 +55,7 @@
         <item name="android:drawableTint">@color/button_dark_text_color</item>
     </style>
 
-    <style name="ColoredButtonStyle" parent="Widget.MaterialComponents.Button">
+    <style name="ColoredButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="android:textAllCaps">true</item>
         <item name="backgroundTint">@color/selector_colorful_background_button</item>
