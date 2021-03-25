@@ -38,6 +38,13 @@
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
             app:popExitAnim="@anim/exit_right" />
+        <action
+            android:id="@+id/action_phoneNumberLoginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"

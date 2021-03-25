@@ -9,7 +9,6 @@
     <string name="loginWithGmail">Sign in with Gmail</string>
     <string name="loginWithFacebook">Sign in with Facebook</string>
     <string name="loginWithTwitter">Sign in with Twitter</string>
-    <string name="verifyPhoneNumber">Verify phone number</string>
     <string name="register">Register</string>
     <string name="dontHaveAnAccount">Don\'t have an account?</string>
     <string name="singUp">Sing up</string>

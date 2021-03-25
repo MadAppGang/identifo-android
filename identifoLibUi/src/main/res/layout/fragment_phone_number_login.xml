@@ -1,53 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraint_phone_number_root"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/textInputPhoneNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
-        android:ellipsize="end"
-        android:ems="10"
-        android:inputType="phone"
-        android:maxLines="1"
-        android:maxLength="25"
-        android:textSize="@dimen/text16"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/countryCodePicker"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_phone_number_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/buttonProceed"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/verifyPhoneNumber"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textInputPhoneNumber"
-        app:layout_constraintStart_toStartOf="@+id/countryCodePicker" />
+        <ImageView
+            android:id="@+id/imageViewBackArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back" />
 
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/countryCodePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:gravity="center"
-        app:ccp_autoDetectCountry="true"
-        app:ccp_padding="0dp"
-        app:ccp_showArrow="false"
-        app:ccp_showFlag="true"
-        app:ccp_showNameCode="false"
-        app:ccp_showPhoneCode="true"
-        app:ccp_textSize="@dimen/text16"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputPhoneNumber"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textInputPhoneNumber" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutFieldPhoneNumber"
+            style="@style/BorderedInputTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/phoneNumberHint"
+            app:layout_constraintBottom_toTopOf="@+id/buttonProceed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.05">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputPhoneNumber"
+                style="@style/BorderedEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonProceed"
+            style="@style/ColoredButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewRegisterNewAccount"
+            style="@style/ThirdRegulatTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/singUp"
+            android:textSize="@dimen/text16"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/SecondaryRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dontHaveAnAccount"
+            android:textSize="@dimen/text16"
+            app:layout_constraintBottom_toTopOf="@+id/buttonProceed"
+            app:layout_constraintEnd_toStartOf="@+id/textViewRegisterNewAccount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
+            app:layout_constraintVertical_bias="0.35" />
+
+        <TextView
+            android:id="@+id/textViewCompanyGreetings"
+            style="@style/SecondaryRegularTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
+            android:textSize="@dimen/text14"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCompanyName"
+            app:layout_constraintStart_toStartOf="@+id/textViewCompanyName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCompanyName"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Greetings text here" />
+
+        <TextView
+            android:id="@+id/textViewCompanyName"
+            style="@style/PrimaryBoldTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textSize="@dimen/text24"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
+            app:layout_constraintVertical_bias="0.6"
+            tools:text="Company name" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:src="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCompanyName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
+            app:layout_constraintVertical_bias="1.0"
+            app:shapeAppearanceOverlay="@style/RoundedImageView"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+
