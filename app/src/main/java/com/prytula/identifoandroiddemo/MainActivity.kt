@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
                 LoginProviders.EMAIL
             )
             val style = Style(
-                imageRes = R.drawable.ic_logo,
-                companyName = getString(R.string.app_name),
-                greetingsText = getString(R.string.app_name)
+                imageRes = R.drawable.ic_launcher_background,
+                companyName = getString(R.string.company_name),
+                greetingsText = getString(R.string.company_greetings)
             )
 
             val userConditions = UseConditions(
