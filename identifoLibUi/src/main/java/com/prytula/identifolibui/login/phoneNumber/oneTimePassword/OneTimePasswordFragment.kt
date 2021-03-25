@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -47,9 +48,15 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         val phoneNumber = requireArguments().getString(PHONE_NUMBER_KEY) ?: ""
 
         oneTimePasswordViewModel.requestOtpCode(phoneNumber)
+        oneTimePasswordBinding.textViewSentToPhoneNumber.text =
+            String.format(getString(R.string.theCodeHasBeenSent), phoneNumber)
 
         oneTimePasswordBinding.editTextOtp.requestFocus()
         requireActivity().showSoftKeyboard()
+
+        oneTimePasswordBinding.imageViewBackArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         oneTimePasswordBinding.editTextOtp.setTextChangeListener(object : OnTextChangeListener {
             override fun textEntered(code: String) {
@@ -60,7 +67,7 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         oneTimePasswordBinding.editTextOtp.setOnClickListener {
             requireActivity().showSoftKeyboard()
         }
-        oneTimePasswordBinding.buttonResendTheCode.setOnClickListener {
+        oneTimePasswordBinding.textViewResendTheCode.setOnClickListener {
             oneTimePasswordViewModel.requestOtpCode(phoneNumber)
         }
 
@@ -81,16 +88,14 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
                 val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinish)
                 val time = DateUtils.formatElapsedTime(seconds)
                 oneTimePasswordBinding.textViewResentCountTimer.text =
-                    String.format(getString(R.string.resendTheCode), time)
+                    String.format(getString(R.string.resendTheCodeIn), time)
             }
 
         oneTimePasswordViewModel.isImpossibleToSendTheCode.asLiveData()
             .observe(viewLifecycleOwner) { isAllowedToResendTheCode ->
-                oneTimePasswordBinding.buttonResendTheCode.run {
-                    isEnabled = isAllowedToResendTheCode
-                    isClickable = isAllowedToResendTheCode
-                }
                 val titleVisibility = if (isAllowedToResendTheCode) View.GONE else View.VISIBLE
+                val resendButtonVisibility = if (isAllowedToResendTheCode) View.VISIBLE else View.GONE
+                oneTimePasswordBinding.textViewResendTheCode.visibility = resendButtonVisibility
                 oneTimePasswordBinding.textViewResentCountTimer.visibility = titleVisibility
             }
     }
