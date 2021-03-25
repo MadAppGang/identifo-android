@@ -111,7 +111,7 @@
             android:id="@+id/imageViewLogo"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
             android:src="@color/gray"
             app:layout_constraintBottom_toTopOf="@+id/textViewCompanyName"
@@ -124,6 +124,7 @@
 
         <TextView
             android:id="@+id/textViewUserAgreement"
+            style="@style/SecondaryRegularTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -131,7 +132,7 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="@string/privacyPolicy"
-            android:textSize="@dimen/text16"
+            android:textSize="@dimen/text14"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

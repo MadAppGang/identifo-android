@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -23,9 +24,7 @@ import com.google.android.gms.tasks.Task
 import com.prytula.identifolib.entities.FederatedProviders
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
-import com.prytula.identifolibui.extensions.makeSpannableString
-import com.prytula.identifolibui.extensions.makeUrl
-import com.prytula.identifolibui.extensions.plus
+import com.prytula.identifolibui.extensions.*
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.options.LoginOptions
 import com.prytula.identifolibui.login.options.LoginProviders
@@ -149,14 +148,16 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         }
 
         userConditions?.let { userConditions ->
-            val userAgreementText =
-                getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
-            val privacyPolicy =
-                getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
-            val userAgreementNotice =
-                getString(R.string.userAgreementNotice).makeSpannableString() + userAgreementText + getString(
-                    R.string.userAgreementNoticeAnd
-                ).makeSpannableString() + privacyPolicy
+            val userAgreementText = getString(R.string.userAgreement)
+                .makeUrl(userConditions.userAgreementLink)
+                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.blue))
+
+            val privacyPolicy = getString(R.string.privacyPolicy)
+                .makeUrl(userConditions.privacyPolicy)
+                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.blue))
+
+            val userAgreementNotice = getString(R.string.userAgreementNotice)
+                .makeSpannableString() + userAgreementText + getString(R.string.userAgreementNoticeAnd).makeSpannableString() + privacyPolicy
 
             commonLoginBinding.textViewUserAgreement.run {
                 visibility = View.VISIBLE
