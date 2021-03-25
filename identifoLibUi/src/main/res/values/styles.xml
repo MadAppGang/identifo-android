@@ -18,15 +18,19 @@
     </style>
 
     <!-- color text styles -->
-    <style name="PrimaryTextStyle" parent="NunitoRegular">
+    <style name="PrimaryRegularTextStyle" parent="NunitoRegular">
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="SecondaryTextStyle" parent="NunitoRegular">
+    <style name="PrimaryBoldTextStyle" parent="NunitoBold">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="SecondaryRegularTextStyle" parent="NunitoRegular">
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <style name="ThirdTextStyle" parent="ExoBold">
+    <style name="ThirdBoldTextStyle" parent="ExoBold">
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -51,29 +55,17 @@
         <item name="android:drawableTint">@color/button_dark_text_color</item>
     </style>
 
-    <style name="PhoneButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/ic_phone</item>
-        <item name="android:backgroundTint">@color/button_phone_color</item>
+    <style name="ColoredButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">@color/blue</item>
     </style>
 
-    <style name="EmailButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/ic_email</item>
-        <item name="android:backgroundTint">@color/button_email_color</item>
-    </style>
-
-    <style name="GmailButtonStyle" parent="ColorlessButtonStyle">
-        <item name="android:drawableLeft">@drawable/googleg_standard_color_18</item>
-        <item name="android:backgroundTint">@color/button_gmail_color</item>
-    </style>
-
-    <style name="FacebookButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/com_facebook_button_icon</item>
-        <item name="android:backgroundTint">@color/button_facebook_color</item>
-    </style>
-
-    <style name="TwitterButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/tw__ic_logo_default</item>
-        <item name="android:backgroundTint">@color/button_twitter_color</item>
+    <style name="BorderedButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="strokeColor">@color/blue</item>
+        <item name="android:textColor">@color/blue</item>
     </style>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.prytula.identifolibui.login
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
-import coil.transform.CircleCropTransformation
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -88,13 +86,18 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
         commonStyle?.let {
             it.imageRes?.let {
-                commonLoginBinding.imageViewLogo.load(it) {
-                    placeholder(R.drawable.bg_company_placeholder)
-                }
+                commonLoginBinding.imageViewLogo.load(it)
             }
 
             it.backgroundRes?.let {
                 commonLoginBinding.constraintLoginRoot.setBackgroundResource(it)
+            }
+
+            if (it.companyName.isBlank() or it.greetingsText.isBlank()) {
+                throw Exception("Company name and greetings are not specified!")
+            } else {
+                commonLoginBinding.textViewCompanyName.text = it.companyName
+                commonLoginBinding.textViewCompanyGreetings.text = it.greetingsText
             }
         }
 

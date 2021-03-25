@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             )
             val style = Style(
                 imageRes = R.drawable.ic_logo,
+                companyName = getString(R.string.app_name),
+                greetingsText = getString(R.string.app_name)
             )
 
             val userConditions = UseConditions(
