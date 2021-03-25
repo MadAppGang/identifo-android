@@ -9,8 +9,8 @@ import java.io.Serializable
  */
 
 data class Style(
-    val imageRes: Int? = null,
+    val companyLogo : Int,
     val backgroundRes: Int? = null,
-    val companyName: String = "",
-    val greetingsText: String = ""
+    val companyName: String,
+    val greetingsText: String
 ) : Serializable

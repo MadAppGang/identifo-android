@@ -11,10 +11,11 @@
     <string name="loginWithTwitter">Sign in with Twitter</string>
     <string name="verifyPhoneNumber">Verify phone number</string>
     <string name="register">Register</string>
-    <string name="registerNewAccount">Register a new account</string>
+    <string name="dontHaveAnAccount">Don\'t have an account?</string>
+    <string name="singUp">Sing up</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
-    <string name="forgotThePassword">Forgot the password</string>
+    <string name="recoveryPassword">Recovery the password</string>
     <string name="passwordConfirm">Confirm a password</string>
     <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
     <string name="userAgreement">User Agreement</string>

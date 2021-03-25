@@ -84,20 +84,13 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
         }
 
         commonStyle?.let {
-            it.imageRes?.let {
-                commonLoginBinding.imageViewLogo.load(it)
-            }
-
             it.backgroundRes?.let {
                 commonLoginBinding.constraintLoginRoot.setBackgroundResource(it)
             }
 
-            if (it.companyName.isBlank() or it.greetingsText.isBlank()) {
-                throw Exception("Company name and greetings are not specified!")
-            } else {
-                commonLoginBinding.textViewCompanyName.text = it.companyName
-                commonLoginBinding.textViewCompanyGreetings.text = it.greetingsText
-            }
+            commonLoginBinding.imageViewLogo.load(it.companyLogo)
+            commonLoginBinding.textViewCompanyName.text = it.companyName
+            commonLoginBinding.textViewCompanyGreetings.text = it.greetingsText
         }
 
         loginProviders?.let { providers ->

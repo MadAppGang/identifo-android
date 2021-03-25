@@ -7,11 +7,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import coil.load
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
-import com.prytula.identifolibui.extensions.makeUnderline
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
+import com.prytula.identifolibui.login.IdentifoActivity
+import com.prytula.identifolibui.login.options.LoginOptions
+import com.prytula.identifolibui.login.options.Style
 
 
 /*
@@ -24,18 +27,27 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
     private val usernameLoginBinding by viewBinding(FragmentLoginUsernameBinding::bind)
     private val usernameLoginViewModel: UsernameLoginViewModel by viewModels()
 
+    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoActivity).loginOptions }
+    private val commonStyle: Style? by lazy { loginOptions.commonStyle }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        commonStyle?.let {
+            usernameLoginBinding.imageViewLogo.load(it.companyLogo)
+            usernameLoginBinding.textViewCompanyName.text = it.companyName
+            usernameLoginBinding.textViewCompanyGreetings.text = it.greetingsText
+        }
+
         usernameLoginBinding.editTextPassword.onDone {
             usernameLoginViewModel.performLogin(
-                usernameLoginBinding.editTextTextEmailAddress.text.toString(),
+                usernameLoginBinding.editTextEmailAddress.text.toString(),
                 usernameLoginBinding.editTextPassword.text.toString()
             )
         }
         usernameLoginBinding.buttonLogin.setOnClickListener {
             usernameLoginViewModel.performLogin(
-                usernameLoginBinding.editTextTextEmailAddress.text.toString(),
+                usernameLoginBinding.editTextEmailAddress.text.toString(),
                 usernameLoginBinding.editTextPassword.text.toString()
             )
         }
@@ -48,18 +60,16 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
             usernameLoginBinding.constraintLoginRoot.showMessage(it.error.message)
         }
 
-        with(usernameLoginBinding.textViewRegisterNewAccount) {
-            text = getString(R.string.registerNewAccount).makeUnderline()
-            setOnClickListener {
-                findNavController().navigate(R.id.action_usernameLoginFragment_to_registrationFragment)
-            }
+        usernameLoginBinding.textViewRegisterNewAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_usernameLoginFragment_to_registrationFragment)
         }
 
-        with(usernameLoginBinding.textViewForgotThePassword) {
-            text = getString(R.string.forgotThePassword).makeUnderline()
-            setOnClickListener {
-                findNavController().navigate(R.id.action_usernameLoginFragment_to_resetPasswordFragment)
-            }
+        usernameLoginBinding.buttonRecoveryPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_usernameLoginFragment_to_resetPasswordFragment)
+        }
+
+        usernameLoginBinding.imageViewBackArrow.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 }

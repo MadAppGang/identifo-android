@@ -2,7 +2,6 @@
     <string name="company_name">Identifo Demo</string>
     <string name="company_greetings">Madappgang company congratulates you!</string>
 
-
     <string name="identifo_app_name" translatable="false">IdentifoAndroidDemo</string>
     <string name="identifo_facebook_app_id" translatable="false">721873465184562</string>
     <string name="identifo_facebook_protocol_scheme" translatable="false">fb721873465184562</string>
