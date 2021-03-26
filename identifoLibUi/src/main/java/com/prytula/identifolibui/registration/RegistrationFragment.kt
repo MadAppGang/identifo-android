@@ -6,11 +6,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentRegistrationBinding
+import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
 
@@ -42,6 +44,13 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        registrationBinding.nestedScrollViewSignUpRoot.addSystemTopBottomPadding()
+
+        registrationBinding.imageViewBackArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         registrationBinding.buttonRegister.setOnClickListener { pushUsernameAndPassword() }
         registrationBinding.editTextPassword.onDone { pushUsernameAndPassword() }
 
@@ -61,9 +70,9 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     }
 
     private fun pushUsernameAndPassword() {
-        val login = registrationBinding.editTextTextEmailAddress.text.toString()
+        val login = registrationBinding.editTextUsername.text.toString()
         val password = registrationBinding.editTextPassword.text.toString()
-        val repeatPassword = registrationBinding.editTextPasswordRepeat.text.toString()
+        val repeatPassword = registrationBinding.editTextConfirmPassword.text.toString()
 
         if (password == repeatPassword) {
             registrationViewModel.registerWithUsernameAndPassword(login, password)

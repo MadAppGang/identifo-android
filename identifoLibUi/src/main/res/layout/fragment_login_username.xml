@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutFieldResetPasswordEmail"
+            android:id="@+id/textInputLayoutFieldUsername"
             style="@style/BorderedInputTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,11 +20,13 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/usernameHint"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayoutFieldPassword"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.05">
+            app:layout_constraintTop_toBottomOf="@+id/textViewRegisterNewAccount"
+            app:layout_constraintVertical_bias="0.110000014"
+            app:layout_constraintVertical_chainStyle="packed">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmailAddress"
@@ -42,14 +44,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/passwordHint"
             app:endIconMode="password_toggle"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFieldResetPasswordEmail"
-            app:layout_constraintVertical_bias="0.060000002">
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFieldUsername">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
@@ -73,9 +76,7 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonRecoveryPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFieldPassword"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textViewRegisterNewAccount"
