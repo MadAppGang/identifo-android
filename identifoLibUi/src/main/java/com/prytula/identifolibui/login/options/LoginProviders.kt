@@ -8,10 +8,10 @@ import java.io.Serializable
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-enum class LoginProviders : Serializable {
-    EMAIL,
-    PHONE,
-    GMAIL,
-    FACEBOOK,
-    TWITTER
+enum class LoginProviders(val isAuxiliaryIdentifier : Boolean) : Serializable {
+    EMAIL(isAuxiliaryIdentifier = false),
+    PHONE(isAuxiliaryIdentifier = false),
+    GMAIL(isAuxiliaryIdentifier = true),
+    FACEBOOK(isAuxiliaryIdentifier = true),
+    TWITTER(isAuxiliaryIdentifier = true)
 }

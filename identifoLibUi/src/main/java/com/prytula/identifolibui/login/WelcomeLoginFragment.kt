@@ -99,6 +99,11 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
                 throw Exception("You need to have at least one provider!")
             }
 
+            val allTypesIdentifiers = providers.any { !it.isAuxiliaryIdentifier } and providers.any { it.isAuxiliaryIdentifier }
+            if (allTypesIdentifiers) {
+                welcomeBinding.viewSeparator.visibility = View.VISIBLE
+            }
+
             if (LoginProviders.GMAIL in providers) {
                 with(welcomeBinding.buttonLoginWithGoogle) {
                     visibility = View.VISIBLE
