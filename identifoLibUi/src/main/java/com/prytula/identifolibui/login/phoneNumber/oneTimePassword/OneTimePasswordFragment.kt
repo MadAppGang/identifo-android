@@ -38,6 +38,10 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         )
     }
 
+    private val regexPattern: Regex by lazy {
+        """\d{6}""".toRegex()
+    }
+
     private lateinit var smsVerificationReceiver: BroadcastReceiver
 
     private val oneTimePasswordBinding by viewBinding(FragmentOneTimePasswordBinding::bind)
@@ -100,8 +104,8 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
             }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         requireContext().unregisterReceiver(smsVerificationReceiver)
     }
 
@@ -112,7 +116,9 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
                     if (message.isNullOrBlank()) return
-                    oneTimePasswordBinding.editTextOtp.setText(message)
+                    regexPattern.find(message)?.value?.let { otp ->
+                        oneTimePasswordBinding.editTextOtp.setText(otp)
+                    }
                 }
         }
     }
