@@ -14,8 +14,10 @@
     <string name="singUp">Sing up</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
-    <string name="recoveryPassword">Recovery the password</string>
-    <string name="passwordConfirm">Confirm a password</string>
+    <string name="recoveryPassword">Recovery password</string>
+    <string name="enterYourEmail">Enter your email</string>
+    <string name="weWillSendPasswordResetLink">We will send to you a password reset link.</string>
+    <string name="passwordConfirm">Confirm password</string>
     <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
     <string name="userAgreement">User Agreement</string>
     <string name="privacyPolicy">Privacy Policy</string>

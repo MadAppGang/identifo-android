@@ -24,18 +24,22 @@
 
     <style name="PrimaryBoldTextStyle" parent="NunitoBold">
         <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="SecondaryRegularTextStyle" parent="NunitoRegular">
         <item name="android:textColor">@color/gray</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="ThirdRegulatTextStyle" parent="NunitoRegular">
         <item name="android:textColor">@color/blue</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="FourthBoldTextStyle" parent="ExoBold">
         <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <!-- image view styles -->

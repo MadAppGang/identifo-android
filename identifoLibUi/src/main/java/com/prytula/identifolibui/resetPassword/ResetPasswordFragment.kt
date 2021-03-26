@@ -33,6 +33,10 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
             findNavController().popBackStack()
         }
 
+        resetPasswordBinding.imageViewBackArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         resetPasswordBinding.buttonResetPassword.setOnClickListener {
             val email = resetPasswordBinding.editTextResetPasswordEmail.text.toString()
             resetPasswordViewModel.resetPassword(email)

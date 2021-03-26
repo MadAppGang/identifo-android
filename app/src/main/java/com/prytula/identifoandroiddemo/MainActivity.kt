@@ -12,6 +12,7 @@ import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolibui.login.IdentifoActivity
 import com.prytula.identifolibui.login.options.*
+import com.prytula.identifolibui.login.options.LoginProviders.*
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -35,11 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
             val providers = listOf(
-                LoginProviders.GMAIL,
-                LoginProviders.TWITTER,
-                LoginProviders.FACEBOOK,
-                LoginProviders.PHONE,
-                LoginProviders.EMAIL
+                GMAIL,
+                TWITTER,
+                FACEBOOK,
+                PHONE,
+                EMAIL
             )
             val style = Style(
                 companyLogo = R.drawable.ic_launcher_background,

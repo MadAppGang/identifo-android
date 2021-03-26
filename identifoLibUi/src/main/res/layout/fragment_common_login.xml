@@ -177,7 +177,6 @@
             android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAllCaps="true"
             android:gravity="center"
             android:textSize="@dimen/text24"
             app:layout_constraintBottom_toTopOf="@+id/text_view_company_greetings"
