@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_company_greetings">
+            app:layout_constraintTop_toBottomOf="@+id/textViewCompanyGreetings">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithUsername"
@@ -30,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithEmail"
                 android:visibility="gone" />
@@ -40,9 +39,8 @@
                 style="@style/ColoredButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/loginWithPhoneNumber"
                 android:visibility="gone" />
 
@@ -52,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithGmail"
                 android:visibility="gone" />
@@ -63,9 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
                 android:text="@string/loginWithFacebook"
                 android:visibility="gone">
 
@@ -78,7 +73,6 @@
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
                 android:text="@string/loginWithTwitter"
                 android:visibility="gone">
 
@@ -88,23 +82,13 @@
                 android:id="@+id/buttonLoginWithTwitterNative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                android:visibility="gone" />
 
             <com.facebook.login.widget.LoginButton
                 android:id="@+id/buttonLoginWithFacebookNative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="4dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -180,13 +164,13 @@
             android:maxLines="1"
             android:gravity="center"
             android:textSize="@dimen/text24"
-            app:layout_constraintBottom_toTopOf="@+id/text_view_company_greetings"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCompanyGreetings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Company name" />
 
         <TextView
-            android:id="@+id/text_view_company_greetings"
+            android:id="@+id/textViewCompanyGreetings"
             style="@style/SecondaryRegularTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
