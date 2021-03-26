@@ -9,4 +9,7 @@
     <color name="blue">#6163F6</color>
     <color name="semitransparentBlue">#4D6163F6</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="systemStatusBarColor">#40000000</color>
+    <color name="systemNavigationBarColor">#40000000</color>
 </resources>

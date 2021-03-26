@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentPhoneNumberLoginBinding
+import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.IdentifoActivity
@@ -34,6 +35,8 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        phoneNumberLoginBinding.nestedScrollViewPhoneNumberRoot.addSystemTopBottomPadding()
 
         phoneNumberLoginBinding.imageViewBackArrow.setOnClickListener {
             findNavController().popBackStack()
@@ -67,7 +70,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
                 OneTimePasswordFragment.putArgument(phoneNumber)
             )
         } else {
-            phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
+            phoneNumberLoginBinding.nestedScrollViewPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
         }
     }
 }

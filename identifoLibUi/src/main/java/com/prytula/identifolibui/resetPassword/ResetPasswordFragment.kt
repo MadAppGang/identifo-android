@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentResetPasswordBinding
+import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.showMessage
 
 
@@ -24,6 +25,8 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        resetPasswordBinding.constraintRoot.addSystemTopBottomPadding()
 
         resetPasswordViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) { errorResponse ->
             resetPasswordBinding.constraintRoot.showMessage(errorResponse.error.message)

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/commonLoginFragment"
-        android:name="com.prytula.identifolibui.login.CommonLoginFragment"
+        android:name="com.prytula.identifolibui.login.WelcomeLoginFragment"
         android:label="CommonLoginFragment"
-        tools:layout="@layout/fragment_common_login">
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_commonLoginFragment_to_phoneNumberLoginFragment"
             app:destination="@id/phoneNumberLoginFragment"

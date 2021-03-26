@@ -10,6 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentLoginUsernameBinding
+import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.IdentifoActivity
@@ -32,6 +33,8 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        usernameLoginBinding.nestedScrollViewLoginRoot.addSystemTopBottomPadding()
 
         commonStyle?.let {
             usernameLoginBinding.imageViewLogo.load(it.companyLogo)
@@ -57,7 +60,7 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
         }
 
         usernameLoginViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) {
-            usernameLoginBinding.constraintLoginRoot.showMessage(it.error.message)
+            usernameLoginBinding.nestedScrollViewLoginRoot.showMessage(it.error.message)
         }
 
         usernameLoginBinding.textViewRegisterNewAccount.setOnClickListener {

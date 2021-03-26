@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="IdentifoStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/systemStatusBarColor</item>
+        <item name="android:navigationBarColor">@color/systemNavigationBarColor</item>
+    </style>
+
     <!-- font text styles -->
     <style name="NunitoRegular">
         <item name="android:fontFamily">@font/nunito_regular</item>

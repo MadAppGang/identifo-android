@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.Status
 import com.prytula.identifolibui.OnTextChangeListener
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentOneTimePasswordBinding
+import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.hideSoftKeyboard
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.extensions.showSoftKeyboard
@@ -49,6 +50,9 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        oneTimePasswordBinding.constraintOtpRoot.addSystemTopBottomPadding()
+
         val phoneNumber = requireArguments().getString(PHONE_NUMBER_KEY) ?: ""
 
         oneTimePasswordViewModel.requestOtpCode(phoneNumber)
