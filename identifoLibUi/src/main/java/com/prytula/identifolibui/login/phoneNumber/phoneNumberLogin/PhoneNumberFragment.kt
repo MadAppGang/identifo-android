@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentPhoneNumberLoginBinding
+import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.login.IdentifoActivity
 import com.prytula.identifolibui.login.options.LoginOptions
@@ -48,17 +49,25 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
             phoneNumberLoginBinding.textViewCompanyGreetings.text = it.greetingsText
         }
 
+        phoneNumberLoginBinding.textInputPhoneNumber.onDone {
+            redirectToOtpReceivingScreen()
+        }
+
         phoneNumberLoginBinding.buttonProceed.setOnClickListener {
-            val phoneNumber = phoneNumberLoginBinding.textInputPhoneNumber.text.toString()
-            val isNumberValid = phoneNumber.matches(PHONE_NUMBER_PATTERN)
-            if (isNumberValid) {
-                findNavController().navigate(
-                    R.id.action_phoneNumberLoginFragment_to_oneTimePasswordFragment,
-                    OneTimePasswordFragment.putArgument(phoneNumber)
-                )
-            } else {
-                phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
-            }
+            redirectToOtpReceivingScreen()
+        }
+    }
+
+    private fun redirectToOtpReceivingScreen() {
+        val phoneNumber = phoneNumberLoginBinding.textInputPhoneNumber.text.toString()
+        val isNumberValid = phoneNumber.matches(PHONE_NUMBER_PATTERN)
+        if (isNumberValid) {
+            findNavController().navigate(
+                R.id.action_phoneNumberLoginFragment_to_oneTimePasswordFragment,
+                OneTimePasswordFragment.putArgument(phoneNumber)
+            )
+        } else {
+            phoneNumberLoginBinding.constraintPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
         }
     }
 }

@@ -55,6 +55,7 @@ class OneTimePasswordViewModel : ViewModel() {
                 _isImpossibleToSendTheCode.value = false
                 coutDownTimer.start()
             }.onError { errorResponse ->
+                _isImpossibleToSendTheCode.value = true
                 _receiveError.emit(errorResponse)
             }
         }
