@@ -15,6 +15,7 @@ import com.prytula.identifolibui.login.options.*
 import com.prytula.identifolibui.login.options.LoginProviders.*
 import kotlinx.coroutines.launch
 
+
 class MainActivity : AppCompatActivity() {
 
     private val linearLayoutRoot by lazy { findViewById<LinearLayout>(R.id.leanerLayoutRoot) }
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                 EMAIL
             )
             val style = Style(
-                companyLogo = R.drawable.ic_launcher_background,
+                companyLogo = R.drawable.ic_madappgang,
                 companyName = getString(R.string.company_name),
                 greetingsText = getString(R.string.company_greetings)
             )
