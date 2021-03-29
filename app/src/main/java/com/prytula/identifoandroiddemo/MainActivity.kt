@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.auth.api.Auth
 import com.google.android.material.snackbar.Snackbar
 import com.prytula.IdentifoAuthentication
+import com.prytula.identifolib.entities.AuthState
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolibui.login.IdentifoActivity
 import com.prytula.identifolibui.login.options.*
@@ -30,7 +32,11 @@ class MainActivity : AppCompatActivity() {
         buttonLogout.setOnClickListener {
             lifecycleScope.launch {
                 IdentifoAuthentication.logout().onError { errorResponse ->
-                    Snackbar.make(linearLayoutRoot, errorResponse.error.message, Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(
+                        linearLayoutRoot,
+                        errorResponse.error.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
@@ -43,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 PHONE,
                 EMAIL
             )
+
             val style = Style(
                 companyLogo = R.drawable.ic_madappgang,
                 companyName = getString(R.string.company_name),
@@ -57,13 +64,23 @@ class MainActivity : AppCompatActivity() {
             val loginOptions = LoginOptions(
                 commonStyle = style,
                 providers = providers,
-                userConditions
+                useConditions = userConditions
             )
+
             IdentifoActivity.openActivity(this, loginOptions)
         }
 
-        IdentifoAuthentication.authenticationState.asLiveData().observe(this) { authentificationState ->
-            textView.text = authentificationState.toString()
+        IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
+            when (state) {
+                is AuthState.Authentificated -> {
+                    val accessToken = state.accessToken
+                    val user = state.identifoUser
+                    textView.text = "User - ${user}, token - $accessToken"
+                }
+                else -> {
+                    textView.text = "Deauthenticated"
+                }
+            }
         }
     }
 }
