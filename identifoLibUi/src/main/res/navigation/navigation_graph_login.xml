@@ -44,7 +44,7 @@
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right"/>
+            app:popExitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"
@@ -55,21 +55,21 @@
         android:id="@+id/usernameLoginFragment"
         android:name="com.prytula.identifolibui.login.username.UsernameLoginFragment"
         android:label="UsernameLoginFragment"
-        tools:layout="@layout/fragment_login_username" >
+        tools:layout="@layout/fragment_login_username">
         <action
             android:id="@+id/action_usernameLoginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment"
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right"/>
+            app:popExitAnim="@anim/exit_right" />
         <action
             android:id="@+id/action_usernameLoginFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment"
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right"/>
+            app:popExitAnim="@anim/exit_right" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -80,6 +80,28 @@
         android:id="@+id/resetPasswordFragment"
         android:name="com.prytula.identifolibui.resetPassword.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
-        tools:layout="@layout/fragment_reset_password"/>
+        tools:layout="@layout/fragment_reset_password">
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_followTheLinkFragment"
+            app:destination="@id/followTheLinkFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/followTheLinkFragment"
+        android:name="com.prytula.identifolibui.resetPassword.FollowTheLinkFragment"
+        android:label="FollowTheLinkFragment"
+        tools:layout="@layout/fragment_follow_the_link">
+        <action
+            android:id="@+id/action_followTheLinkFragment_pop_including_resetPasswordFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"
+            app:popUpTo="@id/resetPasswordFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

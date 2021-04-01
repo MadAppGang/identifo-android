@@ -2,6 +2,7 @@ package com.prytula.identifolibui.resetPassword
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -25,16 +26,21 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        
         resetPasswordBinding.constraintRoot.addSystemTopBottomPadding()
 
-        resetPasswordViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) { errorResponse ->
-            resetPasswordBinding.constraintRoot.showMessage(errorResponse.error.message)
-        }
+        resetPasswordViewModel.receiveError.asLiveData()
+            .observe(viewLifecycleOwner) { errorResponse ->
+                resetPasswordBinding.constraintRoot.showMessage(errorResponse.error.message)
+            }
 
-        resetPasswordViewModel.passwordHasBeenReset.asLiveData().observe(viewLifecycleOwner) { resetPasswordResponse ->
-            findNavController().popBackStack()
-        }
+        resetPasswordViewModel.passwordHasBeenReset.asLiveData()
+            .observe(viewLifecycleOwner) { email ->
+                findNavController().navigate(
+                    R.id.action_resetPasswordFragment_to_followTheLinkFragment,
+                    FollowTheLinkFragment.putArguments(email)
+                )
+            }
 
         resetPasswordBinding.imageViewBackArrow.setOnClickListener {
             findNavController().popBackStack()

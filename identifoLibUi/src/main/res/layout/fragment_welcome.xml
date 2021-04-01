@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:overScrollMode="never">
+    android:overScrollMode="never"
+    style="@style/BackgroundStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_login_root"
@@ -26,7 +27,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithUsername"
-                style="@style/ColoredButtonStyle"
+                style="@style/PrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -36,7 +37,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithPhoneNumber"
-                style="@style/ColoredButtonStyle"
+                style="@style/PrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -57,7 +58,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithGoogle"
-                style="@style/BorderedButtonStyle"
+                style="@style/SecondaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -67,7 +68,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithFacebook"
-                style="@style/BorderedButtonStyle"
+                style="@style/SecondaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -79,7 +80,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithTwitter"
-                style="@style/BorderedButtonStyle"
+                style="@style/SecondaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/providers_sign_in_button"
                 android:layout_marginStart="16dp"

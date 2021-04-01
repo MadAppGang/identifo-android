@@ -30,6 +30,9 @@
     <string name="sendTheCode">Resend the code</string>
     <string name="resetThePassword">Reset the password</string>
     <string name="resetPasswordEmail">Reset password for email</string>
+    <string name="weSentYouALink">We sent you the link to reset your password</string>
+    <string name="followTheLinkYouReceived">Follow the link you received to %s.</string>
+    <string name="backToLogin">Back to login</string>
 
     <!-- public shown resources -->
     <string name="identifo_app_name" />

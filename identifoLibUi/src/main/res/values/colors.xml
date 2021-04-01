@@ -6,8 +6,10 @@
     <color name="black">#1B1B1B</color>
     <color name="gray">#828282</color>
     <color name="lightGray">#4D828282</color>
+    <color name="darkGray">#423F3F</color>
+    <color name="semiTransparentDarkGray">#4D423F3F</color>
     <color name="blue">#6163F6</color>
-    <color name="semitransparentBlue">#4D6163F6</color>
+    <color name="semiTransparentBlue">#4D6163F6</color>
     <color name="white">#FFFFFF</color>
 
     <color name="systemStatusBarColor">#40000000</color>
