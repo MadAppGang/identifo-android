@@ -143,6 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            style="@style/IdentifoLogoStyle"
             app:layout_constraintEnd_toStartOf="@+id/textViewIdentifo"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
