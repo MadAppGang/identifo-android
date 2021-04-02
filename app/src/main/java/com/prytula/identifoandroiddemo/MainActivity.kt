@@ -2,12 +2,12 @@ package com.prytula.identifoandroiddemo
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import com.google.android.gms.auth.api.Auth
 import com.google.android.material.snackbar.Snackbar
 import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.AuthState
@@ -16,14 +16,20 @@ import com.prytula.identifolibui.login.IdentifoActivity
 import com.prytula.identifolibui.login.options.*
 import com.prytula.identifolibui.login.options.LoginProviders.*
 import kotlinx.coroutines.launch
+import java.security.Provider
 
 
 class MainActivity : AppCompatActivity() {
 
     private val linearLayoutRoot by lazy { findViewById<LinearLayout>(R.id.leanerLayoutRoot) }
     private val textView by lazy { findViewById<TextView>(R.id.textState) }
-    private val buttonLogin by lazy { findViewById<Button>(R.id.buttonLogin) }
+    private val buttonLogin by lazy { findViewById<Button>(R.id.buttonSignIn) }
     private val buttonLogout by lazy { findViewById<Button>(R.id.buttonLogout) }
+    private val checkBoxEmail by lazy { findViewById<CheckBox>(R.id.checkboxEmail) }
+    private val checkBoxPhoneNumber by lazy { findViewById<CheckBox>(R.id.checkboxPhoneNumber) }
+    private val checkBoxGoogle by lazy { findViewById<CheckBox>(R.id.checkboxGoogle) }
+    private val checkBoxFacebook by lazy { findViewById<CheckBox>(R.id.checkboxFacebook) }
+    private val checkBoxTwitter by lazy { findViewById<CheckBox>(R.id.checkboxTwitter) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +48,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonLogin.setOnClickListener {
-            val providers = listOf(
-                GMAIL,
-                TWITTER,
-                FACEBOOK,
-                PHONE,
-                EMAIL
-            )
+            val providers = mutableListOf<LoginProviders>()
+
+            if (checkBoxEmail.isChecked) providers += EMAIL
+            if (checkBoxPhoneNumber.isChecked) providers += PHONE
+            if (checkBoxGoogle.isChecked) providers += GMAIL
+            if (checkBoxFacebook.isChecked) providers += FACEBOOK
+            if (checkBoxTwitter.isChecked) providers += TWITTER
 
             val style = Style(
                 companyLogo = R.drawable.ic_madappgang,
