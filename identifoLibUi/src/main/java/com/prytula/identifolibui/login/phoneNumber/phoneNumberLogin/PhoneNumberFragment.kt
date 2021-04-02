@@ -11,7 +11,7 @@ import com.prytula.identifolibui.databinding.FragmentPhoneNumberLoginBinding
 import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
-import com.prytula.identifolibui.login.IdentifoActivity
+import com.prytula.identifolibui.login.IdentifoSignInActivity
 import com.prytula.identifolibui.login.options.LoginOptions
 import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment
@@ -26,7 +26,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
 
     private val phoneNumberLoginBinding by viewBinding(FragmentPhoneNumberLoginBinding::bind)
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoSignInActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
 
     companion object {
@@ -43,7 +43,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
         }
 
         phoneNumberLoginBinding.textViewRegisterNewAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_phoneNumberLoginFragment_to_registrationFragment)
+            findNavController().navigate(R.id.action_phoneNumberLoginFragment_to_navigation_graph_sign_up)
         }
 
         commonStyle?.let {

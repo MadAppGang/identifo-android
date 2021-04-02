@@ -46,7 +46,7 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
     private val welcomeBinding by viewBinding(FragmentWelcomeBinding::bind)
     private val commonViewModel: CommonViewModel by viewModels()
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoSignInActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
     private val userConditions: UseConditions? by lazy { loginOptions.useConditions }

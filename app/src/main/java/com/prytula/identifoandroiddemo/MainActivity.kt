@@ -12,11 +12,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.AuthState
 import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolibui.login.IdentifoActivity
+import com.prytula.identifolibui.login.IdentifoSignInActivity
 import com.prytula.identifolibui.login.options.*
 import com.prytula.identifolibui.login.options.LoginProviders.*
+import com.prytula.identifolibui.registration.IdentifoSingUpActivity
 import kotlinx.coroutines.launch
-import java.security.Provider
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val linearLayoutRoot by lazy { findViewById<LinearLayout>(R.id.leanerLayoutRoot) }
     private val textView by lazy { findViewById<TextView>(R.id.textState) }
     private val buttonLogin by lazy { findViewById<Button>(R.id.buttonSignIn) }
+    private val buttonRegistration by lazy { findViewById<Button>(R.id.buttonSignUp) }
     private val buttonLogout by lazy { findViewById<Button>(R.id.buttonLogout) }
     private val checkBoxEmail by lazy { findViewById<CheckBox>(R.id.checkboxEmail) }
     private val checkBoxPhoneNumber by lazy { findViewById<CheckBox>(R.id.checkboxPhoneNumber) }
@@ -47,6 +48,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val style = Style(
+            companyLogo = R.drawable.ic_madappgang,
+            companyName = getString(R.string.company_name),
+            greetingsText = getString(R.string.company_greetings)
+        )
+
+        val userConditions = UseConditions(
+            "https://madappgang.com/",
+            "https://madappgang.com/experience"
+        )
+
+        buttonRegistration.setOnClickListener {
+            IdentifoSingUpActivity.openActivity(this)
+        }
+
         buttonLogin.setOnClickListener {
             val providers = mutableListOf<LoginProviders>()
 
@@ -56,24 +72,13 @@ class MainActivity : AppCompatActivity() {
             if (checkBoxFacebook.isChecked) providers += FACEBOOK
             if (checkBoxTwitter.isChecked) providers += TWITTER
 
-            val style = Style(
-                companyLogo = R.drawable.ic_madappgang,
-                companyName = getString(R.string.company_name),
-                greetingsText = getString(R.string.company_greetings)
-            )
-
-            val userConditions = UseConditions(
-                "https://madappgang.com/",
-                "https://madappgang.com/experience"
-            )
-
             val loginOptions = LoginOptions(
                 commonStyle = style,
                 providers = providers,
                 useConditions = userConditions
             )
 
-            IdentifoActivity.openActivity(this, loginOptions)
+            IdentifoSignInActivity.openActivity(this, loginOptions)
         }
 
         IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->

@@ -39,12 +39,12 @@
             app:popEnterAnim="@anim/enter_left"
             app:popExitAnim="@anim/exit_right" />
         <action
-            android:id="@+id/action_phoneNumberLoginFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment"
+            android:id="@+id/action_phoneNumberLoginFragment_to_navigation_graph_sign_up"
+            app:destination="@id/navigation_graph_sign_up"
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right" />
+            app:popExitAnim="@anim/exit_right"/>
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"
@@ -57,19 +57,19 @@
         android:label="UsernameLoginFragment"
         tools:layout="@layout/fragment_login_username">
         <action
-            android:id="@+id/action_usernameLoginFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment"
-            app:enterAnim="@anim/enter_right"
-            app:exitAnim="@anim/exit_left"
-            app:popEnterAnim="@anim/enter_left"
-            app:popExitAnim="@anim/exit_right" />
-        <action
             android:id="@+id/action_usernameLoginFragment_to_resetPasswordFragment"
             app:destination="@id/resetPasswordFragment"
             app:enterAnim="@anim/enter_right"
             app:exitAnim="@anim/exit_left"
             app:popEnterAnim="@anim/enter_left"
             app:popExitAnim="@anim/exit_right" />
+        <action
+            android:id="@+id/action_usernameLoginFragment_to_navigation_graph_sign_up"
+            app:destination="@id/navigation_graph_sign_up"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -103,5 +103,6 @@
             app:popUpTo="@id/resetPasswordFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <include app:graph="@navigation/navigation_graph_sign_up" />
 
 </navigation>
