@@ -9,12 +9,13 @@ import com.prytula.IdentifoAuthentication
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
+// Step 2
 class IdentifoDemoApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        val appID = "bk9o707k3t4c72q2qqqq"
-        val secret = "vUYvSt8rEI7lTPIM96MMwPS3"
-        val baseUrl = "https://identifo.jackrudenko.com"
+        val appID = "59fd884d8f6b180001f5b4e2"
+        val secret = "vU06QTsJ3dWXiAdJxgdsTPAg"
+        val baseUrl = "https://auth.smartrun.app"
 
         IdentifoAuthentication.initAuthenticator(this, baseUrl, appID, secret)
     }

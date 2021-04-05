@@ -11,11 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.AuthState
-import com.prytula.identifolib.extensions.onError
-import com.prytula.identifolibui.login.IdentifoSignInActivity
-import com.prytula.identifolibui.login.options.*
-import com.prytula.identifolibui.login.options.LoginProviders.*
-import com.prytula.identifolibui.registration.IdentifoSingUpActivity
+import com.prytula.identifolibui.login.options.Style
+import com.prytula.identifolibui.login.options.UseConditions
 import kotlinx.coroutines.launch
 
 
@@ -36,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Step 3
         buttonLogout.setOnClickListener {
             lifecycleScope.launch {
                 IdentifoAuthentication.logout().onError { errorResponse ->
@@ -48,6 +46,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Step 4
+        IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
+            when (state) {
+                is AuthState.Authentificated -> {
+                    val accessToken = state.accessToken
+                    val user = state.identifoUser
+                    textView.text = "User - ${user}, token - $accessToken"
+                }
+                else -> {
+                    textView.text = "Deauthenticated"
+                }
+            }
+        }
+
+        // Step 5 (Optional)
         val style = Style(
             companyLogo = R.drawable.ic_madappgang,
             companyName = getString(R.string.company_name),
@@ -58,10 +71,6 @@ class MainActivity : AppCompatActivity() {
             "https://madappgang.com/",
             "https://madappgang.com/experience"
         )
-
-        buttonRegistration.setOnClickListener {
-            IdentifoSingUpActivity.openActivity(this)
-        }
 
         buttonLogin.setOnClickListener {
             val providers = mutableListOf<LoginProviders>()
@@ -81,17 +90,8 @@ class MainActivity : AppCompatActivity() {
             IdentifoSignInActivity.openActivity(this, loginOptions)
         }
 
-        IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
-            when (state) {
-                is AuthState.Authentificated -> {
-                    val accessToken = state.accessToken
-                    val user = state.identifoUser
-                    textView.text = "User - ${user}, token - $accessToken"
-                }
-                else -> {
-                    textView.text = "Deauthenticated"
-                }
-            }
+        buttonRegistration.setOnClickListener {
+            IdentifoSingUpActivity.openActivity(this)
         }
     }
 }

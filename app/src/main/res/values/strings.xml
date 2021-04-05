@@ -2,10 +2,13 @@
     <string name="company_name">Identifo Demo</string>
     <string name="company_greetings">Madappgang company congratulates you!</string>
 
+    <!-- Step 6 (Optional) -->
     <string name="identifo_app_name" translatable="false">IdentifoAndroidDemo</string>
     <string name="identifo_facebook_app_id" translatable="false">721873465184562</string>
     <string name="identifo_facebook_protocol_scheme" translatable="false">fb721873465184562</string>
+
     <string name="identifo_google_api_key" translatable="false">153119406654-a2uoase99mdskhsrs406v5g7l9bp7dvc.apps.googleusercontent.com</string>
+
     <string name="identifo_twitter_key" translatable="false">7ud3qaw3esmGd157Rxrc1jfFA</string>
     <string name="identifo_twitter_secret" translatable="false">XszbYbCJBUKiPugyi3kbvKQOyyu3SozgCIUtPeii7ur7HgEWSx</string>
 </resources>
