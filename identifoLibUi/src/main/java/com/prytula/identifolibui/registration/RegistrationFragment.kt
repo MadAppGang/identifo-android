@@ -66,6 +66,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
                     RegistrationUIStates.Loading -> showLoading()
                     is RegistrationUIStates.RegistrationSuccessful -> closeActivity()
                     is RegistrationUIStates.RegistrationFailure -> showErrorMessage(state.error)
+                    else -> hideLoading()
                 }
             }
 
@@ -75,15 +76,21 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     }
 
     private fun closeActivity() {
+        hideLoading()
         requireActivity().finish()
     }
 
     private fun showErrorMessage(errorResponse: ErrorResponse) {
+        hideLoading()
         registrationBinding.constraintRegistrationRoot.showMessage(errorResponse.error.message)
     }
 
     private fun showLoading() {
+        registrationBinding.progressBarLine.show()
+    }
 
+    private fun hideLoading() {
+        registrationBinding.progressBarLine.hide()
     }
 
     private fun pushUsernameAndPassword() {

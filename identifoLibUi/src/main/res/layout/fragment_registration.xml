@@ -45,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewSignUpTitle" />
@@ -150,7 +149,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textInputLayoutFieldUsername"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBarLine" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
