@@ -3,6 +3,7 @@ package com.prytula.identifolibui.registration
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -10,11 +11,14 @@ import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.prytula.identifolib.entities.ErrorResponse
 import com.prytula.identifolibui.R
+import com.prytula.identifolibui.databinding.ActivitySignUpBinding
 import com.prytula.identifolibui.databinding.FragmentRegistrationBinding
 import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.onDone
 import com.prytula.identifolibui.extensions.showMessage
+import com.prytula.identifolibui.login.IdentifoSignInActivity
 
 
 /*
@@ -47,6 +51,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         registrationBinding.nestedScrollViewSignUpRoot.addSystemTopBottomPadding()
 
+        registrationBinding.imageViewBackArrow.isVisible = requireActivity() is IdentifoSignInActivity
         registrationBinding.imageViewBackArrow.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -54,19 +59,31 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         registrationBinding.buttonRegister.setOnClickListener { pushUsernameAndPassword() }
         registrationBinding.editTextPassword.onDone { pushUsernameAndPassword() }
 
-        registrationViewModel.registrationSuccessful.asLiveData()
-            .observe(viewLifecycleOwner) { registerResponse ->
-                requireActivity().finish()
-            }
 
-        registrationViewModel.receiveError.asLiveData()
-            .observe(viewLifecycleOwner) { errorResponse ->
-                registrationBinding.constraintRegistrationRoot.showMessage(errorResponse.error.message)
+        registrationViewModel.registrationUIState.asLiveData()
+            .observe(viewLifecycleOwner) { state ->
+                when (state) {
+                    RegistrationUIStates.Loading -> showLoading()
+                    is RegistrationUIStates.RegistrationSuccessful -> closeActivity()
+                    is RegistrationUIStates.RegistrationFailure -> showErrorMessage(state.error)
+                }
             }
 
         registrationBinding.imageViewAccount.setOnClickListener {
             getImageContent.launch(MIMETYPE_IMAGES)
         }
+    }
+
+    private fun closeActivity() {
+        requireActivity().finish()
+    }
+
+    private fun showErrorMessage(errorResponse: ErrorResponse) {
+        registrationBinding.constraintRegistrationRoot.showMessage(errorResponse.error.message)
+    }
+
+    private fun showLoading() {
+
     }
 
     private fun pushUsernameAndPassword() {

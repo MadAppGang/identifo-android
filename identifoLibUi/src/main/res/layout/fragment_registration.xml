@@ -17,7 +17,9 @@
             android:id="@+id/imageViewBackArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
             android:padding="20dp"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_back" />
@@ -26,16 +28,25 @@
             android:id="@+id/textViewSignUpTitle"
             style="@style/PrimaryBoldTextStyle"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="56dp"
             android:ellipsize="end"
             android:gravity="center|left"
             android:maxLines="1"
+            android:paddingStart="16dp"
             android:text="@string/singUp"
             android:textSize="@dimen/text18"
-            app:layout_constraintBottom_toBottomOf="@+id/imageViewBackArrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewBackArrow"
             app:layout_constraintTop_toTopOf="@+id/imageViewBackArrow" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            style="@style/ProgressStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSignUpTitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutFieldUsername"

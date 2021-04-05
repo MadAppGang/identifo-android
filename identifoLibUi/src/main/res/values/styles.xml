@@ -61,6 +61,14 @@
         <item name="tint">@color/black</item>
     </style>
 
+    <!-- progress style -->
+    <style name="ProgressStyle" parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:indeterminate">true</item>
+        <item name="trackColor">@color/semiTransparentBlue</item>
+        <item name="indicatorColor">@color/blue</item>
+    </style>
+
     <!-- button styles -->
     <style name="CommonButtonStyle">
         <item name="android:textAllCaps">false</item>
