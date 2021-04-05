@@ -4,14 +4,9 @@ import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prytula.IdentifoAuthentication
-import com.prytula.identifolib.entities.ErrorResponse
-import com.prytula.identifolib.entities.phoneLogin.PhoneLoginResponse
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
@@ -27,46 +22,39 @@ class OneTimePasswordViewModel : ViewModel() {
         private const val STEP_TIME_MILLIS = 1000L
     }
 
-    private val _finishSigningIn = MutableSharedFlow<PhoneLoginResponse>()
-    val finishSigningIn: SharedFlow<PhoneLoginResponse> = _finishSigningIn
+    private val _oneTimePasswordUIState = MutableStateFlow<OneTimePasswordUIStates>(OneTimePasswordUIStates.IDLE)
+    val oneTimePasswordUIState: StateFlow<OneTimePasswordUIStates> = _oneTimePasswordUIState.asStateFlow()
 
-    private val _receiveError = MutableSharedFlow<ErrorResponse>()
-    val receiveError: SharedFlow<ErrorResponse> = _receiveError
-
-    private val _isImpossibleToSendTheCode = MutableStateFlow<Boolean>(false)
-    val isImpossibleToSendTheCode: StateFlow<Boolean> = _isImpossibleToSendTheCode
-
-    private val _timerClickValue = MutableStateFlow<Long>(0L)
-    val timerClickValue: StateFlow<Long> = _timerClickValue
+    private val _sendCodeUIState = MutableStateFlow<OneTimePasswordTimerStates>(OneTimePasswordTimerStates.PossibleToSendCode)
+    val sendCodeUIState : StateFlow<OneTimePasswordTimerStates> = _sendCodeUIState.asStateFlow()
 
     private val coutDownTimer = object : CountDownTimer(TOTAL_WAITING_TiME_MILLIS, STEP_TIME_MILLIS) {
         override fun onTick(millisUntilFinished: Long) {
-            _timerClickValue.value = millisUntilFinished
+            _sendCodeUIState.value = OneTimePasswordTimerStates.TimerClick(millisUntilFinished)
         }
 
         override fun onFinish() {
-            _isImpossibleToSendTheCode.value = true
+            _sendCodeUIState.value = OneTimePasswordTimerStates.PossibleToSendCode
         }
     }
 
     fun requestOtpCode(phoneNumber: String) {
         viewModelScope.launch {
             IdentifoAuthentication.requestPhoneCode(phoneNumber).onSuccess { requestPhoneResponse ->
-                _isImpossibleToSendTheCode.value = false
                 coutDownTimer.start()
             }.onError { errorResponse ->
-                _isImpossibleToSendTheCode.value = true
-                _receiveError.emit(errorResponse)
+                _sendCodeUIState.emit(OneTimePasswordTimerStates.PossibleToSendCode)
             }
         }
     }
 
     fun loginViaPhoneNumber(phoneNumber: String, otp: String) {
         viewModelScope.launch {
+            _oneTimePasswordUIState.emit(OneTimePasswordUIStates.Loading)
             IdentifoAuthentication.phoneLogin(phoneNumber, otp).onSuccess { phoneLoginResponse ->
-                _finishSigningIn.emit(phoneLoginResponse)
+                _oneTimePasswordUIState.emit(OneTimePasswordUIStates.LoginSuccessful(phoneLoginResponse))
             }.onError { errorResponse ->
-                _receiveError.emit(errorResponse)
+                _oneTimePasswordUIState.emit(OneTimePasswordUIStates.LoginFailure(errorResponse))
             }
         }
     }

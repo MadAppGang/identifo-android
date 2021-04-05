@@ -55,12 +55,12 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
             )
         }
 
-        usernameLoginViewModel.loginUIState.asLiveData().observe(viewLifecycleOwner) { userNameLoginState ->
+        usernameLoginViewModel.loginUIStates.asLiveData().observe(viewLifecycleOwner) { userNameLoginState ->
             when (userNameLoginState) {
-                is UsernameLoginUIState.LoginSuccessful -> closeSignInFlow()
-                is UsernameLoginUIState.LoginFailure -> showMessage(userNameLoginState.error.error.message)
-                UsernameLoginUIState.Loading -> showLoading()
-                UsernameLoginUIState.IDLE -> hideLoading()
+                is UsernameLoginUIStates.LoginSuccessful -> closeSignInFlow()
+                is UsernameLoginUIStates.LoginFailure -> showMessage(userNameLoginState.error.error.message)
+                UsernameLoginUIStates.Loading -> showLoading()
+                UsernameLoginUIStates.IDLE -> hideLoading()
             }
         }
 

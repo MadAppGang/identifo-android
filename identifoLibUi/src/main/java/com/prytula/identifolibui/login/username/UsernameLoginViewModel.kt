@@ -15,17 +15,17 @@ import kotlinx.coroutines.launch
  */
 
 class UsernameLoginViewModel : ViewModel() {
-    private val _loginUIState = MutableStateFlow<UsernameLoginUIState>(UsernameLoginUIState.IDLE)
-    val loginUIState: StateFlow<UsernameLoginUIState> = _loginUIState.asStateFlow()
+    private val _loginUIState = MutableStateFlow<UsernameLoginUIStates>(UsernameLoginUIStates.IDLE)
+    val loginUIStates: StateFlow<UsernameLoginUIStates> = _loginUIState.asStateFlow()
 
     fun performLogin(username: String, password: String) {
         viewModelScope.launch {
-            _loginUIState.emit(UsernameLoginUIState.Loading)
+            _loginUIState.emit(UsernameLoginUIStates.Loading)
             IdentifoAuthentication.loginWithUsernameAndPassword(username, password)
                 .onSuccess { loginResponse ->
-                    _loginUIState.emit(UsernameLoginUIState.LoginSuccessful(loginResponse))
+                    _loginUIState.emit(UsernameLoginUIStates.LoginSuccessful(loginResponse))
                 }.onError { errorResponse ->
-                    _loginUIState.emit(UsernameLoginUIState.LoginFailure(errorResponse))
+                    _loginUIState.emit(UsernameLoginUIStates.LoginFailure(errorResponse))
                 }
         }
     }
