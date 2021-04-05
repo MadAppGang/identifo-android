@@ -55,12 +55,13 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
             )
         }
 
-        usernameLoginViewModel.signInSuccessful.asLiveData().observe(viewLifecycleOwner) {
-            requireActivity().finish()
-        }
-
-        usernameLoginViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) {
-            usernameLoginBinding.nestedScrollViewLoginRoot.showMessage(it.error.message)
+        usernameLoginViewModel.loginUIState.asLiveData().observe(viewLifecycleOwner) { userNameLoginState ->
+            when (userNameLoginState) {
+                is UsernameLoginUIState.LoginSuccessful -> closeSignInFlow()
+                is UsernameLoginUIState.LoginFailure -> showMessage(userNameLoginState.error.error.message)
+                UsernameLoginUIState.Loading -> showLoading()
+                UsernameLoginUIState.IDLE -> hideLoading()
+            }
         }
 
         usernameLoginBinding.textViewRegisterNewAccount.setOnClickListener {
@@ -74,5 +75,25 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
         usernameLoginBinding.imageViewBackArrow.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun showMessage(message : String) {
+        hideLoading()
+        usernameLoginBinding.nestedScrollViewLoginRoot.showMessage(message)
+    }
+
+    private fun closeSignInFlow() {
+        hideLoading()
+        requireActivity().finish()
+    }
+
+    private fun showLoading() {
+        usernameLoginBinding.progressBarLine.show()
+        usernameLoginBinding.buttonLogin.isEnabled = false
+    }
+
+    private fun hideLoading() {
+        usernameLoginBinding.progressBarLine.hide()
+        usernameLoginBinding.buttonLogin.isEnabled = true
     }
 }

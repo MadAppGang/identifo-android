@@ -41,9 +41,11 @@
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             style="@style/ProgressStyle"
+            android:id="@+id/progressBarLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewSignUpTitle" />

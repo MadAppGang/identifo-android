@@ -14,25 +14,6 @@ sealed class Result<out T, out E> {
 fun <T, E> Result<T, E>.isSuccessful() = this is Result.Success
 fun <T, E> Result<T, E>.isUnsuccessful() = this is Result.Error
 
-suspend inline fun <D : Throwable, T, E : D, T2, E2 : D> Result<T, E>.then(crossinline block: suspend (T) -> Result<T2, E2>): Result<T2, D> {
-    return when (this) {
-        is Result.Success -> try {
-            block(this.value)
-        } catch (e: Throwable) {
-            Result.Error(e as D)
-        }
-        is Result.Error -> Result.Error(this.error)
-    }
-}
-
-suspend inline fun <T, E, E2> Result<T, E>.mapError(crossinline block: suspend (E) -> E2): Result<T, E2> {
-    return when (this) {
-        is Result.Success -> {
-            this
-        }
-        is Result.Error -> Result.Error(block(this.error))
-    }
-}
 
 suspend inline fun <D : Throwable, T, E : D> Result<T, E>.onSuccess(crossinline block: suspend (T) -> Unit): Result<T, E> {
     return when (this) {
@@ -60,10 +41,3 @@ suspend inline fun <D : Throwable, T, E : D> Result<T, E>.onError(crossinline bl
         }
     }
 }
-
-fun <T> handleResult(result: Result<T, Throwable>): T? = when (result) {
-    is Result.Success -> result.value
-    is Result.Error -> null
-}
-
-fun <T, K> handleResult(result: Result<T, Throwable>, convert: (T?) -> K): K = convert(handleResult(result))
