@@ -9,17 +9,101 @@ The library includes two modules:
 ## Installation
 To install library you should do two steps:
 1. Specify the Jitpack repository in the `build.gradle` file of your root project.
-```
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
+```javascript
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+    }
+}
 ```
 2. Add dependencies for your `buiild.gradle` subproject file.
+```javascript
+def identifoVersion = "x.y.z"
+implementation "com.github.MadAppGang.identifo-android:core:${identifoVersion}"
+    
+// Optional 
+implementation "com.github.MadAppGang.identifo-android:ui:${identifoVersion}"
 ```
-    def identifoVersion = "x.y.z"
-    implementation "com.github.MadAppGang.identifo-android:core:${identifoVersion}"
-    implementation "com.github.MadAppGang.identifo-android:ui:${identifoVersion}"
+
+## Usage
+#### Step 1
+Initialize the library and pass application access identifier, HMAC shared secret key and Identifo URL.
+```javascript
+class IdentifoDemoApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        val appID = "applicationID"
+        val secret = "sharedSecret"
+        val baseUrl = "IdentifoUrl"
+
+        IdentifoAuthentication.initAuthenticator(this, baseUrl, appID, secret)
+    }
+}
+```
+Note that it is better to store keys and IDs in the local.properties file or other files ignored by version control system.
+#### Step 2
+Select the action you need. For example, a login might look like this:
+```javascript
+viewModelScope.launch {
+    IdentifoAuthentication.loginWithUsernameAndPassword(
+        username = "username",
+        password = "password"
+    ).onSuccess { loginResult ->
+         // request performed successfully
+    }.onError { error ->
+         // request failure
+    }
+}
+```
+#### Step 3
+Observe current user's authentication status. 
+```javascript
+IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
+    when (state) {
+        is Authentificated -> {
+            val accessToken = state.accessToken
+            val user = state.identifoUser
+            // user is authenticated successfully
+        }
+        else -> {
+            // user is deauthenticated
+        }
+    }
+}
+```
+
+#### Step 4 (Optional)
+If you don't need a complex design, you can use a dedicated interface which would be enough for common cases. There are sign in and sign up flows.
+Sign in flow using:
+```javascript
+val style = Style(
+    companyLogo = R.drawable.ic_logo,
+    companyName = "Company/Applicaion",
+    greetingsText = "Greetings text"
+)
+
+val userConditions = UseConditions(
+    userAgreement = "https://userAgreement.com/",
+    privacyPolicy = "https://privacyPolicy.com/"
+)
+
+val providers = listOf(EMAIL, PHONE, FACEBOOK)
+
+val loginOptions = LoginOptions(
+    commonStyle = style,
+    providers = providers,
+    useConditions = userConditions
+)
+
+IdentifoSignInActivity.openActivity(this, loginOptions)
+```
+The registration flow that you can easily use is as follows:
+```
+IdentifoSingUpActivity.openActivity(this)
+```
+Notice, if you want to use identity providers like Facebook, Apple, Google and so on you need to override dedicated resources in your string.xml file.
+```
+<string name="identifo_facebook_app_id" translatable="false">app_id</string>
+<string name="identifo_facebook_protocol_scheme" translatable="false">protocol_schema</string>
 ```

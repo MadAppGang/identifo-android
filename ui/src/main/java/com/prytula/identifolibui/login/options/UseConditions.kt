@@ -9,6 +9,6 @@ import java.io.Serializable
  */
 
 data class UseConditions(
-    val userAgreementLink: String = "",
+    val userAgreement: String = "",
     val privacyPolicy: String = ""
 ) : Serializable
