@@ -99,11 +99,11 @@ val loginOptions = LoginOptions(
 IdentifoSignInActivity.openActivity(this, loginOptions)
 ```
 The registration flow that you can easily use is as follows:
-```
+```javascript
 IdentifoSingUpActivity.openActivity(this)
 ```
 Notice, if you want to use identity providers like Facebook, Apple, Google and so on you need to override dedicated resources in your string.xml file.
-```
+```javascript
 <string name="identifo_facebook_app_id" translatable="false">app_id</string>
 <string name="identifo_facebook_protocol_scheme" translatable="false">protocol_schema</string>
 ```
