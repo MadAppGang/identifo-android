@@ -1,5 +1,5 @@
 # Identifo Android
-Identifo Android is an open library that allows you instantly and easily integrate [Identify](https://github.com/MadAppGang/identifo) authentication framework.
+Identifo Android is an open library that allows you instantly and easily integrate the [Identifo](https://github.com/MadAppGang/identifo) authentication framework.
 
 ## Structure
 The library includes two modules:
@@ -11,13 +11,13 @@ To install library you should do two steps:
 1. Specify the Jitpack repository in the `build.gradle` file of your root project.
 ```javascript
 allprojects {
-	repositories {
-		...
+    repositories {
+	    ...
 		maven { url 'https://jitpack.io' }
     }
 }
 ```
-2. Add dependencies for your `buiild.gradle` subproject file.
+2. Add dependencies to your `build.gradle` subproject file.
 ```javascript
 def identifoVersion = "x.y.z"
 implementation "com.github.MadAppGang.identifo-android:core:${identifoVersion}"
@@ -41,9 +41,9 @@ class IdentifoDemoApp : Application() {
     }
 }
 ```
-Note that it is better to store keys and IDs in the local.properties file or other files ignored by version control system.
+*Note that it is better to store keys and IDs in the `local.properties` file or other files ignored by version control system.*
 #### Step 2
-Select the action you need. For example, a login might look like this:
+Select the action you need. For example, a sign in might look like this:
 ```javascript
 viewModelScope.launch {
     IdentifoAuthentication.loginWithUsernameAndPassword(
@@ -57,7 +57,7 @@ viewModelScope.launch {
 }
 ```
 #### Step 3
-Observe current user's authentication status. 
+Observe the current user authentication status: 
 ```javascript
 IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
     when (state) {
@@ -102,7 +102,7 @@ The registration flow that you can easily use is as follows:
 ```javascript
 IdentifoSingUpActivity.openActivity(this)
 ```
-Notice, if you want to use identity providers like Facebook, Apple, Google and so on you need to override dedicated resources in your string.xml file.
+Also if you want to use identity providers like Facebook, Apple, Google and so on you need to override dedicated resources in your string.xml file.
 ```javascript
 <string name="identifo_facebook_app_id" translatable="false">app_id</string>
 <string name="identifo_facebook_protocol_scheme" translatable="false">protocol_schema</string>
