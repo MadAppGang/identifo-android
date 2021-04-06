@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
  */
 
 class ResetPasswordViewModel : ViewModel() {
-    private val _passwordHasBeenReset = MutableSharedFlow<ResetPasswordResponse>()
-    val passwordHasBeenReset: SharedFlow<ResetPasswordResponse> = _passwordHasBeenReset
+    private val _passwordHasBeenReset = MutableSharedFlow<String>()
+    val passwordHasBeenReset: SharedFlow<String> = _passwordHasBeenReset
 
     private val _receiveError = MutableSharedFlow<ErrorResponse>()
     val receiveError: SharedFlow<ErrorResponse> = _receiveError
@@ -27,7 +27,7 @@ class ResetPasswordViewModel : ViewModel() {
     fun resetPassword(email: String) {
         viewModelScope.launch {
             IdentifoAuthentication.resetPassword(email).onSuccess { resetPasswordResponse ->
-                _passwordHasBeenReset.emit(resetPasswordResponse)
+                _passwordHasBeenReset.emit(email)
             }.onError { errorResponse ->
                 _receiveError.emit(errorResponse)
             }

@@ -1,42 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="IdentifoStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/systemStatusBarColor</item>
+        <item name="android:navigationBarColor">@color/systemNavigationBarColor</item>
+    </style>
+
+    <style name="BackgroundStyle">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!-- font text styles -->
+    <style name="NunitoRegular">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="NunitoSemiBold">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="NunitoBold">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="ExoBold">
+        <item name="android:fontFamily">@font/exo_bold</item>
+    </style>
+
+    <!-- color text styles -->
+    <style name="PrimaryRegularTextStyle" parent="NunitoRegular">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PrimaryBoldTextStyle" parent="NunitoBold">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="SecondaryRegularTextStyle" parent="NunitoRegular">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TertiaryRegulatTextStyle" parent="NunitoRegular">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="FourthBoldTextStyle" parent="ExoBold">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- image view styles -->
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="IdentifoLogoStyle">
+        <item name="tint">@color/black</item>
+    </style>
+
+    <!-- progress style -->
+    <style name="ProgressStyle" parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="android:colorAccent">@color/blue</item>
+        <item name="android:indeterminate">true</item>
+        <item name="trackColor">@color/semiTransparentBlue</item>
+        <item name="indicatorColor">@color/blue</item>
+    </style>
+
+    <!-- button styles -->
     <style name="CommonButtonStyle">
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="ColorfulButtonStyle" parent="CommonButtonStyle">
-        <item name="android:textColor">@color/button_white_text_color</item>
-        <item name="android:drawableTint">@color/button_white_text_color</item>
+    <style name="PrimaryButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">@color/selector_primary_day_button_background</item>
+        <item name="android:textColor">@color/selector_primary_button_text_color</item>
+        <item name="android:textSize">@dimen/text14</item>
     </style>
 
-    <style name="ColorlessButtonStyle" parent="CommonButtonStyle">
-        <item name="android:textColor">@color/button_dark_text_color</item>
-        <item name="android:drawableTint">@color/button_dark_text_color</item>
+    <style name="SecondaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="strokeColor">@color/blue</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/text14</item>
     </style>
 
-    <style name="PhoneButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/ic_phone</item>
-        <item name="android:backgroundTint">@color/button_phone_color</item>
+    <style name="TertiaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/text14</item>
     </style>
 
-    <style name="EmailButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/ic_email</item>
-        <item name="android:backgroundTint">@color/button_email_color</item>
+    <!-- text input layout -->
+    <style name="BorderedInputTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="boxStrokeColor">@color/gray</item>
+        <item name="hintTextColor">@color/gray</item>
     </style>
 
-    <style name="GmailButtonStyle" parent="ColorlessButtonStyle">
-        <item name="android:drawableLeft">@drawable/googleg_standard_color_18</item>
-        <item name="android:backgroundTint">@color/button_gmail_color</item>
-    </style>
-
-    <style name="FacebookButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/com_facebook_button_icon</item>
-        <item name="android:backgroundTint">@color/button_facebook_color</item>
-    </style>
-
-    <style name="TwitterButtonStyle" parent="ColorfulButtonStyle">
-        <item name="android:drawableLeft">@drawable/tw__ic_logo_default</item>
-        <item name="android:backgroundTint">@color/button_twitter_color</item>
+    <style name="BorderedEditText">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
     </style>
 
 </resources>

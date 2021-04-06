@@ -39,13 +39,6 @@ import org.koin.core.context.startKoin
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-/**
- * The main class which contains the main functions of the library.
- *
- * Primary responsibility is giving user basic functions of authentication and facilitate work
- * with access tokens and their managing.
- */
-
 object IdentifoAuthentication : KoinComponent {
 
     private val tokenDataStorage by inject<ITokenDataStorage>()

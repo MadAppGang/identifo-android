@@ -3,12 +3,10 @@ package com.prytula.identifolibui.registration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prytula.IdentifoAuthentication
-import com.prytula.identifolib.entities.ErrorResponse
-import com.prytula.identifolib.entities.register.RegisterResponse
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import com.prytula.identifolibui.registration.RegistrationUIStates.*
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
@@ -19,19 +17,17 @@ import kotlinx.coroutines.launch
 
 class RegistrationViewModel : ViewModel() {
 
-    private val _registrationSuccessful = MutableSharedFlow<RegisterResponse>()
-    val registrationSuccessful: SharedFlow<RegisterResponse> = _registrationSuccessful
-
-    private val _receiveError = MutableSharedFlow<ErrorResponse>()
-    val receiveError: SharedFlow<ErrorResponse> = _receiveError
+    private val _registrationUIState = MutableStateFlow<RegistrationUIStates>(IDLE)
+    val registrationUIState: StateFlow<RegistrationUIStates> = _registrationUIState.asStateFlow()
 
     fun registerWithUsernameAndPassword(username: String, password: String) {
         viewModelScope.launch {
+            _registrationUIState.emit(Loading)
             IdentifoAuthentication.registerWithUsernameAndPassword(username, password, false)
                 .onSuccess { registerResponse ->
-                    _registrationSuccessful.emit(registerResponse)
+                    _registrationUIState.emit(RegistrationSuccessful(registerResponse))
                 }.onError { errorResponse ->
-                    _receiveError.emit(errorResponse)
+                    _registrationUIState.emit(RegistrationFailure(errorResponse))
                 }
         }
     }

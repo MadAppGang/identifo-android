@@ -1,6 +1,5 @@
 package com.prytula.identifolibui.login.options
 
-import androidx.annotation.DrawableRes
 import java.io.Serializable
 
 
@@ -10,6 +9,8 @@ import java.io.Serializable
  */
 
 data class Style(
-    @DrawableRes val imageRes: Int? = null,
-    @DrawableRes val backgroundRes : Int? = null
+    val companyLogo : Int,
+    val backgroundRes: Int? = null,
+    val companyName: String,
+    val greetingsText: String
 ) : Serializable

@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -16,6 +18,7 @@ import com.google.android.gms.common.api.Status
 import com.prytula.identifolibui.OnTextChangeListener
 import com.prytula.identifolibui.R
 import com.prytula.identifolibui.databinding.FragmentOneTimePasswordBinding
+import com.prytula.identifolibui.extensions.addSystemTopBottomPadding
 import com.prytula.identifolibui.extensions.hideSoftKeyboard
 import com.prytula.identifolibui.extensions.showMessage
 import com.prytula.identifolibui.extensions.showSoftKeyboard
@@ -37,6 +40,10 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         )
     }
 
+    private val regexPattern: Regex by lazy {
+        """\d{6}""".toRegex()
+    }
+
     private lateinit var smsVerificationReceiver: BroadcastReceiver
 
     private val oneTimePasswordBinding by viewBinding(FragmentOneTimePasswordBinding::bind)
@@ -44,12 +51,20 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        oneTimePasswordBinding.constraintOtpRoot.addSystemTopBottomPadding()
+
         val phoneNumber = requireArguments().getString(PHONE_NUMBER_KEY) ?: ""
 
         oneTimePasswordViewModel.requestOtpCode(phoneNumber)
+        oneTimePasswordBinding.textViewSentToPhoneNumber.text = String.format(getString(R.string.theCodeHasBeenSent), phoneNumber)
 
         oneTimePasswordBinding.editTextOtp.requestFocus()
         requireActivity().showSoftKeyboard()
+
+        oneTimePasswordBinding.imageViewBackArrow.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         oneTimePasswordBinding.editTextOtp.setTextChangeListener(object : OnTextChangeListener {
             override fun textEntered(code: String) {
@@ -60,43 +75,64 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
         oneTimePasswordBinding.editTextOtp.setOnClickListener {
             requireActivity().showSoftKeyboard()
         }
-        oneTimePasswordBinding.buttonResendTheCode.setOnClickListener {
+        oneTimePasswordBinding.textViewResendTheCode.setOnClickListener {
             oneTimePasswordViewModel.requestOtpCode(phoneNumber)
         }
 
         registerSMSReceiver()
 
-        oneTimePasswordViewModel.finishSigningIn.asLiveData()
-            .observe(viewLifecycleOwner) { phoneLoginResponse ->
-                requireActivity().finish()
+        oneTimePasswordViewModel.oneTimePasswordUIState.asLiveData().observe(viewLifecycleOwner) { oneTimePasswordUIState ->
+            when (oneTimePasswordUIState) {
+                is OneTimePasswordUIStates.LoginSuccessful -> finishSignInFlow()
+                is OneTimePasswordUIStates.LoginFailure -> showErrorMessage(oneTimePasswordUIState.error.error.message)
+                OneTimePasswordUIStates.Loading -> showLoading()
+                else -> hideLoading()
             }
+        }
 
-        oneTimePasswordViewModel.receiveError.asLiveData()
-            .observe(viewLifecycleOwner) { errorResponse ->
-                oneTimePasswordBinding.constraintOtpRoot.showMessage(errorResponse.error.message)
-            }
-
-        oneTimePasswordViewModel.timerClickValue.asLiveData()
-            .observe(viewLifecycleOwner) { millisUntilFinish ->
-                val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinish)
-                val time = DateUtils.formatElapsedTime(seconds)
-                oneTimePasswordBinding.textViewResentCountTimer.text =
-                    String.format(getString(R.string.resendTheCode), time)
-            }
-
-        oneTimePasswordViewModel.isImpossibleToSendTheCode.asLiveData()
-            .observe(viewLifecycleOwner) { isAllowedToResendTheCode ->
-                oneTimePasswordBinding.buttonResendTheCode.run {
-                    isEnabled = isAllowedToResendTheCode
-                    isClickable = isAllowedToResendTheCode
+        oneTimePasswordViewModel.sendCodeUIState.asLiveData().observe(viewLifecycleOwner) { oneTimePasswordTimerState ->
+            when (oneTimePasswordTimerState) {
+                is OneTimePasswordTimerStates.TimerClick -> {
+                    val seconds = TimeUnit.MILLISECONDS.toSeconds(oneTimePasswordTimerState.timeLeft)
+                    val time = DateUtils.formatElapsedTime(seconds)
+                    oneTimePasswordBinding.textViewResentCountTimer.text = String.format(getString(R.string.resendTheCodeIn), time)
+                    showTimer()
                 }
-                val titleVisibility = if (isAllowedToResendTheCode) View.GONE else View.VISIBLE
-                oneTimePasswordBinding.textViewResentCountTimer.visibility = titleVisibility
+                OneTimePasswordTimerStates.PossibleToSendCode -> hideTimer()
             }
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun finishSignInFlow() {
+        hideLoading()
+        requireActivity().finish()
+    }
+
+    private fun showErrorMessage(message : String) {
+        hideLoading()
+        oneTimePasswordBinding.constraintOtpRoot.showMessage(message)
+    }
+
+    private fun showLoading() {
+        oneTimePasswordBinding.progressBarLine.show()
+    }
+
+    private fun hideLoading() {
+        oneTimePasswordBinding.progressBarLine.hide()
+    }
+
+    private fun showTimer() {
+        oneTimePasswordBinding.textViewResendTheCode.isVisible = false
+        oneTimePasswordBinding.textViewResentCountTimer.isVisible = true
+    }
+
+    private fun hideTimer() {
+        oneTimePasswordBinding.textViewResendTheCode.isVisible = true
+        oneTimePasswordBinding.textViewResentCountTimer.isVisible = false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         requireContext().unregisterReceiver(smsVerificationReceiver)
     }
 
@@ -107,7 +143,9 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
                     if (message.isNullOrBlank()) return
-                    oneTimePasswordBinding.editTextOtp.setText(message)
+                    regexPattern.find(message)?.value?.let { otp ->
+                        oneTimePasswordBinding.editTextOtp.setText(otp)
+                    }
                 }
         }
     }

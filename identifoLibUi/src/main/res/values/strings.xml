@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="identifo">Identifo</string>
     <string name="login">Login</string>
     <string name="loginWithEmail">Sign in with email</string>
     <string name="loginWithPhoneNumber">Sign in with a phone number</string>
@@ -8,23 +9,30 @@
     <string name="loginWithGmail">Sign in with Gmail</string>
     <string name="loginWithFacebook">Sign in with Facebook</string>
     <string name="loginWithTwitter">Sign in with Twitter</string>
-    <string name="verifyPhoneNumber">Verify phone number</string>
     <string name="register">Register</string>
-    <string name="registerNewAccount">Register a new account</string>
+    <string name="dontHaveAnAccount">Don\'t have an account?</string>
+    <string name="singUp">Sing up</string>
     <string name="usernameHint">Username</string>
     <string name="passwordHint">Password</string>
-    <string name="forgotThePassword">Forgot the password</string>
-    <string name="passwordConfirm">Confirm a password</string>
+    <string name="recoveryPassword">Recovery password</string>
+    <string name="enterYourEmail">Enter your email</string>
+    <string name="weWillSendPasswordResetLink">We will send to you a password reset link.</string>
+    <string name="passwordConfirm">Confirm password</string>
     <string name="passwordsDoNotMatch">The password and confirm password fields do not match.</string>
     <string name="userAgreement">User Agreement</string>
     <string name="privacyPolicy">Privacy Policy</string>
     <string name="userAgreementNotice">By continuing, you are indicating that you accept our </string>
     <string name="userAgreementNoticeAnd"> and </string>
     <string name="pleaseEnterTheCode">Please enter the code</string>
-    <string name="resendTheCode">%1$s Resend the code</string>
+    <string name="resendTheCodeIn">Resend the code in %s</string>
+    <string name="enterTheCodeSentToYou">Enter the code sent to your phone number</string>
+    <string name="theCodeHasBeenSent">The code has been sent to %s.</string>
     <string name="sendTheCode">Resend the code</string>
     <string name="resetThePassword">Reset the password</string>
     <string name="resetPasswordEmail">Reset password for email</string>
+    <string name="weSentYouALink">We sent you the link to reset your password</string>
+    <string name="followTheLinkYouReceived">Follow the link you received to %s.</string>
+    <string name="backToLogin">Back to login</string>
 
     <!-- public shown resources -->
     <string name="identifo_app_name" />

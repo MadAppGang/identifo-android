@@ -3,12 +3,9 @@ package com.prytula.identifolibui.login.username
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prytula.IdentifoAuthentication
-import com.prytula.identifolib.entities.ErrorResponse
-import com.prytula.identifolib.entities.logging.LoginResponse
 import com.prytula.identifolib.extensions.onError
 import com.prytula.identifolib.extensions.onSuccess
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
@@ -18,19 +15,17 @@ import kotlinx.coroutines.launch
  */
 
 class UsernameLoginViewModel : ViewModel() {
-    private val _signInSuccessful = MutableSharedFlow<LoginResponse>()
-    val signInSuccessful: SharedFlow<LoginResponse> = _signInSuccessful
-
-    private val _receiveError = MutableSharedFlow<ErrorResponse>()
-    val receiveError: SharedFlow<ErrorResponse> = _receiveError
+    private val _loginUIState = MutableStateFlow<UsernameLoginUIStates>(UsernameLoginUIStates.IDLE)
+    val loginUIStates: StateFlow<UsernameLoginUIStates> = _loginUIState.asStateFlow()
 
     fun performLogin(username: String, password: String) {
         viewModelScope.launch {
+            _loginUIState.emit(UsernameLoginUIStates.Loading)
             IdentifoAuthentication.loginWithUsernameAndPassword(username, password)
                 .onSuccess { loginResponse ->
-                    _signInSuccessful.emit(loginResponse)
+                    _loginUIState.emit(UsernameLoginUIStates.LoginSuccessful(loginResponse))
                 }.onError { errorResponse ->
-                    _receiveError.emit(errorResponse)
+                    _loginUIState.emit(UsernameLoginUIStates.LoginFailure(errorResponse))
                 }
         }
     }

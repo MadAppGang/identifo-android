@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import coil.load
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -21,11 +23,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.prytula.identifolib.entities.FederatedProviders
 import com.prytula.identifolibui.R
-import com.prytula.identifolibui.databinding.FragmentCommonLoginBinding
-import com.prytula.identifolibui.extensions.makeSpannableString
-import com.prytula.identifolibui.extensions.makeUrl
-import com.prytula.identifolibui.extensions.plus
-import com.prytula.identifolibui.extensions.showMessage
+import com.prytula.identifolibui.databinding.FragmentWelcomeBinding
+import com.prytula.identifolibui.extensions.*
 import com.prytula.identifolibui.login.options.LoginOptions
 import com.prytula.identifolibui.login.options.LoginProviders
 import com.prytula.identifolibui.login.options.Style
@@ -38,16 +37,16 @@ import com.twitter.sdk.android.core.*
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
+class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
 
     companion object {
         private const val RC_SIGN_IN = 1
     }
 
-    private val commonLoginBinding by viewBinding(FragmentCommonLoginBinding::bind)
+    private val welcomeBinding by viewBinding(FragmentWelcomeBinding::bind)
     private val commonViewModel: CommonViewModel by viewModels()
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoSignInActivity).loginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
     private val userConditions: UseConditions? by lazy { loginOptions.useConditions }
@@ -72,6 +71,8 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        welcomeBinding.constraintLoginRoot.addSystemTopBottomPadding()
+
         Twitter.initialize(requireContext())
 
         commonViewModel.finishSigningIn.asLiveData()
@@ -80,16 +81,17 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             }
 
         commonViewModel.receiveError.asLiveData().observe(viewLifecycleOwner) { errorResponse ->
-            commonLoginBinding.constraintLoginRoot.showMessage(errorResponse.error.message)
+            welcomeBinding.constraintLoginRoot.showMessage(errorResponse.error.message)
         }
 
         commonStyle?.let {
-            it.imageRes?.let {
-                commonLoginBinding.imageViewLogo.setImageResource(it)
-            }
             it.backgroundRes?.let {
-                commonLoginBinding.constraintLoginRoot.setBackgroundResource(it)
+                welcomeBinding.constraintLoginRoot.setBackgroundResource(it)
             }
+
+            welcomeBinding.imageViewLogo.load(it.companyLogo)
+            welcomeBinding.textViewCompanyName.text = it.companyName
+            welcomeBinding.textViewCompanyGreetings.text = it.greetingsText
         }
 
         loginProviders?.let { providers ->
@@ -97,22 +99,27 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                 throw Exception("You need to have at least one provider!")
             }
 
+            val allTypesIdentifiers = providers.any { !it.isAuxiliaryIdentifier } and providers.any { it.isAuxiliaryIdentifier }
+            if (allTypesIdentifiers) {
+                welcomeBinding.viewSeparator.visibility = View.VISIBLE
+            }
+
             if (LoginProviders.GMAIL in providers) {
-                with(commonLoginBinding.buttonLoginWithGoogle) {
+                with(welcomeBinding.buttonLoginWithGoogle) {
                     visibility = View.VISIBLE
                     setOnClickListener { signInWithGoogle() }
                 }
             }
 
             if (LoginProviders.EMAIL in providers) {
-                with(commonLoginBinding.buttonLoginWithUsername) {
+                with(welcomeBinding.buttonLoginWithUsername) {
                     visibility = View.VISIBLE
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
                 }
             }
 
             if (LoginProviders.PHONE in providers) {
-                with(commonLoginBinding.buttonLoginWithPhoneNumber) {
+                with(welcomeBinding.buttonLoginWithPhoneNumber) {
                     visibility = View.VISIBLE
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
                 }
@@ -120,36 +127,38 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
 
             if (LoginProviders.FACEBOOK in providers) {
                 setupFacebookCallback()
-                with(commonLoginBinding.buttonLoginWithFacebook) {
+                with(welcomeBinding.buttonLoginWithFacebook) {
                     visibility = View.VISIBLE
                     setOnClickListener {
-                        commonLoginBinding.buttonLoginWithFacebookNative.performClick()
+                        welcomeBinding.buttonLoginWithFacebookNative.performClick()
                     }
                 }
             }
 
             if (LoginProviders.TWITTER in providers) {
                 setupTwitterCallback()
-                with(commonLoginBinding.buttonLoginWithTwitter) {
+                with(welcomeBinding.buttonLoginWithTwitter) {
                     visibility = View.VISIBLE
                     setOnClickListener {
-                        commonLoginBinding.buttonLoginWithTwitterNative.performClick()
+                        welcomeBinding.buttonLoginWithTwitterNative.performClick()
                     }
                 }
             }
         }
 
         userConditions?.let { userConditions ->
-            val userAgreementText =
-                getString(R.string.userAgreement).makeUrl(userConditions.userAgreementLink)
-            val privacyPolicy =
-                getString(R.string.privacyPolicy).makeUrl(userConditions.privacyPolicy)
-            val userAgreementNotice =
-                getString(R.string.userAgreementNotice).makeSpannableString() + userAgreementText + getString(
-                    R.string.userAgreementNoticeAnd
-                ).makeSpannableString() + privacyPolicy
+            val userAgreementText = getString(R.string.userAgreement)
+                .makeUrl(userConditions.userAgreementLink)
+                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.blue))
 
-            commonLoginBinding.textViewUserAgreement.run {
+            val privacyPolicy = getString(R.string.privacyPolicy)
+                .makeUrl(userConditions.privacyPolicy)
+                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.blue))
+
+            val userAgreementNotice = getString(R.string.userAgreementNotice)
+                .makeSpannableString() + userAgreementText + getString(R.string.userAgreementNoticeAnd).makeSpannableString() + privacyPolicy
+
+            welcomeBinding.textViewUserAgreement.run {
                 visibility = View.VISIBLE
                 movementMethod = LinkMovementMethod.getInstance()
                 text = userAgreementNotice
@@ -160,7 +169,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         facebookCallbackManager.onActivityResult(requestCode, resultCode, data)
-        commonLoginBinding.buttonLoginWithTwitterNative.onActivityResult(
+        welcomeBinding.buttonLoginWithTwitterNative.onActivityResult(
             requestCode,
             resultCode,
             data
@@ -172,12 +181,12 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
     }
 
     private fun setupFacebookCallback() {
-        commonLoginBinding.buttonLoginWithFacebookNative.setPermissions(
+        welcomeBinding.buttonLoginWithFacebookNative.setPermissions(
             "email",
             "public_profile"
         )
-        commonLoginBinding.buttonLoginWithFacebookNative.fragment = this
-        commonLoginBinding.buttonLoginWithFacebookNative.registerCallback(
+        welcomeBinding.buttonLoginWithFacebookNative.fragment = this
+        welcomeBinding.buttonLoginWithFacebookNative.registerCallback(
             facebookCallbackManager,
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
@@ -190,13 +199,13 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                 override fun onCancel() {}
 
                 override fun onError(error: FacebookException?) {
-                    commonLoginBinding.constraintLoginRoot.showMessage("${error?.message}")
+                    welcomeBinding.constraintLoginRoot.showMessage("${error?.message}")
                 }
             })
     }
 
     private fun setupTwitterCallback() {
-        commonLoginBinding.buttonLoginWithTwitterNative.callback =
+        welcomeBinding.buttonLoginWithTwitterNative.callback =
             object : Callback<TwitterSession>() {
                 override fun success(result: Result<TwitterSession>?) {
                     val session = TwitterCore.getInstance().sessionManager.activeSession
@@ -207,7 +216,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
                 }
 
                 override fun failure(exception: TwitterException?) {
-                    commonLoginBinding.constraintLoginRoot.showMessage("${exception?.message}")
+                    welcomeBinding.constraintLoginRoot.showMessage("${exception?.message}")
                 }
             }
     }
@@ -218,7 +227,7 @@ class CommonLoginFragment : Fragment(R.layout.fragment_common_login) {
             val idToken: String = account?.idToken ?: ""
             commonViewModel.sendFederatedToken(FederatedProviders.GOOGLE, idToken)
         } catch (e: Exception) {
-            commonLoginBinding.constraintLoginRoot.showMessage(e.message.toString())
+            welcomeBinding.constraintLoginRoot.showMessage(e.message.toString())
         }
     }
 
