@@ -40,7 +40,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
     // Step 1
-    def identifoVersion = "0.0.2.1"
+    def identifoVersion = "0.0.2.2"
     implementation "com.github.MadAppGang.identifo-android:identifoLib:${identifoVersion}"
     implementation "com.github.MadAppGang.identifo-android:identifoLibUi:${identifoVersion}"
 

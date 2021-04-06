@@ -11,8 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.prytula.IdentifoAuthentication
 import com.prytula.identifolib.entities.AuthState
+import com.prytula.identifolib.extensions.onError
+import com.prytula.identifolibui.login.IdentifoSignInActivity
+import com.prytula.identifolibui.login.options.LoginOptions
+import com.prytula.identifolibui.login.options.LoginProviders
+import com.prytula.identifolibui.login.options.LoginProviders.*
 import com.prytula.identifolibui.login.options.Style
 import com.prytula.identifolibui.login.options.UseConditions
+import com.prytula.identifolibui.registration.IdentifoSingUpActivity
 import kotlinx.coroutines.launch
 
 
