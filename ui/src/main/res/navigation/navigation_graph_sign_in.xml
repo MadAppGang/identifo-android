@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/commonLoginFragment"
-        android:name="com.prytula.identifolibui.login.WelcomeLoginFragment"
+        android:name="com.madappgang.identifolibui.login.WelcomeLoginFragment"
         android:label="CommonLoginFragment"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/phoneNumberLoginFragment"
-        android:name="com.prytula.identifolibui.login.phoneNumber.phoneNumberLogin.PhoneNumberFragment"
+        android:name="com.madappgang.identifolibui.login.phoneNumber.phoneNumberLogin.PhoneNumberFragment"
         android:label="PhoneNumberLoginFragment"
         tools:layout="@layout/fragment_phone_number_login">
         <action
@@ -48,12 +48,12 @@
     </fragment>
     <fragment
         android:id="@+id/oneTimePasswordFragment"
-        android:name="com.prytula.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment"
+        android:name="com.madappgang.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment"
         android:label="OneTimePasswordFragment"
         tools:layout="@layout/fragment_one_time_password" />
     <fragment
         android:id="@+id/usernameLoginFragment"
-        android:name="com.prytula.identifolibui.login.username.UsernameLoginFragment"
+        android:name="com.madappgang.identifolibui.login.username.UsernameLoginFragment"
         android:label="UsernameLoginFragment"
         tools:layout="@layout/fragment_login_username">
         <action
@@ -73,12 +73,12 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.prytula.identifolibui.registration.RegistrationFragment"
+        android:name="com.madappgang.identifolibui.registration.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration" />
     <fragment
         android:id="@+id/resetPasswordFragment"
-        android:name="com.prytula.identifolibui.resetPassword.ResetPasswordFragment"
+        android:name="com.madappgang.identifolibui.resetPassword.ResetPasswordFragment"
         android:label="ResetPasswordFragment"
         tools:layout="@layout/fragment_reset_password">
         <action
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/followTheLinkFragment"
-        android:name="com.prytula.identifolibui.resetPassword.FollowTheLinkFragment"
+        android:name="com.madappgang.identifolibui.resetPassword.FollowTheLinkFragment"
         android:label="FollowTheLinkFragment"
         tools:layout="@layout/fragment_follow_the_link">
         <action

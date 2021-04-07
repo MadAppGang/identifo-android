@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.prytula.identifolibui">
+    package="com.madappgang.identifolibui">
 
     <application>
         <activity
-            android:name="com.prytula.identifolibui.login.IdentifoSignInActivity"
+            android:name="com.madappgang.identifolibui.login.IdentifoSignInActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/IdentifoStyle"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name="com.prytula.identifolibui.registration.IdentifoSingUpActivity"
+            android:name="com.madappgang.identifolibui.registration.IdentifoSingUpActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/IdentifoStyle"

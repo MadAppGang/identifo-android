@@ -6,7 +6,7 @@
     app:startDestination="@id/registrationFragment">
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.prytula.identifolibui.registration.RegistrationFragment"
+        android:name="com.madappgang.identifolibui.registration.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration" />
 </navigation>
