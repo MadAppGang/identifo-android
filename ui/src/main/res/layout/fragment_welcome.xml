@@ -53,7 +53,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/lightGray"
+                style="@style/SeparatorStyle"
                 android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
@@ -110,7 +110,6 @@
             android:layout_height="48dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:tint="@color/lightGray"
             app:layout_constraintBottom_toTopOf="@+id/textViewCompanyName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

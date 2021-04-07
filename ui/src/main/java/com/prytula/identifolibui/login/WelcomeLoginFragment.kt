@@ -148,12 +148,12 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
 
         userConditions?.let { userConditions ->
             val userAgreementText = getString(R.string.userAgreement)
-                .makeUrl(userConditions.userAgreementLink)
-                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                .makeUrl(userConditions.userAgreement)
+                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.identifoAccentColorPrimary))
 
             val privacyPolicy = getString(R.string.privacyPolicy)
                 .makeUrl(userConditions.privacyPolicy)
-                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.blue))
+                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.identifoAccentColorPrimary))
 
             val userAgreementNotice = getString(R.string.userAgreementNotice)
                 .makeSpannableString() + userAgreementText + getString(R.string.userAgreementNoticeAnd).makeSpannableString() + privacyPolicy
