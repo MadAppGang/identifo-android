@@ -12,8 +12,8 @@ To install library you should do two steps:
 ```javascript
 allprojects {
     repositories {
-	    ...
-		maven { url 'https://jitpack.io' }
+	   ...
+	   maven { url 'https://jitpack.io' }
     }
 }
 ```
