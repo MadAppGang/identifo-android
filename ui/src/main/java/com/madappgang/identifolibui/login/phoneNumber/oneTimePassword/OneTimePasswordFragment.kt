@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.format.DateUtils
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -17,7 +18,9 @@ import com.google.android.gms.common.api.Status
 import com.madappgang.identifolibui.OnTextChangeListener
 import com.madappgang.identifolibui.R
 import com.madappgang.identifolibui.databinding.FragmentOneTimePasswordBinding
+import com.madappgang.identifolibui.extensions.addSystemTopBottomPadding
 import com.madappgang.identifolibui.extensions.hideSoftKeyboard
+import com.madappgang.identifolibui.extensions.showMessage
 import com.madappgang.identifolibui.extensions.showSoftKeyboard
 import java.util.concurrent.TimeUnit
 
