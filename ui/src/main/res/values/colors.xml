@@ -36,6 +36,8 @@
 
     <color name="identifoSecondaryTextColor">#828282</color>
 
+    <color name="identifoTertiaryTextColor">@color/identifoAccentColorPrimary</color>
+
     <!-- input text colors -->
     <color name="identifoInputTextDayColor">#828282</color>
     <color name="identifoInputTextNightColor">#828282</color>

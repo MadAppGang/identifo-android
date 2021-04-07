@@ -42,7 +42,7 @@
     </style>
 
     <style name="TertiaryRegularTextStyle" parent="NunitoRegular">
-        <item name="android:textColor">@color/identifoAccentColorPrimary</item>
+        <item name="android:textColor">@color/identifoTertiaryTextColor</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
