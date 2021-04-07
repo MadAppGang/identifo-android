@@ -9,7 +9,6 @@ import com.madappgang.IdentifoAuthentication
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-// Step 2
 class IdentifoDemoApp : Application() {
     override fun onCreate() {
         super.onCreate()

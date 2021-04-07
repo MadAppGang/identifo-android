@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Step 3
         buttonLogout.setOnClickListener {
             lifecycleScope.launch {
                 IdentifoAuthentication.logout().onError { errorResponse ->
@@ -52,7 +51,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Step 4
         IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
             when (state) {
                 is AuthState.Authentificated -> {
@@ -66,7 +64,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Step 5 (Optional)
         val style = Style(
             companyLogo = R.drawable.ic_madappgang,
             companyName = getString(R.string.company_name),
