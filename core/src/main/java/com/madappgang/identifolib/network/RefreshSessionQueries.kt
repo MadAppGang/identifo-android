@@ -2,6 +2,7 @@ package com.madappgang.identifolib.network
 
 import com.madappgang.identifolib.entities.refreshToken.RefreshTokenDataSet
 import com.madappgang.identifolib.entities.refreshToken.RefreshTokenResponse
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -13,5 +14,7 @@ import retrofit2.http.POST
 
 interface RefreshSessionQueries {
     @POST("/auth/token")
-    suspend fun refreshToken(@Body refreshTokenDataSet: RefreshTokenDataSet = RefreshTokenDataSet()) : RefreshTokenResponse
+    fun refreshToken(
+        @Body refreshTokenDataSet: RefreshTokenDataSet = RefreshTokenDataSet()
+    ): Call<RefreshTokenResponse>
 }

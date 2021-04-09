@@ -8,7 +8,7 @@ import android.content.Context
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-fun Context.readFileFromAssets(filePath: String): String {
+internal fun Context.readFileFromAssets(filePath: String): String {
     return resources.assets.open(filePath).bufferedReader().use {
         it.readText()
     }

@@ -11,7 +11,6 @@ import java.lang.Exception
  * Created by Eugene Prytula on 2/8/21.
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
-
 suspend fun <T> suspendApiCall(requestFunc: suspend () -> T): Result<T, ErrorResponse> {
     return try {
         val request = requestFunc.invoke()

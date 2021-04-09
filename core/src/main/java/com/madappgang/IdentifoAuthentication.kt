@@ -23,6 +23,7 @@ import com.madappgang.identifolib.extensions.onSuccess
 import com.madappgang.identifolib.extensions.suspendApiCall
 import com.madappgang.identifolib.network.QueriesService
 import com.madappgang.identifolib.network.interceptors.IdentifoAuthInterceptor
+import com.madappgang.identifolib.network.interceptors.IdentifoRefreshAuthenticator
 import com.madappgang.identifolib.storages.ITokenDataStorage
 import com.madappgang.identifolib.storages.IUserStorage
 import kotlinx.coroutines.CoroutineDispatcher
@@ -47,6 +48,7 @@ object IdentifoAuthentication : KoinComponent {
     private val queriesService by inject<QueriesService>()
     private val backgroundCoroutineDispatcher by inject<CoroutineDispatcher>()
     private val identifoAuthInterceptor by inject<IdentifoAuthInterceptor>()
+    private val identifoRefreshAuthenticator by inject<IdentifoRefreshAuthenticator>()
 
     private val _authenticationState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
     val authenticationState by lazy { _authenticationState.asStateFlow() }
@@ -113,6 +115,8 @@ object IdentifoAuthentication : KoinComponent {
     }
 
     fun getIdentifoInterceptor() = identifoAuthInterceptor
+
+    fun getIdentifoAuthenticator() = identifoRefreshAuthenticator
 
 
     /**

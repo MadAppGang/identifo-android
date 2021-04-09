@@ -4,6 +4,7 @@ import com.madappgang.identifolib.extensions.createWebService
 import com.madappgang.identifolib.network.QueriesService
 import com.madappgang.identifolib.network.RefreshSessionQueries
 import com.madappgang.identifolib.network.interceptors.IdentifoAuthInterceptor
+import com.madappgang.identifolib.network.interceptors.IdentifoRefreshAuthenticator
 import com.madappgang.identifolib.network.interceptors.IdentifoRefreshInterceptor
 import com.madappgang.identifolib.storages.ITokenDataStorage
 import com.madappgang.identifolib.storages.IUserStorage
@@ -49,6 +50,15 @@ fun dependenciesModule(
             appId,
             appSecret,
             get<ITokenDataStorage>()
+        )
+    }
+
+    factory<IdentifoRefreshAuthenticator> {
+        IdentifoRefreshAuthenticator(
+            get<ITokenDataStorage>(),
+            get<RefreshSessionQueries>(),
+            appSecret,
+            appId
         )
     }
 

@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Copyright (c) 2021 MadAppGang. All rights reserved.
  */
 
-inline fun <reified T> OkHttpClient.createWebService(url: String): T {
+internal inline fun <reified T> OkHttpClient.createWebService(url: String): T {
     val gson = GsonBuilder()
             .setLenient()
             .create()
