@@ -73,6 +73,7 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
             }
         })
         oneTimePasswordBinding.editTextOtp.setOnClickListener {
+            it.requestFocus()
             requireActivity().showSoftKeyboard()
         }
         oneTimePasswordBinding.textViewResendTheCode.setOnClickListener {
