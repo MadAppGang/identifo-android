@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph_login"
+    app:startDestination="@id/commonLoginFragment">
+
+    <fragment
+        android:id="@+id/commonLoginFragment"
+        android:name="com.madappgang.identifolibui.login.WelcomeLoginFragment"
+        android:label="CommonLoginFragment"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_commonLoginFragment_to_phoneNumberLoginFragment"
+            app:destination="@id/phoneNumberLoginFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
+        <action
+            android:id="@+id/action_commonLoginFragment_to_usernameLoginFragment"
+            app:destination="@id/usernameLoginFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/phoneNumberLoginFragment"
+        android:name="com.madappgang.identifolibui.login.phoneNumber.phoneNumberLogin.PhoneNumberFragment"
+        android:label="PhoneNumberLoginFragment"
+        tools:layout="@layout/fragment_phone_number_login">
+        <action
+            android:id="@+id/action_phoneNumberLoginFragment_to_oneTimePasswordFragment"
+            app:destination="@id/oneTimePasswordFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
+        <action
+            android:id="@+id/action_phoneNumberLoginFragment_to_navigation_graph_sign_up"
+            app:destination="@id/navigation_graph_sign_up"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/oneTimePasswordFragment"
+        android:name="com.madappgang.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment"
+        android:label="OneTimePasswordFragment"
+        tools:layout="@layout/fragment_one_time_password" />
+    <fragment
+        android:id="@+id/usernameLoginFragment"
+        android:name="com.madappgang.identifolibui.login.username.UsernameLoginFragment"
+        android:label="UsernameLoginFragment"
+        tools:layout="@layout/fragment_login_username">
+        <action
+            android:id="@+id/action_usernameLoginFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
+        <action
+            android:id="@+id/action_usernameLoginFragment_to_navigation_graph_sign_up"
+            app:destination="@id/navigation_graph_sign_up"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.madappgang.identifolibui.registration.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fragment_registration" />
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.madappgang.identifolibui.resetPassword.ResetPasswordFragment"
+        android:label="ResetPasswordFragment"
+        tools:layout="@layout/fragment_reset_password">
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_followTheLinkFragment"
+            app:destination="@id/followTheLinkFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/followTheLinkFragment"
+        android:name="com.madappgang.identifolibui.resetPassword.FollowTheLinkFragment"
+        android:label="FollowTheLinkFragment"
+        tools:layout="@layout/fragment_follow_the_link">
+        <action
+            android:id="@+id/action_followTheLinkFragment_pop_including_resetPasswordFragment"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"
+            app:popUpTo="@id/resetPasswordFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <include app:graph="@navigation/navigation_graph_sign_up" />
+
+</navigation>

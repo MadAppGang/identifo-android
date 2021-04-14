@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:id="@+id/nestedScrollViewPhoneNumberRoot"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewBackArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutFieldPhoneNumber"
+            style="@style/IdentifoBorderedInputTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/phoneNumberHint"
+            app:layout_constraintBottom_toTopOf="@+id/buttonProceed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.05">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputPhoneNumber"
+                style="@style/IdentifoBorderedEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/buttonProceed"
+            style="@style/IdentifoPrimaryButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewRegisterNewAccount"
+            style="@style/IdentifoTertiaryRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/singUp"
+            android:textSize="@dimen/identifoText16"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/IdentifoSecondaryRegularTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dontHaveAnAccount"
+            android:textSize="@dimen/identifoText16"
+            app:layout_constraintBottom_toTopOf="@+id/buttonProceed"
+            app:layout_constraintEnd_toStartOf="@+id/textViewRegisterNewAccount"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
+            app:layout_constraintVertical_bias="0.35" />
+
+        <TextView
+            android:id="@+id/textViewCompanyGreetings"
+            style="@style/IdentifoSecondaryRegularTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
+            android:textSize="@dimen/identifoText14"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCompanyName"
+            app:layout_constraintStart_toStartOf="@+id/textViewCompanyName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCompanyName"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Greetings text here" />
+
+        <TextView
+            android:id="@+id/textViewCompanyName"
+            style="@style/IdentifoPrimaryBoldTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textSize="@dimen/identifoText24"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
+            app:layout_constraintVertical_bias="0.6"
+            tools:text="Company name" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="@dimen/identifoLogoWidth"
+            android:layout_height="@dimen/identifoLogoHeight"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCompanyName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
+            app:layout_constraintVertical_bias="1.0"
+            app:shapeAppearanceOverlay="@style/IdentifoRoundedImageView"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

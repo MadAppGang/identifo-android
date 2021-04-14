@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="IdentifoStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/identifoSystemStatusBarColor</item>
+        <item name="android:navigationBarColor">@color/identifoSystemNavigationBarColor</item>
+    </style>
+
+    <style name="IdentifoBackgroundStyle">
+        <item name="android:background">@color/identifoBackgroundDayColor</item>
+    </style>
+
+    <!-- font text styles -->
+    <style name="IdentifoNunitoRegular">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="IdentifoNunitoSemiBold">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="IdentifoNunitoBold">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="IdentifoExoBold">
+        <item name="android:fontFamily">@font/exo_bold</item>
+    </style>
+
+    <!-- color text styles -->
+    <style name="IdentifoPrimaryRegularTextStyle" parent="IdentifoNunitoRegular">
+        <item name="android:textColor">@color/identifoPrimaryTextDayColor</item>
+    </style>
+
+    <style name="IdentifoPrimaryBoldTextStyle" parent="IdentifoNunitoBold">
+        <item name="android:textColor">@color/identifoPrimaryTextDayColor</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="IdentifoSecondaryRegularTextStyle" parent="IdentifoNunitoRegular">
+        <item name="android:textColor">@color/identifoSecondaryTextColor</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="IdentifoTertiaryRegularTextStyle" parent="IdentifoNunitoRegular">
+        <item name="android:textColor">@color/identifoTertiaryTextColor</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="IdentifoFourthBoldTextStyle" parent="IdentifoExoBold">
+        <item name="android:textColor">@color/identifoPrimaryTextDayColor</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- separator view styles -->
+    <style name="IdentifoSeparatorStyle">
+        <item name="android:background">@color/identifoSeparatorDayColor</item>
+    </style>
+
+    <!-- image view styles -->
+    <style name="IdentifoRoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="IdentifoLogoStyle">
+        <item name="tint">@color/identifoPrimaryTextDayColor</item>
+    </style>
+
+    <!-- progress style -->
+    <style name="IdentifoProgressStyle" parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="android:colorAccent">@color/identifoAccentColorPrimary</item>
+        <item name="android:indeterminate">true</item>
+        <item name="trackColor">@color/identifoAccentColorSecondary</item>
+        <item name="indicatorColor">@color/identifoAccentColorPrimary</item>
+    </style>
+
+    <!-- button styles -->
+    <style name="IdentifoCommonButtonStyle">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="IdentifoPrimaryButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="backgroundTint">@color/selector_primary_button_background</item>
+        <item name="android:textColor">@color/selector_primary_day_button_text_color</item>
+        <item name="android:textSize">@dimen/identifoText14</item>
+    </style>
+
+    <style name="IdentifoSecondaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="strokeColor">@color/selector_secondary_day_button_background</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/identifoSecondaryDayButtonTextColor</item>
+        <item name="android:textSize">@dimen/identifoText14</item>
+    </style>
+
+    <style name="IdentifoTertiaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="android:textColor">@color/identifoTertiaryDayButtonTextColor</item>
+        <item name="android:textSize">@dimen/identifoText14</item>
+    </style>
+
+    <!-- text input layout -->
+    <style name="IdentifoBorderedInputTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="boxStrokeColor">@color/identifoInputTextDayColor</item>
+        <item name="hintTextColor">@color/identifoInputTextDayColor</item>
+    </style>
+
+    <style name="IdentifoBorderedEditText">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
+    </style>
+
+</resources>

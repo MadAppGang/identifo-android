@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- button text view colors -->
+    <color name="identifoPrimaryDayButtonEnabledTextColor">#FFFFFF</color>
+    <color name="identifoPrimaryDayButtonDisabledTextColor">#FFFFFF</color>
+    <color name="identifoPrimaryNightButtonEnabledTextColor">#FFFFFF</color>
+    <color name="identifoPrimaryNightButtonDisabledTextColor">#444444</color>
+
+    <color name="identifoSecondaryDayButtonTextColor">#6163F6</color>
+    <color name="identifoSecondaryNightButtonTextColor">#FFFFFF</color>
+
+    <color name="identifoTertiaryDayButtonTextColor">#6163F6</color>
+    <color name="identifoTertiaryNightButtonTextColor">#6163F6</color>
+
+    <!-- button colors -->
+    <color name="identifoSecondaryNightButtonEnabledColor">#423F3F</color>
+    <color name="identifoSecondaryNightButtonDisabledColor">#4D423F3F</color>
+    <color name="identifoSecondaryDayButtonEnabledColor">#6163F6</color>
+    <color name="identifoSecondaryDayButtonDisabledColor">#4A6163F6</color>
+
+    <!-- accent colors -->
+    <color name="identifoAccentColorPrimary">#6163F6</color>
+    <color name="identifoAccentColorSecondary">#4A6163F6</color>
+
+    <!-- background colors -->
+    <color name="identifoBackgroundNightColor">#1E1E1E</color>
+    <color name="identifoBackgroundDayColor">#FFFFFF</color>
+
+    <!-- separator colors -->
+    <color name="identifoSeparatorDayColor">#4D828282</color>
+    <color name="identifoSeparatorNightColor">#4D828282</color>
+
+    <!-- text colors -->
+    <color name="identifoPrimaryTextDayColor">#1B1B1B</color>
+    <color name="identifoPrimaryTextNightColor">#FFFFFF</color>
+
+    <color name="identifoSecondaryTextColor">#828282</color>
+
+    <color name="identifoTertiaryTextColor">@color/identifoAccentColorPrimary</color>
+
+    <!-- input text colors -->
+    <color name="identifoInputTextDayColor">#828282</color>
+    <color name="identifoInputTextNightColor">#828282</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/identifoInputTextDayColor</color>
+
+    <color name="identifoSystemStatusBarColor">#40000000</color>
+    <color name="identifoSystemNavigationBarColor">#40000000</color>
+</resources>
