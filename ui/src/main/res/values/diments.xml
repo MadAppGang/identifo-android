@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text12">12dp</dimen>
-    <dimen name="text14">14dp</dimen>
-    <dimen name="text16">16dp</dimen>
-    <dimen name="text18">18dp</dimen>
-    <dimen name="text24">24dp</dimen>
+    <dimen name="identifoText12">12dp</dimen>
+    <dimen name="identifoText14">14dp</dimen>
+    <dimen name="identifoText16">16dp</dimen>
+    <dimen name="identifoText18">18dp</dimen>
+    <dimen name="identifoText24">24dp</dimen>
 
-    <dimen name="providers_sign_in_button">56dp</dimen>
+    <dimen name="identifoProviders_sign_in_button">56dp</dimen>
+    <dimen name="identifoLogoHeight">72dp</dimen>
+    <dimen name="identifoLogoWidth">72dp</dimen>
 </resources>

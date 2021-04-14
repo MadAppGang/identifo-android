@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:overScrollMode="never"
-    style="@style/BackgroundStyle">
+    style="@style/IdentifoBackgroundStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_login_root"
@@ -27,9 +27,9 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithUsername"
-                style="@style/PrimaryButtonStyle"
+                style="@style/IdentifoPrimaryButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/providers_sign_in_button"
+                android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithEmail"
@@ -37,9 +37,9 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithPhoneNumber"
-                style="@style/PrimaryButtonStyle"
+                style="@style/IdentifoPrimaryButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/providers_sign_in_button"
+                android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithPhoneNumber"
@@ -53,14 +53,14 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                style="@style/SeparatorStyle"
+                style="@style/IdentifoSeparatorStyle"
                 android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithGoogle"
-                style="@style/SecondaryButtonStyle"
+                style="@style/IdentifoSecondaryButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/providers_sign_in_button"
+                android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithGmail"
@@ -68,9 +68,9 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithFacebook"
-                style="@style/SecondaryButtonStyle"
+                style="@style/IdentifoSecondaryButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/providers_sign_in_button"
+                android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithFacebook"
@@ -80,9 +80,9 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonLoginWithTwitter"
-                style="@style/SecondaryButtonStyle"
+                style="@style/IdentifoSecondaryButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/providers_sign_in_button"
+                android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithTwitter"
@@ -106,8 +106,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageViewLogo"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/identifoLogoWidth"
+            android:layout_height="@dimen/identifoLogoHeight"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/textViewCompanyName"
@@ -115,12 +115,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewIdentifo"
             app:layout_constraintVertical_bias="1.0"
-            app:shapeAppearanceOverlay="@style/RoundedImageView"
+            app:shapeAppearanceOverlay="@style/IdentifoRoundedImageView"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textViewUserAgreement"
-            style="@style/SecondaryRegularTextStyle"
+            style="@style/IdentifoSecondaryRegularTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -128,7 +128,7 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="@string/privacyPolicy"
-            android:textSize="@dimen/text14"
+            android:textSize="@dimen/identifoText14"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -151,12 +151,12 @@
 
         <TextView
             android:id="@+id/textViewIdentifo"
-            style="@style/FourthBoldTextStyle"
+            style="@style/IdentifoFourthBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:text="@string/identifo"
-            android:textSize="@dimen/text18"
+            android:textSize="@dimen/identifoText18"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewShield"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -166,7 +166,7 @@
 
         <TextView
             android:id="@+id/textViewCompanyName"
-            style="@style/PrimaryBoldTextStyle"
+            style="@style/IdentifoPrimaryBoldTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -175,7 +175,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textSize="@dimen/text24"
+            android:textSize="@dimen/identifoText24"
             app:layout_constraintBottom_toTopOf="@+id/textViewCompanyGreetings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,13 +183,13 @@
 
         <TextView
             android:id="@+id/textViewCompanyGreetings"
-            style="@style/SecondaryRegularTextStyle"
+            style="@style/IdentifoSecondaryRegularTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="3"
-            android:textSize="@dimen/text14"
+            android:textSize="@dimen/identifoText14"
             app:layout_constraintBottom_toTopOf="@+id/linearLayoutButtons"
             app:layout_constraintEnd_toEndOf="@+id/textViewCompanyName"
             app:layout_constraintHorizontal_bias="0.5"

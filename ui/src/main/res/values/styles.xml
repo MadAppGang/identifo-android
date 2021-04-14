@@ -5,59 +5,59 @@
         <item name="android:navigationBarColor">@color/identifoSystemNavigationBarColor</item>
     </style>
 
-    <style name="BackgroundStyle">
+    <style name="IdentifoBackgroundStyle">
         <item name="android:background">@color/identifoBackgroundDayColor</item>
     </style>
 
     <!-- font text styles -->
-    <style name="NunitoRegular">
+    <style name="IdentifoNunitoRegular">
         <item name="android:fontFamily">@font/nunito_regular</item>
     </style>
 
-    <style name="NunitoSemiBold">
+    <style name="IdentifoNunitoSemiBold">
         <item name="android:fontFamily">@font/nunito_semibold</item>
     </style>
 
-    <style name="NunitoBold">
+    <style name="IdentifoNunitoBold">
         <item name="android:fontFamily">@font/nunito_semibold</item>
     </style>
 
-    <style name="ExoBold">
+    <style name="IdentifoExoBold">
         <item name="android:fontFamily">@font/exo_bold</item>
     </style>
 
     <!-- color text styles -->
-    <style name="PrimaryRegularTextStyle" parent="NunitoRegular">
+    <style name="IdentifoPrimaryRegularTextStyle" parent="IdentifoNunitoRegular">
         <item name="android:textColor">@color/identifoPrimaryTextDayColor</item>
     </style>
 
-    <style name="PrimaryBoldTextStyle" parent="NunitoBold">
+    <style name="IdentifoPrimaryBoldTextStyle" parent="IdentifoNunitoBold">
         <item name="android:textColor">@color/identifoPrimaryTextDayColor</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="SecondaryRegularTextStyle" parent="NunitoRegular">
+    <style name="IdentifoSecondaryRegularTextStyle" parent="IdentifoNunitoRegular">
         <item name="android:textColor">@color/identifoSecondaryTextColor</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="TertiaryRegularTextStyle" parent="NunitoRegular">
+    <style name="IdentifoTertiaryRegularTextStyle" parent="IdentifoNunitoRegular">
         <item name="android:textColor">@color/identifoTertiaryTextColor</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="FourthBoldTextStyle" parent="ExoBold">
+    <style name="IdentifoFourthBoldTextStyle" parent="IdentifoExoBold">
         <item name="android:textColor">@color/identifoPrimaryTextDayColor</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
     <!-- separator view styles -->
-    <style name="SeparatorStyle">
+    <style name="IdentifoSeparatorStyle">
         <item name="android:background">@color/identifoSeparatorDayColor</item>
     </style>
 
     <!-- image view styles -->
-    <style name="RoundedImageView">
+    <style name="IdentifoRoundedImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
@@ -67,7 +67,7 @@
     </style>
 
     <!-- progress style -->
-    <style name="ProgressStyle" parent="Widget.MaterialComponents.LinearProgressIndicator">
+    <style name="IdentifoProgressStyle" parent="Widget.MaterialComponents.LinearProgressIndicator">
         <item name="android:colorAccent">@color/identifoAccentColorPrimary</item>
         <item name="android:indeterminate">true</item>
         <item name="trackColor">@color/identifoAccentColorSecondary</item>
@@ -75,43 +75,43 @@
     </style>
 
     <!-- button styles -->
-    <style name="CommonButtonStyle">
+    <style name="IdentifoCommonButtonStyle">
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="PrimaryButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="IdentifoPrimaryButtonStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="backgroundTint">@color/selector_primary_button_background</item>
         <item name="android:textColor">@color/selector_primary_day_button_text_color</item>
-        <item name="android:textSize">@dimen/text14</item>
+        <item name="android:textSize">@dimen/identifoText14</item>
     </style>
 
-    <style name="SecondaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="IdentifoSecondaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="strokeColor">@color/selector_secondary_day_button_background</item>
         <item name="strokeWidth">1dp</item>
         <item name="android:textColor">@color/identifoSecondaryDayButtonTextColor</item>
-        <item name="android:textSize">@dimen/text14</item>
+        <item name="android:textSize">@dimen/identifoText14</item>
     </style>
 
-    <style name="TertiaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="IdentifoTertiaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:fontFamily">@font/nunito_bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="strokeWidth">0dp</item>
         <item name="android:textColor">@color/identifoTertiaryDayButtonTextColor</item>
-        <item name="android:textSize">@dimen/text14</item>
+        <item name="android:textSize">@dimen/identifoText14</item>
     </style>
 
     <!-- text input layout -->
-    <style name="BorderedInputTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="IdentifoBorderedInputTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="boxStrokeColor">@color/identifoInputTextDayColor</item>
         <item name="hintTextColor">@color/identifoInputTextDayColor</item>
     </style>
 
-    <style name="BorderedEditText">
+    <style name="IdentifoBorderedEditText">
         <item name="android:fontFamily">@font/nunito_regular</item>
         <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
     </style>

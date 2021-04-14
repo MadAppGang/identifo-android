@@ -294,7 +294,8 @@ object IdentifoAuthentication : KoinComponent {
      */
 
     suspend fun logout(): Result<Unit, ErrorResponse> = withContext(backgroundCoroutineDispatcher) {
-        return@withContext suspendApiCall { queriesService.logout(LogoutDataSet()) }.onSuccess {
+        val refreshToken = tokenDataStorage.getTokens().refresh?.jwtEncoded ?: ""
+        return@withContext suspendApiCall { queriesService.logout(LogoutDataSet(refreshToken)) }.onSuccess {
             clearTokens()
         }
     }
