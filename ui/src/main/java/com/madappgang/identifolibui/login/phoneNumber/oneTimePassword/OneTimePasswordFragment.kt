@@ -15,13 +15,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
-import com.madappgang.identifolibui.OnTextChangeListener
 import com.madappgang.identifolibui.R
 import com.madappgang.identifolibui.databinding.FragmentOneTimePasswordBinding
 import com.madappgang.identifolibui.extensions.addSystemTopBottomPadding
 import com.madappgang.identifolibui.extensions.hideSoftKeyboard
 import com.madappgang.identifolibui.extensions.showMessage
 import com.madappgang.identifolibui.extensions.showSoftKeyboard
+import com.optview.otp.OnTextChangeListener
 import java.util.concurrent.TimeUnit
 
 
