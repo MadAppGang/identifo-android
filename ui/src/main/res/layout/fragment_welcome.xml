@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/background"
     android:fillViewport="true"
-    android:overScrollMode="never"
-    style="@style/IdentifoBackgroundStyle">
+    android:overScrollMode="never">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_login_root"
@@ -25,9 +25,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCompanyGreetings">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonLoginWithUsername"
-                style="@style/IdentifoPrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -35,9 +34,8 @@
                 android:text="@string/loginWithEmail"
                 android:visibility="gone" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonLoginWithPhoneNumber"
-                style="@style/IdentifoPrimaryButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -47,18 +45,18 @@
 
             <View
                 android:id="@+id/viewSeparator"
+                style="?attr/colorOnBackground"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                style="@style/IdentifoSeparatorStyle"
                 android:visibility="gone" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonLoginWithGoogle"
-                style="@style/IdentifoSecondaryButtonStyle"
+                style="?attr/widgetButton2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -66,21 +64,19 @@
                 android:text="@string/loginWithGmail"
                 android:visibility="gone" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonLoginWithFacebook"
-                style="@style/IdentifoSecondaryButtonStyle"
+                style="?attr/widgetButton2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/loginWithFacebook"
-                android:visibility="gone">
+                android:visibility="gone" />
 
-            </com.google.android.material.button.MaterialButton>
-
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/buttonLoginWithTwitter"
-                style="@style/IdentifoSecondaryButtonStyle"
+                style="?attr/widgetButton2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/identifoProviders_sign_in_button"
                 android:layout_marginStart="16dp"
@@ -88,7 +84,7 @@
                 android:text="@string/loginWithTwitter"
                 android:visibility="gone">
 
-            </com.google.android.material.button.MaterialButton>
+            </Button>
 
             <com.twitter.sdk.android.core.identity.TwitterLoginButton
                 android:id="@+id/buttonLoginWithTwitterNative"
@@ -115,12 +111,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewIdentifo"
             app:layout_constraintVertical_bias="1.0"
-            app:shapeAppearanceOverlay="@style/IdentifoRoundedImageView"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textViewUserAgreement"
-            style="@style/IdentifoSecondaryRegularTextStyle"
+            style="?attr/widgetMaterialText2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -128,7 +123,7 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="@string/privacyPolicy"
-            android:textSize="@dimen/identifoText14"
+            android:textAppearance="?attr/textAppearanceCaption2"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,21 +137,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            style="@style/IdentifoLogoStyle"
             app:layout_constraintEnd_toStartOf="@+id/textViewIdentifo"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_shield" />
+            app:srcCompat="@drawable/ic_shield"
+            app:tint="?attr/colorOnBackground" />
 
         <TextView
             android:id="@+id/textViewIdentifo"
-            style="@style/IdentifoFourthBoldTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/exo_bold"
             android:text="@string/identifo"
-            android:textSize="@dimen/identifoText18"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="@dimen/size18"
             app:layout_constraintBottom_toBottomOf="@+id/imageViewShield"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -166,7 +162,7 @@
 
         <TextView
             android:id="@+id/textViewCompanyName"
-            style="@style/IdentifoPrimaryBoldTextStyle"
+            style="?attr/widgetMaterialText1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -175,7 +171,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textSize="@dimen/identifoText24"
+            android:textAppearance="?attr/textAppearanceBody1"
             app:layout_constraintBottom_toTopOf="@+id/textViewCompanyGreetings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,13 +179,13 @@
 
         <TextView
             android:id="@+id/textViewCompanyGreetings"
-            style="@style/IdentifoSecondaryRegularTextStyle"
+            style="?attr/widgetMaterialText2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="3"
-            android:textSize="@dimen/identifoText14"
+            android:textAppearance="?attr/textAppearanceCaption2"
             app:layout_constraintBottom_toTopOf="@+id/linearLayoutButtons"
             app:layout_constraintEnd_toEndOf="@+id/textViewCompanyName"
             app:layout_constraintHorizontal_bias="0.5"
@@ -197,7 +193,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Greetings text here" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance" parent="TextAppearance.AppCompat" />
+
+    <style name="TextAppearance.Identifo">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <!-- headers -->
+    <style name="TextAppearance.Identifo.Quote">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:textSize">@dimen/size36</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Title1">
+        <item name="android:fontFamily">@font/nunito_extra_bold</item>
+        <item name="android:textSize">@dimen/size32</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Title2">
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+        <item name="android:textSize">@dimen/size24</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Title3">
+        <item name="android:fontFamily">@font/nunito_extra_bold</item>
+        <item name="android:textSize">@dimen/size22</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Title4">
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+        <item name="android:textSize">@dimen/size18</item>
+    </style>
+
+    <!-- bodies -->
+    <style name="TextAppearance.Identifo.Body1">
+        <item name="android:textSize">@dimen/size16</item>
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Body2">
+        <item name="android:textSize">@dimen/size16</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Body3">
+        <item name="android:textSize">@dimen/size14</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Body4">
+        <item name="android:textSize">@dimen/size14</item>
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Body5">
+        <item name="android:textSize">@dimen/size14</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <!-- captions -->
+    <style name="TextAppearance.Identifo.Caption1">
+        <item name="android:textSize">@dimen/size13</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Caption2">
+        <item name="android:textSize">@dimen/size13</item>
+        <item name="android:fontFamily">@font/nunito_semi_bold</item>
+    </style>
+
+    <style name="TextAppearance.Identifo.Caption3">
+        <item name="android:textSize">@dimen/size12</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <!-- button appearances -->
+    <style name="TextAppearance.Identifo.Button">
+        <item name="android:textSize">@dimen/size14</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="textAllCaps">true</item>
+    </style>
+</resources>

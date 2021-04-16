@@ -23,7 +23,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutFieldPhoneNumber"
-            style="@style/IdentifoBorderedInputTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -38,7 +37,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputPhoneNumber"
-                style="@style/IdentifoBorderedEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -48,7 +46,6 @@
 
         <Button
             android:id="@+id/buttonProceed"
-            style="@style/IdentifoPrimaryButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -61,12 +58,12 @@
 
         <TextView
             android:id="@+id/textViewRegisterNewAccount"
-            style="@style/IdentifoTertiaryRegularTextStyle"
+            style="?attr/widgetMaterialText3"
+            android:textAppearance="?attr/textAppearanceBody4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/singUp"
-            android:textSize="@dimen/identifoText16"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -75,11 +72,11 @@
 
         <TextView
             android:id="@+id/textView"
-            style="@style/IdentifoSecondaryRegularTextStyle"
+            style="?attr/widgetMaterialText2"
+            android:textAppearance="?attr/textAppearanceBody4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dontHaveAnAccount"
-            android:textSize="@dimen/identifoText16"
             app:layout_constraintBottom_toTopOf="@+id/buttonProceed"
             app:layout_constraintEnd_toStartOf="@+id/textViewRegisterNewAccount"
             app:layout_constraintHorizontal_bias="0.5"
@@ -90,14 +87,14 @@
 
         <TextView
             android:id="@+id/textViewCompanyGreetings"
-            style="@style/IdentifoSecondaryRegularTextStyle"
+            style="?attr/widgetMaterialText2"
+            android:textAppearance="?attr/textAppearanceCaption2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="3"
-            android:textSize="@dimen/identifoText14"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="@+id/textViewCompanyName"
             app:layout_constraintStart_toStartOf="@+id/textViewCompanyName"
@@ -107,7 +104,8 @@
 
         <TextView
             android:id="@+id/textViewCompanyName"
-            style="@style/IdentifoPrimaryBoldTextStyle"
+            style="?attr/widgetMaterialText1"
+            android:textAppearance="?attr/textAppearanceBody1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -115,7 +113,6 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textSize="@dimen/identifoText24"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +131,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
             app:layout_constraintVertical_bias="1.0"
-            app:shapeAppearanceOverlay="@style/IdentifoRoundedImageView"
             tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

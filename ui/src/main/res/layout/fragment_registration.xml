@@ -26,7 +26,8 @@
 
         <TextView
             android:id="@+id/textViewSignUpTitle"
-            style="@style/IdentifoPrimaryBoldTextStyle"
+            style="?attr/widgetMaterialText1"
+            android:textAppearance="?attr/textAppearanceTitle4"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:ellipsize="end"
@@ -34,13 +35,11 @@
             android:maxLines="1"
             android:paddingStart="16dp"
             android:text="@string/singUp"
-            android:textSize="@dimen/identifoText18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewBackArrow"
             app:layout_constraintTop_toTopOf="@+id/imageViewBackArrow" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            style="@style/IdentifoProgressStyle"
             android:id="@+id/progressBarLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +50,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutFieldUsername"
-            style="@style/IdentifoBorderedInputTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -66,7 +64,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextUsername"
-                style="@style/IdentifoBorderedEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -76,7 +73,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutFieldPassword"
-            style="@style/IdentifoBorderedInputTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -92,7 +88,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
-                style="@style/IdentifoBorderedEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -102,7 +97,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutFieldConfirmPassword"
-            style="@style/IdentifoBorderedInputTextLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -118,7 +112,6 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextConfirmPassword"
-                style="@style/IdentifoBorderedEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -128,9 +121,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/buttonRegister"
-            style="@style/IdentifoPrimaryButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

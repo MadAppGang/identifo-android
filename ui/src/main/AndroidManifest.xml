@@ -7,14 +7,12 @@
             android:name="com.madappgang.identifolibui.login.IdentifoSignInActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/IdentifoStyle"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name="com.madappgang.identifolibui.registration.IdentifoSingUpActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:theme="@style/IdentifoStyle"
             android:windowSoftInputMode="adjustResize" />
 
         <meta-data

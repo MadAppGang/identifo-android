@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="identifoText12">12dp</dimen>
-    <dimen name="identifoText14">14dp</dimen>
-    <dimen name="identifoText16">16dp</dimen>
-    <dimen name="identifoText18">18dp</dimen>
-    <dimen name="identifoText24">24dp</dimen>
-    <dimen name="identifoText36">36dp</dimen>
+    <dimen name="size12">12dp</dimen>
+    <dimen name="size13">13dp</dimen>
+    <dimen name="size14">14dp</dimen>
+    <dimen name="size16">16dp</dimen>
+    <dimen name="size18">18dp</dimen>
+    <dimen name="size20">20dp</dimen>
+    <dimen name="size22">22dp</dimen>
+    <dimen name="size24">24dp</dimen>
+    <dimen name="size32">32dp</dimen>
+    <dimen name="size36">36dp</dimen>
 
     <dimen name="identifoProviders_sign_in_button">56dp</dimen>
     <dimen name="identifoLogoHeight">72dp</dimen>

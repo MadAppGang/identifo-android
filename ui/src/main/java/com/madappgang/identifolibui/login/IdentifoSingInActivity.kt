@@ -37,6 +37,5 @@ class IdentifoSignInActivity : AppCompatActivity() {
         window?.run {
             WindowCompat.setDecorFitsSystemWindows(this, false)
         }
-        window.decorView.rootView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
     }
 }

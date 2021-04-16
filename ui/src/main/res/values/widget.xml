@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget"/>
+    <style name="Widget.Identifo"/>
+
+    <!-- buttons styles -->
+    <style name="Widget.Identifo.Button1" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/selector_primary_button_background</item>
+    </style>
+
+    <style name="Widget.Identifo.Button2" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/selector_secondary_button_background</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.Identifo.Button3" parent="Widget.MaterialComponents.Button.TextButton"/>
+
+    <!-- text view styles -->
+    <style name="Widget.Identifo.Text1">
+        <item name="android:textColor">?attr/colorOnSurface1</item>
+    </style>
+
+    <style name="Widget.Identifo.Text2">
+        <item name="android:textColor">?attr/colorOnSurface2</item>
+    </style>
+
+    <style name="Widget.Identifo.Text3">
+        <item name="android:textColor">?attr/colorOnSurface3</item>
+    </style>
+
+    <!-- progress bar styles -->
+    <style name="Widget.Identifo.ProgressBar" parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="android:colorAccent">?attr/colorPrimary</item>
+        <item name="android:indeterminate">true</item>
+        <item name="trackColor">?attr/colorPrimaryVariant</item>
+        <item name="indicatorColor">?attr/colorPrimary</item>
+    </style>
+
+    <!-- input text styles -->
+    <style name="Widget.Identifo.ProgressBar.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/identifoInputTextDayColor</item>
+        <item name="hintTextColor">@color/identifoInputTextDayColor</item>
+    </style>
+
+    <style name="Widget.Identifo.ProgressBar.EditText">
+        <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
+    </style>
+
+</resources>
