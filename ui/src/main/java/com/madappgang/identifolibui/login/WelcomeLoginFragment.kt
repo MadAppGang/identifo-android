@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.color.MaterialColors
 import com.madappgang.identifolib.entities.FederatedProviders
 import com.madappgang.identifolibui.R
 import com.madappgang.identifolibui.databinding.FragmentWelcomeBinding
@@ -147,13 +148,14 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
         }
 
         userConditions?.let { userConditions ->
+            val color = MaterialColors.getColor(welcomeBinding.textViewUserAgreement, R.attr.colorPrimary)
             val userAgreementText = getString(R.string.userAgreement)
                 .makeUrl(userConditions.userAgreement)
-                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.identifoTertiaryTextColor))
+                .makeAnotherColor(color)
 
             val privacyPolicy = getString(R.string.privacyPolicy)
                 .makeUrl(userConditions.privacyPolicy)
-                .makeAnotherColor(ContextCompat.getColor(requireContext(), R.color.identifoTertiaryTextColor))
+                .makeAnotherColor(color)
 
             val userAgreementNotice = getString(R.string.userAgreementNotice)
                 .makeSpannableString() + userAgreementText + getString(R.string.userAgreementNoticeAnd).makeSpannableString() + privacyPolicy

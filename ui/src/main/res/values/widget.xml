@@ -42,8 +42,6 @@
         <item name="hintTextColor">?attr/colorOnSurface</item>
     </style>
 
-    <style name="Widget.Identifo.EditText" parent="Widget.AppCompat.EditText">
-        <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
-    </style>
+    <style name="Widget.Identifo.EditText" parent="Widget.AppCompat.EditText"/>
 
 </resources>

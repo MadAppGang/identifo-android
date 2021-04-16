@@ -13,6 +13,8 @@
         <item name="colorSurface">@color/gray_400</item>
         <item name="colorOnSurface">@color/gray_200</item>
 
+        <item name="android:windowBackground">?attr/background</item>
+
         <item name="colorOnSurface1">?attr/colorOnBackground</item>
         <item name="colorOnSurface2">?attr/colorOnSurface</item>
         <item name="colorOnSurface3">?attr/colorPrimary</item>
