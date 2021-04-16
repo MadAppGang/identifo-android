@@ -14,7 +14,7 @@
         <item name="colorOnSurface">@color/gray_200</item>
 
         <item name="colorOnSurface1">?attr/colorOnBackground</item>
-        <item name="colorOnSurface2">@color/purple_700</item>
+        <item name="colorOnSurface2">?attr/colorOnSurface</item>
         <item name="colorOnSurface3">?attr/colorPrimary</item>
 
         <item name="widgetMaterialText1">@style/Widget.Identifo.Text1</item>
@@ -42,8 +42,8 @@
         <item name="widgetButton3">@style/Widget.Identifo.Button3</item>
 
         <item name="progressBarStyle">@style/Widget.Identifo.ProgressBar</item>
-        <item name="textInputStyle">@style/Widget.Identifo.ProgressBar.TextInputLayout</item>
-        <item name="editTextStyle">@style/Widget.Identifo.ProgressBar.EditText</item>
+        <item name="textInputStyle">@style/Widget.Identifo.TextInputLayout</item>
+        <item name="editTextStyle">@style/Widget.Identifo.EditText</item>
         <item name="linearProgressIndicatorStyle">@style/Widget.Identifo.ProgressBar</item>
     </style>
 </resources>

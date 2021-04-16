@@ -37,12 +37,12 @@
     </style>
 
     <!-- input text styles -->
-    <style name="Widget.Identifo.ProgressBar.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="Widget.Identifo.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/identifoInputTextDayColor</item>
         <item name="hintTextColor">@color/identifoInputTextDayColor</item>
     </style>
 
-    <style name="Widget.Identifo.ProgressBar.EditText">
+    <style name="Widget.Identifo.EditText">
         <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
     </style>
 
