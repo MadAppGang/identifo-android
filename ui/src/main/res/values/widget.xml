@@ -38,11 +38,11 @@
 
     <!-- input text styles -->
     <style name="Widget.Identifo.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/identifoInputTextDayColor</item>
-        <item name="hintTextColor">@color/identifoInputTextDayColor</item>
+        <item name="boxStrokeColor">?attr/colorOnSurface</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
     </style>
 
-    <style name="Widget.Identifo.EditText">
+    <style name="Widget.Identifo.EditText" parent="Widget.AppCompat.EditText">
         <item name="android:textCursorDrawable">@drawable/ic_cursor</item>
     </style>
 
