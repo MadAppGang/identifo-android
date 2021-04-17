@@ -3,18 +3,6 @@
     package="com.madappgang.identifolibui">
 
     <application>
-        <activity
-            android:name="com.madappgang.identifolibui.login.IdentifoSignInActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-
-        <activity
-            android:name="com.madappgang.identifolibui.registration.IdentifoSingUpActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

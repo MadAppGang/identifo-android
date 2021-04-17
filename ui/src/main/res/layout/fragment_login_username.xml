@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nestedScrollViewLoginRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -76,11 +75,11 @@
         <TextView
             android:id="@+id/textViewRegisterNewAccount"
             style="?attr/widgetMaterialText3"
-            android:textAppearance="?attr/textAppearanceBody4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/singUp"
+            android:textAppearance="?attr/textAppearanceBody4"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -109,10 +108,10 @@
         <TextView
             android:id="@+id/textView"
             style="?attr/widgetMaterialText2"
-            android:textAppearance="?attr/textAppearanceBody4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dontHaveAnAccount"
+            android:textAppearance="?attr/textAppearanceBody4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textViewRegisterNewAccount"
             app:layout_constraintHorizontal_bias="0.5"
@@ -133,7 +132,7 @@
             app:layout_constraintStart_toStartOf="@+id/buttonLogin" />
 
         <TextView
-            android:id="@+id/textViewCompanyName"
+            android:id="@+id/textViewEnterPhone"
             style="?attr/widgetMaterialText1"
             android:textAppearance="?attr/textAppearanceBody1"
             android:layout_width="0dp"
@@ -143,42 +142,12 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
+            android:text="@string/enterCredentials"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
-            app:layout_constraintVertical_bias="0.6"
-            tools:text="Company name" />
-
-        <TextView
-            android:id="@+id/textViewCompanyGreetings"
-            style="?attr/widgetMaterialText2"
-            android:textAppearance="?attr/textAppearanceCaption2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="3"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/textViewCompanyName"
-            app:layout_constraintStart_toStartOf="@+id/textViewCompanyName"
-            app:layout_constraintTop_toBottomOf="@+id/textViewCompanyName"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Greetings text here" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageViewLogo"
-            android:layout_width="@dimen/identifoLogoWidth"
-            android:layout_height="@dimen/identifoLogoHeight"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/textViewCompanyName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
-            app:layout_constraintVertical_bias="1.0"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintVertical_bias="0.6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

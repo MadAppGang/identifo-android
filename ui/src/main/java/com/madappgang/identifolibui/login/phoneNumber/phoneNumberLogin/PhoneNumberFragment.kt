@@ -5,14 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import coil.load
 import com.madappgang.identifolibui.R
 import com.madappgang.identifolibui.databinding.FragmentPhoneNumberLoginBinding
 import com.madappgang.identifolibui.extensions.addSystemTopBottomPadding
 import com.madappgang.identifolibui.extensions.onDone
 import com.madappgang.identifolibui.extensions.showMessage
-import com.madappgang.identifolibui.login.options.LoginOptions
-import com.madappgang.identifolibui.login.options.Style
 import com.madappgang.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment
 
 
@@ -24,9 +21,6 @@ import com.madappgang.identifolibui.login.phoneNumber.oneTimePassword.OneTimePas
 class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
 
     private val phoneNumberLoginBinding by viewBinding(FragmentPhoneNumberLoginBinding::bind)
-
-    private val loginOptions: LoginOptions by lazy { LoginOptions() }
-    private val commonStyle: Style? by lazy { loginOptions.commonStyle }
 
     companion object {
         private val PHONE_NUMBER_PATTERN = "^[+][0-9]{11,13}\$".toRegex()
@@ -43,12 +37,6 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
 
         phoneNumberLoginBinding.textViewRegisterNewAccount.setOnClickListener {
             findNavController().navigate(R.id.action_phoneNumberLoginFragment_to_registrationFragment)
-        }
-
-        commonStyle?.let {
-            phoneNumberLoginBinding.imageViewLogo.load(it.companyLogo)
-            phoneNumberLoginBinding.textViewCompanyName.text = it.companyName
-            phoneNumberLoginBinding.textViewCompanyGreetings.text = it.greetingsText
         }
 
         phoneNumberLoginBinding.textInputPhoneNumber.onDone {
