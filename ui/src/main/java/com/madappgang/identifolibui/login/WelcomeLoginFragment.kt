@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -42,12 +44,14 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
 
     companion object {
         private const val RC_SIGN_IN = 1
+        private const val LOGIN_OPTIONS = "login_options_bundle"
+        fun putArguments(loginOptions: LoginOptions) = bundleOf(LOGIN_OPTIONS to loginOptions)
     }
 
     private val welcomeBinding by viewBinding(FragmentWelcomeBinding::bind)
     private val commonViewModel: CommonViewModel by viewModels()
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoSignInActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { arguments?.getSerializable(LOGIN_OPTIONS) as LoginOptions }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
     private val loginProviders: List<LoginProviders>? by lazy { loginOptions.providers }
     private val userConditions: UseConditions? by lazy { loginOptions.useConditions }
@@ -67,7 +71,6 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
     }
 
     private val facebookCallbackManager by lazy { CallbackManager.Factory.create() }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -51,13 +51,6 @@
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/buttonSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign up"
-        android:textAllCaps="false" />
-
-    <Button
         android:id="@+id/buttonLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

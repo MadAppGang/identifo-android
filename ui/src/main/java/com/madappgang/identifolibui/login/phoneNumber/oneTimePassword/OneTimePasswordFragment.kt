@@ -106,7 +106,7 @@ class OneTimePasswordFragment : Fragment(R.layout.fragment_one_time_password) {
 
     private fun finishSignInFlow() {
         hideLoading()
-        requireActivity().finish()
+        findNavController().navigate(R.id.action_oneTimePasswordFragment_pop_including_commonLoginFragment)
     }
 
     private fun showErrorMessage(message : String) {

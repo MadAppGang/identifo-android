@@ -50,9 +50,6 @@ object IdentifoAuthentication : KoinComponent {
     private val identifoAuthInterceptor by inject<IdentifoAuthInterceptor>()
     private val identifoRefreshAuthenticator by inject<IdentifoRefreshAuthenticator>()
 
-    private val _authenticationState by lazy { MutableStateFlow(getInitialAuthentificationState()) }
-    val authenticationState by lazy { _authenticationState.asStateFlow() }
-
     /**
      * The initial function to initialize the Identifo library.
      * Pay attention that this function must be called only in the Application class.
@@ -81,19 +78,22 @@ object IdentifoAuthentication : KoinComponent {
         }
     }
 
-    private fun getInitialAuthentificationState(): AuthState {
+    fun fetchAuthState(
+        authBlock : (newState : AuthState) -> Unit
+    ) {
         val tokens = tokenDataStorage.getTokens()
         val user = userStorage.getUser()
         val refreshToken = tokens.refresh
-        return if (refreshToken.isExpired()) {
+        val authState = if (refreshToken.isExpired()) {
             AuthState.Deauthentificated
         } else {
             val accessToken = tokens.access?.jwtEncoded
             AuthState.Authentificated(user, accessToken)
         }
+        authBlock.invoke(authState)
     }
 
-    internal fun saveTokens(
+    private fun saveTokens(
         accessToken: String,
         refreshToken: String,
         user: IdentifoUser? = userStorage.getUser()
@@ -105,13 +105,11 @@ object IdentifoAuthentication : KoinComponent {
             )
         )
         user?.let { userStorage.setUser(it) }
-        _authenticationState.value = AuthState.Authentificated(user, accessToken)
     }
 
     internal fun clearTokens() {
         tokenDataStorage.clearAll()
         userStorage.clearAll()
-        _authenticationState.value = AuthState.Deauthentificated
     }
 
     fun getIdentifoInterceptor() = identifoAuthInterceptor

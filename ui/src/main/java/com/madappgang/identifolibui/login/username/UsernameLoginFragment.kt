@@ -13,7 +13,7 @@ import com.madappgang.identifolibui.databinding.FragmentLoginUsernameBinding
 import com.madappgang.identifolibui.extensions.addSystemTopBottomPadding
 import com.madappgang.identifolibui.extensions.onDone
 import com.madappgang.identifolibui.extensions.showMessage
-import com.madappgang.identifolibui.login.IdentifoSignInActivity
+import com.madappgang.identifolibui.login.WelcomeLoginFragment
 import com.madappgang.identifolibui.login.options.LoginOptions
 import com.madappgang.identifolibui.login.options.Style
 
@@ -28,7 +28,7 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
     private val usernameLoginBinding by viewBinding(FragmentLoginUsernameBinding::bind)
     private val usernameLoginViewModel: UsernameLoginViewModel by viewModels()
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoSignInActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { LoginOptions() }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,7 +65,7 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
         }
 
         usernameLoginBinding.textViewRegisterNewAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_usernameLoginFragment_to_navigation_graph_sign_up)
+            findNavController().navigate(R.id.action_usernameLoginFragment_to_registrationFragment)
         }
 
         usernameLoginBinding.buttonRecoveryPassword.setOnClickListener {
@@ -84,7 +84,7 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
 
     private fun closeSignInFlow() {
         hideLoading()
-        requireActivity().finish()
+        findNavController().navigate(R.id.action_usernameLoginFragment_pop_including_commonLoginFragment)
     }
 
     private fun showLoading() {

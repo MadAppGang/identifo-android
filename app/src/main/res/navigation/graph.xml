@@ -11,12 +11,13 @@
         android:label="DemoFragment"
         tools:layout="@layout/fragment_demo">
         <action
-            android:id="@+id/action_demoFragment_to_registrationFragment2"
-            app:destination="@id/registrationFragment2" />
+            android:id="@+id/action_demoFragment_to_navigation_graph_login"
+            app:destination="@id/navigation_graph_login"
+            app:enterAnim="@anim/enter_right"
+            app:exitAnim="@anim/exit_left"
+            app:popEnterAnim="@anim/enter_left"
+            app:popExitAnim="@anim/exit_right"/>
     </fragment>
-    <fragment
-        android:id="@+id/registrationFragment2"
-        android:name="com.madappgang.identifolibui.registration.RegistrationFragment"
-        android:label="RegistrationFragment"
-        />
+    <include
+        app:graph="@navigation/navigation_graph_sign_in" />
 </navigation>

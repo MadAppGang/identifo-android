@@ -17,7 +17,6 @@ import com.madappgang.identifolibui.databinding.FragmentRegistrationBinding
 import com.madappgang.identifolibui.extensions.addSystemTopBottomPadding
 import com.madappgang.identifolibui.extensions.onDone
 import com.madappgang.identifolibui.extensions.showMessage
-import com.madappgang.identifolibui.login.IdentifoSignInActivity
 
 
 /*
@@ -50,7 +49,6 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         registrationBinding.nestedScrollViewSignUpRoot.addSystemTopBottomPadding()
 
-        registrationBinding.imageViewBackArrow.isVisible = requireActivity() is IdentifoSignInActivity
         registrationBinding.imageViewBackArrow.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -76,7 +74,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private fun closeActivity() {
         hideLoading()
-        requireActivity().finish()
+        findNavController().navigate(R.id.action_registrationFragment_pop_including_commonLoginFragment)
     }
 
     private fun showErrorMessage(errorResponse: ErrorResponse) {

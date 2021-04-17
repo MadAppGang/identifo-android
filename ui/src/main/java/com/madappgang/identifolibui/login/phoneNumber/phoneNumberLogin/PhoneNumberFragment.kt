@@ -11,7 +11,6 @@ import com.madappgang.identifolibui.databinding.FragmentPhoneNumberLoginBinding
 import com.madappgang.identifolibui.extensions.addSystemTopBottomPadding
 import com.madappgang.identifolibui.extensions.onDone
 import com.madappgang.identifolibui.extensions.showMessage
-import com.madappgang.identifolibui.login.IdentifoSignInActivity
 import com.madappgang.identifolibui.login.options.LoginOptions
 import com.madappgang.identifolibui.login.options.Style
 import com.madappgang.identifolibui.login.phoneNumber.oneTimePassword.OneTimePasswordFragment
@@ -26,7 +25,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
 
     private val phoneNumberLoginBinding by viewBinding(FragmentPhoneNumberLoginBinding::bind)
 
-    private val loginOptions: LoginOptions by lazy { (requireActivity() as IdentifoSignInActivity).loginOptions }
+    private val loginOptions: LoginOptions by lazy { LoginOptions() }
     private val commonStyle: Style? by lazy { loginOptions.commonStyle }
 
     companion object {
@@ -43,7 +42,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
         }
 
         phoneNumberLoginBinding.textViewRegisterNewAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_phoneNumberLoginFragment_to_navigation_graph_sign_up)
+            findNavController().navigate(R.id.action_phoneNumberLoginFragment_to_registrationFragment)
         }
 
         commonStyle?.let {
