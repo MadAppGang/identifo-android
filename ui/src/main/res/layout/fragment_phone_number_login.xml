@@ -59,7 +59,7 @@
         <TextView
             android:id="@+id/textViewRegisterNewAccount"
             style="?attr/widgetMaterialText3"
-            android:textAppearance="?attr/textAppearanceBody4"
+            android:textAppearance="?attr/textAppearanceBody2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -73,7 +73,7 @@
         <TextView
             android:id="@+id/textView"
             style="?attr/widgetMaterialText2"
-            android:textAppearance="?attr/textAppearanceBody4"
+            android:textAppearance="?attr/textAppearanceBody2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dontHaveAnAccount"
@@ -88,7 +88,7 @@
         <TextView
             android:id="@+id/textViewEnterPhone"
             style="?attr/widgetMaterialText1"
-            android:textAppearance="?attr/textAppearanceBody1"
+            android:textAppearance="?attr/textAppearanceTitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

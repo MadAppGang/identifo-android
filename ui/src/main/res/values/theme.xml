@@ -23,19 +23,13 @@
         <item name="widgetMaterialText2">@style/Widget.Identifo.Text2</item>
         <item name="widgetMaterialText3">@style/Widget.Identifo.Text3</item>
 
-        <item name="textAppearanceQuote">@style/TextAppearance.Identifo.Quote</item>
         <item name="textAppearanceTitle1">@style/TextAppearance.Identifo.Title1</item>
         <item name="textAppearanceTitle2">@style/TextAppearance.Identifo.Title2</item>
-        <item name="textAppearanceTitle3">@style/TextAppearance.Identifo.Title3</item>
-        <item name="textAppearanceTitle4">@style/TextAppearance.Identifo.Title4</item>
         <item name="textAppearanceBody1">@style/TextAppearance.Identifo.Body1</item>
         <item name="textAppearanceBody2">@style/TextAppearance.Identifo.Body2</item>
-        <item name="textAppearanceBody3">@style/TextAppearance.Identifo.Body3</item>
-        <item name="textAppearanceBody4">@style/TextAppearance.Identifo.Body4</item>
-        <item name="textAppearanceBody5">@style/TextAppearance.Identifo.Body5</item>
+        <item name="textAppearanceErrorText">@style/TextAppearance.Identifo.ErrorText</item>
         <item name="textAppearanceCaption1">@style/TextAppearance.Identifo.Caption1</item>
         <item name="textAppearanceCaption2">@style/TextAppearance.Identifo.Caption2</item>
-        <item name="textAppearanceCaption3">@style/TextAppearance.Identifo.Caption3</item>
         <item name="textAppearanceButton">@style/TextAppearance.Identifo.Button</item>
 
         <item name="materialButtonStyle">@style/Widget.Identifo.Button1</item>

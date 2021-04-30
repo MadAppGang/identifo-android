@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- text attributes -->
-    <attr name="textAppearanceQuote"/>
     <attr name="textAppearanceTitle1"/>
     <attr name="textAppearanceTitle2"/>
-    <attr name="textAppearanceTitle3"/>
-    <attr name="textAppearanceTitle4"/>
     <attr name="textAppearanceBody1"/>
     <attr name="textAppearanceBody2"/>
-    <attr name="textAppearanceBody3"/>
-    <attr name="textAppearanceBody4"/>
-    <attr name="textAppearanceBody5"/>
     <attr name="textAppearanceCaption1"/>
     <attr name="textAppearanceCaption2"/>
-    <attr name="textAppearanceCaption3"/>
+    <attr name="textAppearanceErrorText"/>
 
     <!-- widget attributes -->
     <attr name="widgetButton1"/>
