@@ -45,6 +45,8 @@ class BrowsePageFragment : Fragment(R.layout.fragment_browse_page) {
         val url = arguments?.getString(BROWSE_PAGE_URL) ?: ""
         browsePageFragmentBinding.textViewPageTitle.text = title
 
+        browsePageFragmentBinding.constraintBrowserRoot.addSystemTopBottomPadding()
+
         val chromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)

@@ -145,7 +145,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/enterCredentials"
-            android:textAppearance="?attr/textAppearanceTitle2"
+            android:textAppearance="?attr/textAppearanceTitle1"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
