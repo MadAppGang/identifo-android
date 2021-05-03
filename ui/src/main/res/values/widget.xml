@@ -28,6 +28,10 @@
         <item name="android:textColor">?attr/colorOnSurface3</item>
     </style>
 
+    <style name="Widget.Identifo.Text4">
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+    </style>
+
     <!-- progress bar styles -->
     <style name="Widget.Identifo.ProgressBar" parent="Widget.MaterialComponents.LinearProgressIndicator">
         <item name="android:colorAccent">?attr/colorPrimary</item>
@@ -40,8 +44,16 @@
     <style name="Widget.Identifo.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">?attr/colorOnSurface</item>
         <item name="hintTextColor">?attr/colorOnSurface</item>
+        <item name="errorTextColor">?attr/colorError</item>
+        <item name="textAppearanceErrorText">?attr/textAppearanceErrorText</item>
+        <item name="hintTextAppearance">?attr/textAppearanceBody2</item>
     </style>
 
     <style name="Widget.Identifo.EditText" parent="Widget.AppCompat.EditText"/>
+
+    <!-- snackbar styles -->
+    <style name="Widget.Identifo.SnackBar" parent="@style/Widget.MaterialComponents.Snackbar">
+        <item name="backgroundTint">?attr/colorSurface</item>
+    </style>
 
 </resources>

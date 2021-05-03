@@ -1,11 +1,9 @@
 package com.madappgang.identifolibui.extensions
 
 import android.graphics.Typeface
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextUtils
+import android.text.*
 import android.text.style.*
+import android.view.View
 
 /*
  * Created by Eugene Prytula on 3/15/21.
@@ -19,7 +17,7 @@ private const val WHITE_SPACE = " "
 
 fun spannable(func: () -> SpannableString) = func()
 
-private fun span(s: CharSequence, o: Any) = getNewSpannableString(s).apply {
+private fun span(s: CharSequence, o: Any): SpannableString = getNewSpannableString(s).apply {
     setSpan(o, FIRST_SYMBOL, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 }
 
@@ -46,3 +44,16 @@ fun CharSequence.makeAnotherSize(size: Float) = span(this, RelativeSizeSpan(size
 fun CharSequence.makeAnotherColor(color: Int) = span(this, ForegroundColorSpan(color))
 fun CharSequence.makeAnotherBackground(color: Int) = span(this, BackgroundColorSpan(color))
 fun CharSequence.makeUrl(url: String) = span(this, URLSpan(url))
+fun CharSequence.makeClickable(block: () -> Unit): SpannableString {
+    val clickableSpan = object : ClickableSpan() {
+        override fun onClick(widget: View) {
+            block()
+        }
+
+        override fun updateDrawState(ds: TextPaint) {
+            super.updateDrawState(ds)
+            ds.isUnderlineText = false
+        }
+    }
+    return span(this, clickableSpan)
+}

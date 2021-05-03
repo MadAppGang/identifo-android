@@ -79,11 +79,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private fun showErrorMessage(errorResponse: ErrorResponse) {
         hideLoading()
-        registrationBinding.constraintRegistrationRoot.showMessage(errorResponse.error.message)
+        registrationBinding.textInputLayoutFieldConfirmPassword.error = errorResponse.error.detailedMessage
     }
 
     private fun showLoading() {
         registrationBinding.progressBarLine.show()
+        registrationBinding.textInputLayoutFieldConfirmPassword.error = null
     }
 
     private fun hideLoading() {
@@ -95,10 +96,11 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         val password = registrationBinding.editTextPassword.text.toString()
         val repeatPassword = registrationBinding.editTextConfirmPassword.text.toString()
 
+        registrationBinding.textInputLayoutFieldConfirmPassword.error = null
         if (password == repeatPassword) {
             registrationViewModel.registerWithUsernameAndPassword(login, password)
         } else {
-            registrationBinding.constraintRegistrationRoot.showMessage(getString(R.string.passwordsDoNotMatch))
+            registrationBinding.textInputLayoutFieldConfirmPassword.error = getString(R.string.passwordsDoNotMatch)
         }
     }
 }

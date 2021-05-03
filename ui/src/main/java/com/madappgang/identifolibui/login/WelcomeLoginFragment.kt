@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
@@ -109,27 +110,25 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
             }
 
             val allTypesIdentifiers = providers.any { !it.isAuxiliaryIdentifier } and providers.any { it.isAuxiliaryIdentifier }
-            if (allTypesIdentifiers) {
-                welcomeBinding.viewSeparator.visibility = View.VISIBLE
-            }
+            welcomeBinding.viewSeparator.isVisible = allTypesIdentifiers
 
             if (LoginProviders.GMAIL in providers) {
                 with(welcomeBinding.buttonLoginWithGoogle) {
-                    visibility = View.VISIBLE
+                    isVisible = true
                     setOnClickListener { signInWithGoogle() }
                 }
             }
 
             if (LoginProviders.EMAIL in providers) {
                 with(welcomeBinding.buttonLoginWithUsername) {
-                    visibility = View.VISIBLE
+                    isVisible = true
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_usernameLoginFragment) }
                 }
             }
 
             if (LoginProviders.PHONE in providers) {
                 with(welcomeBinding.buttonLoginWithPhoneNumber) {
-                    visibility = View.VISIBLE
+                    isVisible = true
                     setOnClickListener { findNavController().navigate(R.id.action_commonLoginFragment_to_phoneNumberLoginFragment) }
                 }
             }
@@ -137,7 +136,7 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
             if (LoginProviders.FACEBOOK in providers) {
                 setupFacebookCallback()
                 with(welcomeBinding.buttonLoginWithFacebook) {
-                    visibility = View.VISIBLE
+                    isVisible = true
                     setOnClickListener {
                         welcomeBinding.buttonLoginWithFacebookNative.performClick()
                     }
@@ -147,7 +146,7 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
             if (LoginProviders.TWITTER in providers) {
                 setupTwitterCallback()
                 with(welcomeBinding.buttonLoginWithTwitter) {
-                    visibility = View.VISIBLE
+                    isVisible = true
                     setOnClickListener {
                         welcomeBinding.buttonLoginWithTwitterNative.performClick()
                     }
@@ -158,18 +157,26 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
         userConditions?.let { userConditions ->
             val color = MaterialColors.getColor(welcomeBinding.textViewUserAgreement, R.attr.colorPrimary)
             val userAgreementText = getString(R.string.userAgreement)
-                .makeUrl(userConditions.userAgreement)
-                .makeAnotherColor(color)
+                .makeClickable {
+                    openBrowserScreen(
+                        getString(R.string.userAgreement),
+                        userConditions.userAgreement
+                    )
+                }.makeAnotherColor(color)
 
             val privacyPolicy = getString(R.string.privacyPolicy)
-                .makeUrl(userConditions.privacyPolicy)
-                .makeAnotherColor(color)
+                .makeClickable {
+                    openBrowserScreen(
+                        getString(R.string.privacyPolicy),
+                        userConditions.privacyPolicy
+                    )
+                }.makeAnotherColor(color)
 
             val userAgreementNotice = getString(R.string.userAgreementNotice)
                 .makeSpannableString() + userAgreementText + getString(R.string.userAgreementNoticeAnd).makeSpannableString() + privacyPolicy
 
             welcomeBinding.textViewUserAgreement.run {
-                visibility = View.VISIBLE
+                isVisible = true
                 movementMethod = LinkMovementMethod.getInstance()
                 text = userAgreementNotice
             }
@@ -188,6 +195,13 @@ class WelcomeLoginFragment : Fragment(R.layout.fragment_welcome) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
+    }
+
+    private fun openBrowserScreen(title : String, url : String) {
+        findNavController().navigate(
+            R.id.action_commonLoginFragment_to_browsePageFragment,
+            BrowsePageFragment.putArguments(title, url)
+        )
     }
 
     private fun setupFacebookCallback() {

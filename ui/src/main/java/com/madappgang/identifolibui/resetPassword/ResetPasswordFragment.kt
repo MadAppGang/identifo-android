@@ -30,11 +30,12 @@ class ResetPasswordFragment : Fragment(R.layout.fragment_reset_password) {
 
         resetPasswordViewModel.receiveError.asLiveData()
             .observe(viewLifecycleOwner) { errorResponse ->
-                resetPasswordBinding.constraintRoot.showMessage(errorResponse.error.message)
+                resetPasswordBinding.textInputLayoutFieldResetPasswordEmail.error = errorResponse.error.message
             }
 
         resetPasswordViewModel.passwordHasBeenReset.asLiveData()
             .observe(viewLifecycleOwner) { email ->
+                resetPasswordBinding.textInputLayoutFieldResetPasswordEmail.error = null
                 findNavController().navigate(
                     R.id.action_resetPasswordFragment_to_followTheLinkFragment,
                     FollowTheLinkFragment.putArguments(email)

@@ -49,6 +49,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
     }
 
     private fun redirectToOtpReceivingScreen() {
+        phoneNumberLoginBinding.textInputLayoutFieldPhoneNumber.error = null
         val phoneNumber = phoneNumberLoginBinding.textInputPhoneNumber.text.toString()
         val isNumberValid = phoneNumber.matches(PHONE_NUMBER_PATTERN)
         if (isNumberValid) {
@@ -57,7 +58,7 @@ class PhoneNumberFragment : Fragment(R.layout.fragment_phone_number_login) {
                 OneTimePasswordFragment.putArgument(phoneNumber)
             )
         } else {
-            phoneNumberLoginBinding.nestedScrollViewPhoneNumberRoot.showMessage(getString(R.string.phoneNumberInvalid))
+            phoneNumberLoginBinding.textInputLayoutFieldPhoneNumber.error = getString(R.string.phoneNumberInvalid)
         }
     }
 }
