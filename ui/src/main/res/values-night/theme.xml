@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Identifo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/identifoSystemStatusBarColor</item>
+        <item name="android:navigationBarColor">@color/identifoSystemNavigationBarColor</item>
+
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="background">@color/gray_700</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorSurface">@color/gray_400</item>
+        <item name="colorOnSurface">@color/gray_200</item>
+        <item name="colorError">@color/red</item>
+
+        <item name="android:windowBackground">?attr/background</item>
+
+        <item name="colorOnSurface1">?attr/colorOnBackground</item>
+        <item name="colorOnSurface2">?attr/colorOnSurface</item>
+        <item name="colorOnSurface3">?attr/colorPrimary</item>
+
+        <item name="widgetMaterialText1">@style/Widget.Identifo.Text1</item>
+        <item name="widgetMaterialText2">@style/Widget.Identifo.Text2</item>
+        <item name="widgetMaterialText3">@style/Widget.Identifo.Text3</item>
+
+        <item name="textAppearanceTitle1">@style/TextAppearance.Identifo.Title1</item>
+        <item name="textAppearanceTitle2">@style/TextAppearance.Identifo.Title2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Identifo.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Identifo.Body2</item>
+        <item name="textAppearanceErrorText">@style/TextAppearance.Identifo.ErrorText</item>
+        <item name="textAppearanceCaption1">@style/TextAppearance.Identifo.Caption1</item>
+        <item name="textAppearanceCaption2">@style/TextAppearance.Identifo.Caption2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Identifo.Button</item>
+
+        <item name="materialButtonStyle">@style/Widget.Identifo.Button1</item>
+        <item name="widgetButton1">@style/Widget.Identifo.Button1</item>
+        <item name="widgetButton2">@style/Widget.Identifo.Button2</item>
+        <item name="widgetButton3">@style/Widget.Identifo.Button3</item>
+
+        <item name="progressBarStyle">@style/Widget.Identifo.ProgressBar</item>
+        <item name="textInputStyle">@style/Widget.Identifo.TextInputLayout</item>
+        <item name="editTextStyle">@style/Widget.Identifo.EditText</item>
+        <item name="linearProgressIndicatorStyle">@style/Widget.Identifo.ProgressBar</item>
+        <item name="snackbarStyle">@style/Widget.Identifo.SnackBar</item>
+        <item name="snackbarTextViewStyle">@style/Widget.Identifo.Text4</item>
+    </style>
+</resources>
