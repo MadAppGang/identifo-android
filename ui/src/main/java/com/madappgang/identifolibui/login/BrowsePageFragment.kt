@@ -65,4 +65,19 @@ class BrowsePageFragment : Fragment(R.layout.fragment_browse_page) {
             findNavController().popBackStack()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        browsePageFragmentBinding.webView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        browsePageFragmentBinding.webView.onPause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        browsePageFragmentBinding.webView.destroy()
+    }
 }

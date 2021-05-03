@@ -42,5 +42,7 @@
         <item name="textInputStyle">@style/Widget.Identifo.TextInputLayout</item>
         <item name="editTextStyle">@style/Widget.Identifo.EditText</item>
         <item name="linearProgressIndicatorStyle">@style/Widget.Identifo.ProgressBar</item>
+        <item name="snackbarStyle">@style/Widget.Identifo.SnackBar</item>
+        <item name="snackbarTextViewStyle">@style/Widget.Identifo.Text4</item>
     </style>
 </resources>
