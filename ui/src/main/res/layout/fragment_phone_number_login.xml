@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.05">
+            app:layout_constraintVertical_bias="0.15">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputPhoneNumber"
@@ -59,11 +59,11 @@
         <TextView
             android:id="@+id/textViewRegisterNewAccount"
             style="?attr/widgetMaterialText3"
-            android:textAppearance="?attr/textAppearanceBody2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/singUp"
+            android:textAppearance="?attr/textAppearanceBody2"
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -73,22 +73,22 @@
         <TextView
             android:id="@+id/textView"
             style="?attr/widgetMaterialText2"
-            android:textAppearance="?attr/textAppearanceBody2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/dontHaveAnAccount"
-            app:layout_constraintBottom_toTopOf="@+id/buttonProceed"
+            android:textAppearance="?attr/textAppearanceBody2"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayoutFieldPhoneNumber"
             app:layout_constraintEnd_toStartOf="@+id/textViewRegisterNewAccount"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
-            app:layout_constraintVertical_bias="0.35" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewEnterPhone" />
 
         <TextView
             android:id="@+id/textViewEnterPhone"
             style="?attr/widgetMaterialText1"
-            android:textAppearance="?attr/textAppearanceTitle1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -97,11 +97,14 @@
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/enterPhoneNumber"
+            android:textAppearance="?attr/textAppearanceTitle1"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewBackArrow"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintVertical_bias="0.25"
+            app:layout_constraintVertical_chainStyle="packed" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

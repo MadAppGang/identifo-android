@@ -1,17 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.IdentifoAndroidDemo" parent="Theme.Identifo">
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-
-        <item name="background">@color/white</item>
-        <item name="colorOnBackground">@color/black</item>
-        <item name="colorSurface">@color/gray_400</item>
-        <item name="colorOnSurface">@color/gray_200</item>
-
-        <item name="colorOnSurface1">?attr/colorOnBackground</item>
-        <item name="colorOnSurface2">?attr/colorOnSurface</item>
-        <item name="colorOnSurface3">?attr/colorPrimary</item>
-    </style>
+    <style name="Theme.IdentifoAndroidDemo" parent="Theme.Identifo" />
 </resources>

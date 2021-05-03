@@ -135,8 +135,8 @@
 
         <ImageView
             android:id="@+id/imageViewAccount"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/ic_account"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayoutFieldUsername"
             app:layout_constraintEnd_toEndOf="parent"

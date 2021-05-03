@@ -66,7 +66,7 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
 
     private fun showMessage(message : String) {
         hideLoading()
-        usernameLoginBinding.nestedScrollViewLoginRoot.showMessage(message)
+        usernameLoginBinding.textInputLayoutFieldPassword.error = message
     }
 
     private fun closeSignInFlow() {
@@ -77,6 +77,7 @@ class UsernameLoginFragment : Fragment(R.layout.fragment_login_username) {
     private fun showLoading() {
         usernameLoginBinding.progressBarLine.show()
         usernameLoginBinding.buttonLogin.isEnabled = false
+        usernameLoginBinding.textInputLayoutFieldPassword.error = null
     }
 
     private fun hideLoading() {
