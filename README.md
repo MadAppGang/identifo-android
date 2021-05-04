@@ -70,7 +70,7 @@ IdentifoAuthentication.fetchAuthState { state: AuthState ->
 ## Identifo UI
 ### Using
 If you don't need a complex design, it may be better to use a dedicated interface which should be enough for common cases. First of all add `navigation_graph_identifo.xml` as [nested graph](https://developer.android.com/guide/navigation/navigation-nested-graphs?authuser=1) to your root Navigation Component graph. 
-Sign in flow using:
+Example:
 ```javascript
 val style = Style(
     companyLogo = R.drawable.ic_logo,
@@ -107,13 +107,13 @@ Also if you want to use identity providers like Facebook, Apple, Google and so o
 Identifo UI uses [Material color style system](https://material.io/design/color/the-color-system.html#color-usage-and-palettes) so you easily can style Identifo UI according to your application requirements.
 For example if you want to change color palette you should define follow colors in your main theme:
 ```javascript
-    <item name="colorPrimary">@color/purple_200</item>
-    <item name="colorPrimaryVariant">@color/purple_500</item>
-    <item name="colorOnPrimary">@color/white</item>
-    <item name="background">@color/white</item>
-    <item name="colorOnBackground">@color/black</item>
-    <item name="colorSurface">@color/gray_400</item>
-    <item name="colorOnSurface">@color/gray_200</item>
-    <item name="colorError">@color/red</item>
+<item name="colorPrimary">@color/purple_200</item>
+<item name="colorPrimaryVariant">@color/purple_500</item>
+<item name="colorOnPrimary">@color/white</item>
+<item name="background">@color/white</item>
+<item name="colorOnBackground">@color/black</item>
+<item name="colorSurface">@color/gray_400</item>
+<item name="colorOnSurface">@color/gray_200</item>
+<item name="colorError">@color/red</item>
 ```
 See an extended example [here](https://github.com/MadAppGang/teamGrowth-android).
