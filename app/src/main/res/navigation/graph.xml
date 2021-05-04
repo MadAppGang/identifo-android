@@ -19,5 +19,5 @@
             app:popExitAnim="@anim/exit_right"/>
     </fragment>
     <include
-        app:graph="@navigation/navigation_graph_sign_in" />
+        app:graph="@navigation/navigation_graph_identifo" />
 </navigation>

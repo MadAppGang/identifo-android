@@ -57,24 +57,19 @@ viewModelScope.launch {
 }
 ```
 #### Step 3
-Observe the current user authentication status: 
+Check the current user authentication status as follow:
 ```javascript
-IdentifoAuthentication.authenticationState.asLiveData().observe(this) { state ->
+IdentifoAuthentication.fetchAuthState { state: AuthState ->
     when (state) {
-        is Authentificated -> {
-            val accessToken = state.accessToken
-            val user = state.identifoUser
-            // user is authenticated successfully
-        }
-        else -> {
-            // user is deauthenticated
-        }
+        is AuthState.Authentificated -> // user is authentheficated
+        else -> // user is deauthentheficated
     }
 }
 ```
 
-#### Step 4 (Optional)
-If you don't need a complex design, you can use a dedicated interface which would be enough for common cases. There are sign in and sign up flows.
+## Identifo UI
+### Using
+If you don't need a complex design, it may be better to use a dedicated interface which should be enough for common cases. First of all add `navigation_graph_identifo.xml` as [nested graph](https://developer.android.com/guide/navigation/navigation-nested-graphs?authuser=1) to your root Navigation Component graph. 
 Sign in flow using:
 ```javascript
 val style = Style(
@@ -96,14 +91,29 @@ val loginOptions = LoginOptions(
     useConditions = userConditions
 )
 
-IdentifoSignInActivity.openActivity(this, loginOptions)
+findNavController().navigate(
+    R.id.action_demoFragment_to_navigation_graph_login,
+    WelcomeLoginFragment.putArguments(loginOptions)
+)
 ```
-The registration flow that you can easily use is as follows:
-```javascript
-IdentifoSingUpActivity.openActivity(this)
-```
-Also if you want to use identity providers like Facebook, Apple, Google and so on you need to override dedicated resources in your string.xml file.
+Where `R.id.action_demoFragment_to_navigation_graph_login` is redirection action id to the Identifo graph.
+
+Also if you want to use identity providers like Facebook, Apple, Google and so on you need to override dedicated resources in your `string.xml` file.
 ```javascript
 <string name="identifo_facebook_app_id" translatable="false">app_id</string>
 <string name="identifo_facebook_protocol_scheme" translatable="false">protocol_schema</string>
 ```
+### Styling
+Identifo UI uses [Material color style system](https://material.io/design/color/the-color-system.html#color-usage-and-palettes) so you easily can style Identifo UI according to your application requirements.
+For example if you want to change color palette you should define follow colors in your main theme:
+```javascript
+    <item name="colorPrimary">@color/purple_200</item>
+    <item name="colorPrimaryVariant">@color/purple_500</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <item name="background">@color/white</item>
+    <item name="colorOnBackground">@color/black</item>
+    <item name="colorSurface">@color/gray_400</item>
+    <item name="colorOnSurface">@color/gray_200</item>
+    <item name="colorError">@color/red</item>
+```
+See an extended example [here](https://github.com/MadAppGang/teamGrowth-android).
