@@ -52,7 +52,6 @@ class BrowsePageFragment : Fragment(R.layout.fragment_browse_page) {
                 super.onProgressChanged(view, newProgress)
                 val showProgress = newProgress != 100
                 browsePageFragmentBinding.progressBarLine.isVisible = showProgress
-                browsePageFragmentBinding.progressBarLine.progress = newProgress
             }
         }
 
